@@ -46,7 +46,8 @@ Before you even judge my code please consider that:<br/><br/>
 
 
 I am going to start fixing everything (as long as the code is fucked up lol) if <br/>
-i see that this project is going well and has support :3
+i see that this project is going well and has support :3<br/><br/>
+= For Now it ONLY supports a VB-like language
 
 
 #Thanks For Reading :)
