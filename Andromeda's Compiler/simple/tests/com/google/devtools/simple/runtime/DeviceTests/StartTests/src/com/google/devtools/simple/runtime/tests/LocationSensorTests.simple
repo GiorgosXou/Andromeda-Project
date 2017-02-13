@@ -1,0 +1,74 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests LocationSensor component.
+
+Event PrevButton.Click()
+  StartTests.PrevTest()
+End Event
+
+Event NextButton.Click()
+  StartTests.NextTest()
+End Event
+
+Event ExitButton.Click()
+  Finish()
+End Event
+
+Event Location.Changed(latitude As Double, longitude As Double, altitude As Double)
+  LatitudeLabel.Text = "Latitude: " & latitude
+  LongitudeLabel.Text = "Longitude: " & longitude
+  AltitudeLabel.Text = "Altitude: " & altitude
+  AddressLabel.Text = "Address: " & Location.CurrentAddress
+End Event
+
+$Properties
+$Source $Form
+$Define LocationSensorTests $As Form
+  Layout = 1
+  Layout.Orientation = 1
+  Title = "Testing LocationSensor"
+  $Define TopPanel $As Panel
+    Layout = 1
+    Layout.Orientation = 0
+    BackgroundColor = &HFF000000
+    Width = -2
+    $Define PrevButton $As Button
+      Text = "Previous"
+    $End $Define
+    $Define NextButton $As Button
+      Text = "Next"
+    $End $Define
+    $Define ExitButton $As Button
+      Text = "Exit"
+    $End $Define
+  $End $Define
+
+  $Define Location $As LocationSensor
+  $End $Define
+  $Define LatitudeLabel $As Label
+    Text = "Latitude: 0"
+  $End $Define
+  $Define LongitudeLabel $As Label
+    Text = "Longitude: 0"
+  $End $Define
+  $Define AltitudeLabel $As Label
+    Text = "Altitude: 0"
+  $End $Define
+  $Define AddressLabel $As Label
+    Text = "Address: "
+  $End $Define
+
+$End $Define
+$End $Properties

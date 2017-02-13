@@ -1,0 +1,52 @@
+/*    */ package com.e4a.runtime.components.impl.android;
+/*    */ 
+/*    */ import android.content.Intent;
+/*    */ import android.hardware.Camera;
+/*    */ import android.hardware.Camera.Parameters;
+/*    */ import android.net.Uri;
+
+/*    */ import com.google.devtools.simple.runtime.android.ApplicationImpl;
+/*    */ import com.google.devtools.simple.runtime.components.ComponentContainer;
+/*    */ import com.google.devtools.simple.runtime.components.impl.ComponentImpl;
+/*    */ import com.google.devtools.simple.runtime.components.VB4ACamera;
+/*    */ import java.io.File;
+/*    */ 
+/*    */ public final class VB4ACameraImpl extends ComponentImpl
+/*    */   implements VB4ACamera
+/*    */ {
+/* 19 */   private final int TAKE_PICTURE = 111;
+/* 20 */   private Camera camera = null;
+/*    */ 
+/*    */   public VB4ACameraImpl(ComponentContainer container) {
+/* 23 */     super(container);
+/*    */   }
+/*    */ 
+/*    */   public void OpenCam(String imagePath)
+/*    */   {
+/* 29 */     Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
+/* 30 */     intent.putExtra("output", Uri.fromFile(new File(imagePath)));
+/* 31 */     intent.putExtra("android.intent.extra.videoQuality", 0);
+/* 32 */     ApplicationImpl.getContext().startActivityForResult(intent, 111);
+/*    */   }
+/*    */ 
+/*    */   public void OpenFlash()
+/*    */   {
+/* 37 */     if (this.camera == null) {
+/* 38 */       this.camera = Camera.open();
+/*    */     }
+/* 40 */     Camera.Parameters parameter = this.camera.getParameters();
+/* 41 */     parameter.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+/* 42 */     this.camera.setParameters(parameter);
+/*    */   }
+/*    */ 
+/*    */   public void CloseFlash()
+/*    */   {
+/* 47 */     if (this.camera != null) {
+/* 48 */       Camera.Parameters parameter = this.camera.getParameters();
+/* 49 */       parameter.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+/* 50 */       this.camera.setParameters(parameter);
+/* 51 */       this.camera.release();
+/* 52 */       this.camera = null;
+/*    */     }
+/*    */   }
+/*    */ }

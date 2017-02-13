@@ -1,0 +1,128 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests results of converting Bytes into other types.
+
+Const MIN_BYTE As Short = -128
+Const MAX_BYTE As Short = 127
+
+Function Name() As String
+    Name = "Byte Conversion Tests"
+End Function
+
+Sub Run()
+    ' Byte to Boolean
+    AssertTrue(ConvertToBoolean(MIN_BYTE - 1))
+    AssertTrue(ConvertToBoolean(MIN_BYTE))
+    AssertFalse(ConvertToBoolean(0))
+    AssertTrue(ConvertToBoolean(MAX_BYTE))
+    AssertTrue(ConvertToBoolean(MAX_BYTE + 1))
+
+    ' Byte to Byte
+    AssertTrue(ConvertToByte(MIN_BYTE - 1) = MAX_BYTE)
+    AssertTrue(ConvertToByte(MIN_BYTE) = MIN_BYTE)
+    AssertTrue(ConvertToByte(0) = 0)
+    AssertTrue(ConvertToByte(MAX_BYTE) = MAX_BYTE)
+    AssertTrue(ConvertToByte(MAX_BYTE + 1) = MIN_BYTE)
+
+    ' Byte to Short
+    AssertTrue(ConvertToShort(MIN_BYTE - 1) = MAX_BYTE)
+    AssertTrue(ConvertToShort(MIN_BYTE) = MIN_BYTE)
+    AssertTrue(ConvertToShort(0) = 0)
+    AssertTrue(ConvertToShort(MAX_BYTE) = MAX_BYTE)
+    AssertTrue(ConvertToShort(MAX_BYTE + 1) = MIN_BYTE)
+
+    ' Byte to Integer
+    AssertTrue(ConvertToInteger(MIN_BYTE - 1) = MAX_BYTE)
+    AssertTrue(ConvertToInteger(MIN_BYTE) = MIN_BYTE)
+    AssertTrue(ConvertToInteger(0) = 0)
+    AssertTrue(ConvertToInteger(MAX_BYTE) = MAX_BYTE)
+    AssertTrue(ConvertToInteger(MAX_BYTE + 1) = MIN_BYTE)
+
+    ' Byte to Long
+    AssertTrue(ConvertToLong(MIN_BYTE - 1) = MAX_BYTE)
+    AssertTrue(ConvertToLong(MIN_BYTE) = MIN_BYTE)
+    AssertTrue(ConvertToLong(0) = 0)
+    AssertTrue(ConvertToLong(MAX_BYTE) = MAX_BYTE)
+    AssertTrue(ConvertToLong(MAX_BYTE + 1) = MIN_BYTE)
+
+    ' Byte to Single
+    AssertTrue(ConvertToSingle(MIN_BYTE - 1) = MAX_BYTE)
+    AssertTrue(ConvertToSingle(MIN_BYTE) = MIN_BYTE)
+    AssertTrue(ConvertToSingle(0) = 0)
+    AssertTrue(ConvertToSingle(MAX_BYTE) = MAX_BYTE)
+    AssertTrue(ConvertToSingle(MAX_BYTE + 1) = MIN_BYTE)
+
+    ' Byte to Double
+    AssertTrue(ConvertToDouble(MIN_BYTE - 1) = MAX_BYTE)
+    AssertTrue(ConvertToDouble(MIN_BYTE) = MIN_BYTE)
+    AssertTrue(ConvertToDouble(0) = 0)
+    AssertTrue(ConvertToDouble(MAX_BYTE) = MAX_BYTE)
+    AssertTrue(ConvertToDouble(MAX_BYTE + 1) = MIN_BYTE)
+
+    ' Byte to String
+    AssertTrue(ConvertToString(MIN_BYTE - 1) = "127")
+    AssertTrue(ConvertToString(MIN_BYTE) = "-128")
+    AssertTrue(ConvertToString(0) = "0")
+    AssertTrue(ConvertToString(MAX_BYTE) = "127")
+    AssertTrue(ConvertToString(MAX_BYTE + 1) = "-128")
+
+    ' Byte to Variant
+    AssertTrue(ConvertToVariant(MIN_BYTE - 1) = MAX_BYTE)
+    AssertTrue(ConvertToVariant(MIN_BYTE) = MIN_BYTE)
+    AssertTrue(ConvertToVariant(0) = 0)
+    AssertTrue(ConvertToVariant(MAX_BYTE) = MAX_BYTE)
+    AssertTrue(ConvertToVariant(MAX_BYTE + 1) = MIN_BYTE)
+End Sub
+
+Function ConvertToBoolean(value As Byte) As Boolean
+    ConvertToBoolean = value
+End Function
+
+Function ConvertToByte(value As Byte) As Byte
+    ConvertToByte = value
+End Function
+
+Function ConvertToShort(value As Byte) As Short
+    ConvertToShort = value
+End Function
+
+Function ConvertToInteger(value As Byte) As Integer
+    ConvertToInteger = value
+End Function
+
+Function ConvertToLong(value As Byte) As Long
+    ConvertToLong = value
+End Function
+
+Function ConvertToSingle(value As Byte) As Single
+    ConvertToSingle = value
+End Function
+
+Function ConvertToDouble(value As Byte) As Double
+    ConvertToDouble = value
+End Function
+
+Function ConvertToString(value As Byte) As String
+    ConvertToString = value
+End Function
+
+Function ConvertToVariant(value As Byte) As Variant
+    ConvertToVariant = value
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

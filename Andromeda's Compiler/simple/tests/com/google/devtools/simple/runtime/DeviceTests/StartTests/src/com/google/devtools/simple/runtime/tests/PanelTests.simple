@@ -1,0 +1,63 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Test Panel component container.
+
+Event PrevButton.Click()
+  StartTests.PrevTest()
+End Event
+
+Event NextButton.Click()
+  StartTests.NextTest()
+End Event
+
+Event ExitButton.Click()
+  Finish()
+End Event
+
+$Properties
+$Source $Form
+$Define PanelTests $As Form
+  Layout = 1
+  Layout.Orientation = 1
+  Scrollable = True
+  Title = "Testing Panel"
+  $Define TopPanel $As Panel
+    Layout = 1
+    Layout.Orientation = 0
+    BackgroundColor = &HFF000000
+    Width = -2
+    $Define PrevButton $As Button
+      Text = "Previous"
+    $End $Define
+    $Define NextButton $As Button
+      Text = "Next"
+    $End $Define
+    $Define ExitButton $As Button
+      Text = "Exit"
+    $End $Define
+  $End $Define
+
+  $Define Label1 $As Label
+    Text = "Green 100x200 panel:"
+  $End $Define
+  $Define Panel1 $As Panel
+    BackgroundColor = &HFF00FF00
+    Layout = 1
+    Layout.Orientation = 1
+    Height = 100
+    Width = 200
+  $End $Define
+$End $Define
+$End $Properties

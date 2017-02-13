@@ -1,0 +1,776 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests array expressions
+
+Const FIRST_BOOLEAN_ELEMENT As Boolean = True
+Const SECOND_BOOLEAN_ELEMENT As Boolean = False
+
+Const FIRST_BYTE_ELEMENT As Byte = 21
+Const SECOND_BYTE_ELEMENT As Byte = 12
+
+Const FIRST_SHORT_ELEMENT As Short = 34
+Const SECOND_SHORT_ELEMENT As Short = 43
+
+Const FIRST_INTEGER_ELEMENT As Integer = 56
+Const SECOND_INTEGER_ELEMENT As Integer = 65
+
+Const FIRST_LONG_ELEMENT As Long = 78
+Const SECOND_LONG_ELEMENT As Long = 87
+
+Const FIRST_SINGLE_ELEMENT As Single = 12.34
+Const SECOND_SINGLE_ELEMENT As Single = 43.21
+
+Const FIRST_DOUBLE_ELEMENT As Double = 56.78
+Const SECOND_DOUBLE_ELEMENT As Double = 87.65
+
+Const FIRST_STRING_ELEMENT As String = "first"
+Const SECOND_STRING_ELEMENT As String = "second"
+
+Dim instanceDataMemberSingleDimensionBooleanArray As Boolean(2)
+Dim instanceDataMemberSingleDimensionByteArray As Byte(2)
+Dim instanceDataMemberSingleDimensionShortArray As Short(2)
+Dim instanceDataMemberSingleDimensionIntegerArray As Integer(2)
+Dim instanceDataMemberSingleDimensionLongArray As Long(2)
+Dim instanceDataMemberSingleDimensionSingleArray As Single(2)
+Dim instanceDataMemberSingleDimensionDoubleArray As Double(2)
+Dim instanceDataMemberSingleDimensionStringArray As String(2)
+Dim instanceDataMemberMultiDimensionBooleanArray As Boolean(2, 2)
+Dim instanceDataMemberMultiDimensionByteArray As Byte(2, 2)
+Dim instanceDataMemberMultiDimensionShortArray As Short(2, 2)
+Dim instanceDataMemberMultiDimensionIntegerArray As Integer(2, 2)
+Dim instanceDataMemberMultiDimensionLongArray As Long(2, 2)
+Dim instanceDataMemberMultiDimensionSingleArray As Single(2, 2)
+Dim instanceDataMemberMultiDimensionDoubleArray As Double(2, 2)
+Dim instanceDataMemberMultiDimensionStringArray As String(2, 2)
+
+Static Dim objectDataMemberSingleDimensionBooleanArray As Boolean(2)
+Static Dim objectDataMemberSingleDimensionByteArray As Byte(2)
+Static Dim objectDataMemberSingleDimensionShortArray As Short(2)
+Static Dim objectDataMemberSingleDimensionIntegerArray As Integer(2)
+Static Dim objectDataMemberSingleDimensionLongArray As Long(2)
+Static Dim objectDataMemberSingleDimensionSingleArray As Single(2)
+Static Dim objectDataMemberSingleDimensionDoubleArray As Double(2)
+Static Dim objectDataMemberSingleDimensionStringArray As String(2)
+Static Dim objectDataMemberMultiDimensionBooleanArray As Boolean(2, 2)
+Static Dim objectDataMemberMultiDimensionByteArray As Byte(2, 2)
+Static Dim objectDataMemberMultiDimensionShortArray As Short(2, 2)
+Static Dim objectDataMemberMultiDimensionIntegerArray As Integer(2, 2)
+Static Dim objectDataMemberMultiDimensionLongArray As Long(2, 2)
+Static Dim objectDataMemberMultiDimensionSingleArray As Single(2, 2)
+Static Dim objectDataMemberMultiDimensionDoubleArray As Double(2, 2)
+Static Dim objectDataMemberMultiDimensionStringArray As String(2, 2)
+
+Dim instanceSingleDimensionArray As Integer()
+Dim instanceMultiDimensionArray As Integer(,)
+
+Function Name() As String
+    Name = "Array Expression Tests"
+End Function
+
+Event ArrayExpressionsTest.Load()
+    objectDataMemberSingleDimensionBooleanArray(0) = FIRST_BOOLEAN_ELEMENT
+    objectDataMemberSingleDimensionBooleanArray(1) = SECOND_BOOLEAN_ELEMENT
+
+    objectDataMemberSingleDimensionByteArray(0) = FIRST_BYTE_ELEMENT
+    objectDataMemberSingleDimensionByteArray(1) = SECOND_BYTE_ELEMENT
+
+    objectDataMemberSingleDimensionShortArray(0) = FIRST_SHORT_ELEMENT
+    objectDataMemberSingleDimensionShortArray(1) = SECOND_SHORT_ELEMENT
+
+    objectDataMemberSingleDimensionIntegerArray(0) = FIRST_INTEGER_ELEMENT
+    objectDataMemberSingleDimensionIntegerArray(1) = SECOND_INTEGER_ELEMENT
+
+    objectDataMemberSingleDimensionLongArray(0) = FIRST_LONG_ELEMENT
+    objectDataMemberSingleDimensionLongArray(1) = SECOND_LONG_ELEMENT
+
+    objectDataMemberSingleDimensionSingleArray(0) = FIRST_SINGLE_ELEMENT
+    objectDataMemberSingleDimensionSingleArray(1) = SECOND_SINGLE_ELEMENT
+
+    objectDataMemberSingleDimensionDoubleArray(0) = FIRST_DOUBLE_ELEMENT
+    objectDataMemberSingleDimensionDoubleArray(1) = SECOND_DOUBLE_ELEMENT
+
+    objectDataMemberSingleDimensionStringArray(0) = FIRST_STRING_ELEMENT
+    objectDataMemberSingleDimensionStringArray(1) = SECOND_STRING_ELEMENT
+
+    objectDataMemberMultiDimensionBooleanArray(0, 0) = FIRST_BOOLEAN_ELEMENT
+    objectDataMemberMultiDimensionBooleanArray(1, 1) = SECOND_BOOLEAN_ELEMENT
+
+    objectDataMemberMultiDimensionByteArray(0, 0) = FIRST_BYTE_ELEMENT
+    objectDataMemberMultiDimensionByteArray(1, 1) = SECOND_BYTE_ELEMENT
+
+    objectDataMemberMultiDimensionShortArray(0, 0) = FIRST_SHORT_ELEMENT
+    objectDataMemberMultiDimensionShortArray(1, 1) = SECOND_SHORT_ELEMENT
+
+    objectDataMemberMultiDimensionIntegerArray(0, 0) = FIRST_INTEGER_ELEMENT
+    objectDataMemberMultiDimensionIntegerArray(1, 1) = SECOND_INTEGER_ELEMENT
+
+    objectDataMemberMultiDimensionLongArray(0, 0) = FIRST_LONG_ELEMENT
+    objectDataMemberMultiDimensionLongArray(1, 1) = SECOND_LONG_ELEMENT
+
+    objectDataMemberMultiDimensionSingleArray(0, 0) = FIRST_SINGLE_ELEMENT
+    objectDataMemberMultiDimensionSingleArray(1, 1) = SECOND_SINGLE_ELEMENT
+
+    objectDataMemberMultiDimensionDoubleArray(0, 0) = FIRST_DOUBLE_ELEMENT
+    objectDataMemberMultiDimensionDoubleArray(1, 1) = SECOND_DOUBLE_ELEMENT
+
+    objectDataMemberMultiDimensionStringArray(0, 0) = FIRST_STRING_ELEMENT
+    objectDataMemberMultiDimensionStringArray(1, 1) = SECOND_STRING_ELEMENT
+End Event
+
+Event ArrayExpressionsTest.Initialize()
+    instanceDataMemberSingleDimensionBooleanArray(0) = FIRST_BOOLEAN_ELEMENT
+    instanceDataMemberSingleDimensionBooleanArray(1) = SECOND_BOOLEAN_ELEMENT
+
+    instanceDataMemberSingleDimensionByteArray(0) = FIRST_BYTE_ELEMENT
+    instanceDataMemberSingleDimensionByteArray(1) = SECOND_BYTE_ELEMENT
+
+    instanceDataMemberSingleDimensionShortArray(0) = FIRST_SHORT_ELEMENT
+    instanceDataMemberSingleDimensionShortArray(1) = SECOND_SHORT_ELEMENT
+
+    instanceDataMemberSingleDimensionIntegerArray(0) = FIRST_INTEGER_ELEMENT
+    instanceDataMemberSingleDimensionIntegerArray(1) = SECOND_INTEGER_ELEMENT
+
+    instanceDataMemberSingleDimensionLongArray(0) = FIRST_LONG_ELEMENT
+    instanceDataMemberSingleDimensionLongArray(1) = SECOND_LONG_ELEMENT
+
+    instanceDataMemberSingleDimensionSingleArray(0) = FIRST_SINGLE_ELEMENT
+    instanceDataMemberSingleDimensionSingleArray(1) = SECOND_SINGLE_ELEMENT
+
+    instanceDataMemberSingleDimensionDoubleArray(0) = FIRST_DOUBLE_ELEMENT
+    instanceDataMemberSingleDimensionDoubleArray(1) = SECOND_DOUBLE_ELEMENT
+
+    instanceDataMemberSingleDimensionStringArray(0) = FIRST_STRING_ELEMENT
+    instanceDataMemberSingleDimensionStringArray(1) = SECOND_STRING_ELEMENT
+
+    instanceDataMemberMultiDimensionBooleanArray(0, 0) = FIRST_BOOLEAN_ELEMENT
+    instanceDataMemberMultiDimensionBooleanArray(1, 1) = SECOND_BOOLEAN_ELEMENT
+
+    instanceDataMemberMultiDimensionByteArray(0, 0) = FIRST_BYTE_ELEMENT
+    instanceDataMemberMultiDimensionByteArray(1, 1) = SECOND_BYTE_ELEMENT
+
+    instanceDataMemberMultiDimensionShortArray(0, 0) = FIRST_SHORT_ELEMENT
+    instanceDataMemberMultiDimensionShortArray(1, 1) = SECOND_SHORT_ELEMENT
+
+    instanceDataMemberMultiDimensionIntegerArray(0, 0) = FIRST_INTEGER_ELEMENT
+    instanceDataMemberMultiDimensionIntegerArray(1, 1) = SECOND_INTEGER_ELEMENT
+
+    instanceDataMemberMultiDimensionLongArray(0, 0) = FIRST_LONG_ELEMENT
+    instanceDataMemberMultiDimensionLongArray(1, 1) = SECOND_LONG_ELEMENT
+
+    instanceDataMemberMultiDimensionSingleArray(0, 0) = FIRST_SINGLE_ELEMENT
+    instanceDataMemberMultiDimensionSingleArray(1, 1) = SECOND_SINGLE_ELEMENT
+
+    instanceDataMemberMultiDimensionDoubleArray(0, 0) = FIRST_DOUBLE_ELEMENT
+    instanceDataMemberMultiDimensionDoubleArray(1, 1) = SECOND_DOUBLE_ELEMENT
+
+    instanceDataMemberMultiDimensionStringArray(0, 0) = FIRST_STRING_ELEMENT
+    instanceDataMemberMultiDimensionStringArray(1, 1) = SECOND_STRING_ELEMENT
+End Event
+
+Sub Run()
+    ' Checks array read/write access to a single dimension local static array
+    AssertTrue(LocalSingleDimensionBoolean(0) = FIRST_BOOLEAN_ELEMENT)
+    AssertTrue(LocalSingleDimensionBoolean(1) = SECOND_BOOLEAN_ELEMENT)
+
+    AssertTrue(LocalSingleDimensionByte(0) = FIRST_BYTE_ELEMENT)
+    AssertTrue(LocalSingleDimensionByte(1) = SECOND_BYTE_ELEMENT)
+
+    AssertTrue(LocalSingleDimensionShort(0) = FIRST_SHORT_ELEMENT)
+    AssertTrue(LocalSingleDimensionShort(1) = SECOND_SHORT_ELEMENT)
+
+    AssertTrue(LocalSingleDimensionInteger(0) = FIRST_INTEGER_ELEMENT)
+    AssertTrue(LocalSingleDimensionInteger(1) = SECOND_INTEGER_ELEMENT)
+
+    AssertTrue(LocalSingleDimensionLong(0) = FIRST_LONG_ELEMENT)
+    AssertTrue(LocalSingleDimensionLong(1) = SECOND_LONG_ELEMENT)
+
+    AssertTrue(LocalSingleDimensionSingle(0) = FIRST_SINGLE_ELEMENT)
+    AssertTrue(LocalSingleDimensionSingle(1) = SECOND_SINGLE_ELEMENT)
+
+    AssertTrue(LocalSingleDimensionDouble(0) = FIRST_DOUBLE_ELEMENT)
+    AssertTrue(LocalSingleDimensionDouble(1) = SECOND_DOUBLE_ELEMENT)
+
+    AssertTrue(LocalSingleDimensionString(0) = FIRST_STRING_ELEMENT)
+    AssertTrue(LocalSingleDimensionString(1) = SECOND_STRING_ELEMENT)
+
+    ' Checks array read/write access to a multi dimension local static array
+    AssertTrue(LocalMultiDimensionBoolean(0, 0) = FIRST_BOOLEAN_ELEMENT)
+    AssertTrue(LocalMultiDimensionBoolean(1, 1) = SECOND_BOOLEAN_ELEMENT)
+
+    AssertTrue(LocalMultiDimensionByte(0, 0) = FIRST_BYTE_ELEMENT)
+    AssertTrue(LocalMultiDimensionByte(1, 1) = SECOND_BYTE_ELEMENT)
+
+    AssertTrue(LocalMultiDimensionShort(0, 0) = FIRST_SHORT_ELEMENT)
+    AssertTrue(LocalMultiDimensionShort(1, 1) = SECOND_SHORT_ELEMENT)
+
+    AssertTrue(LocalMultiDimensionInteger(0, 0) = FIRST_INTEGER_ELEMENT)
+    AssertTrue(LocalMultiDimensionInteger(1, 1) = SECOND_INTEGER_ELEMENT)
+
+    AssertTrue(LocalMultiDimensionLong(0, 0) = FIRST_LONG_ELEMENT)
+    AssertTrue(LocalMultiDimensionLong(1, 1) = SECOND_LONG_ELEMENT)
+
+    AssertTrue(LocalMultiDimensionSingle(0, 0) = FIRST_SINGLE_ELEMENT)
+    AssertTrue(LocalMultiDimensionSingle(1, 1) = SECOND_SINGLE_ELEMENT)
+
+    AssertTrue(LocalMultiDimensionDouble(0, 0) = FIRST_DOUBLE_ELEMENT)
+    AssertTrue(LocalMultiDimensionDouble(1, 1) = SECOND_DOUBLE_ELEMENT)
+
+    AssertTrue(LocalMultiDimensionString(0, 0) = FIRST_STRING_ELEMENT)
+    AssertTrue(LocalMultiDimensionString(1, 1) = SECOND_STRING_ELEMENT)
+
+    ' Checks array read/write access to a single dimension instance data member static array
+    AssertTrue(InstanceDataMemberSingleDimensionBoolean(0) = FIRST_BOOLEAN_ELEMENT)
+    AssertTrue(InstanceDataMemberSingleDimensionBoolean(1) = SECOND_BOOLEAN_ELEMENT)
+
+    AssertTrue(InstanceDataMemberSingleDimensionByte(0) = FIRST_BYTE_ELEMENT)
+    AssertTrue(InstanceDataMemberSingleDimensionByte(1) = SECOND_BYTE_ELEMENT)
+
+    AssertTrue(InstanceDataMemberSingleDimensionShort(0) = FIRST_SHORT_ELEMENT)
+    AssertTrue(InstanceDataMemberSingleDimensionShort(1) = SECOND_SHORT_ELEMENT)
+
+    AssertTrue(InstanceDataMemberSingleDimensionInteger(0) = FIRST_INTEGER_ELEMENT)
+    AssertTrue(InstanceDataMemberSingleDimensionInteger(1) = SECOND_INTEGER_ELEMENT)
+
+    AssertTrue(InstanceDataMemberSingleDimensionLong(0) = FIRST_LONG_ELEMENT)
+    AssertTrue(InstanceDataMemberSingleDimensionLong(1) = SECOND_LONG_ELEMENT)
+
+    AssertTrue(InstanceDataMemberSingleDimensionSingle(0) = FIRST_SINGLE_ELEMENT)
+    AssertTrue(InstanceDataMemberSingleDimensionSingle(1) = SECOND_SINGLE_ELEMENT)
+
+    AssertTrue(InstanceDataMemberSingleDimensionDouble(0) = FIRST_DOUBLE_ELEMENT)
+    AssertTrue(InstanceDataMemberSingleDimensionDouble(1) = SECOND_DOUBLE_ELEMENT)
+
+    AssertTrue(InstanceDataMemberSingleDimensionString(0) = FIRST_STRING_ELEMENT)
+    AssertTrue(InstanceDataMemberSingleDimensionString(1) = SECOND_STRING_ELEMENT)
+
+    ' Checks array read/write access to a multi dimension instance data member static array
+    AssertTrue(InstanceDataMemberMultiDimensionBoolean(0, 0) = FIRST_BOOLEAN_ELEMENT)
+    AssertTrue(InstanceDataMemberMultiDimensionBoolean(1, 1) = SECOND_BOOLEAN_ELEMENT)
+
+    AssertTrue(InstanceDataMemberMultiDimensionByte(0, 0) = FIRST_BYTE_ELEMENT)
+    AssertTrue(InstanceDataMemberMultiDimensionByte(1, 1) = SECOND_BYTE_ELEMENT)
+
+    AssertTrue(InstanceDataMemberMultiDimensionShort(0, 0) = FIRST_SHORT_ELEMENT)
+    AssertTrue(InstanceDataMemberMultiDimensionShort(1, 1) = SECOND_SHORT_ELEMENT)
+
+    AssertTrue(InstanceDataMemberMultiDimensionInteger(0, 0) = FIRST_INTEGER_ELEMENT)
+    AssertTrue(InstanceDataMemberMultiDimensionInteger(1, 1) = SECOND_INTEGER_ELEMENT)
+
+    AssertTrue(InstanceDataMemberMultiDimensionLong(0, 0) = FIRST_LONG_ELEMENT)
+    AssertTrue(InstanceDataMemberMultiDimensionLong(1, 1) = SECOND_LONG_ELEMENT)
+
+    AssertTrue(InstanceDataMemberMultiDimensionSingle(0, 0) = FIRST_SINGLE_ELEMENT)
+    AssertTrue(InstanceDataMemberMultiDimensionSingle(1, 1) = SECOND_SINGLE_ELEMENT)
+
+    AssertTrue(InstanceDataMemberMultiDimensionDouble(0, 0) = FIRST_DOUBLE_ELEMENT)
+    AssertTrue(InstanceDataMemberMultiDimensionDouble(1, 1) = SECOND_DOUBLE_ELEMENT)
+
+    AssertTrue(InstanceDataMemberMultiDimensionString(0, 0) = FIRST_STRING_ELEMENT)
+    AssertTrue(InstanceDataMemberMultiDimensionString(1, 1) = SECOND_STRING_ELEMENT)
+
+    ' Checks array read/write access to a single dimension object data member static array
+    AssertTrue(ObjectDataMemberSingleDimensionBoolean(0) = FIRST_BOOLEAN_ELEMENT)
+    AssertTrue(ObjectDataMemberSingleDimensionBoolean(1) = SECOND_BOOLEAN_ELEMENT)
+
+    AssertTrue(ObjectDataMemberSingleDimensionByte(0) = FIRST_BYTE_ELEMENT)
+    AssertTrue(ObjectDataMemberSingleDimensionByte(1) = SECOND_BYTE_ELEMENT)
+
+    AssertTrue(ObjectDataMemberSingleDimensionShort(0) = FIRST_SHORT_ELEMENT)
+    AssertTrue(ObjectDataMemberSingleDimensionShort(1) = SECOND_SHORT_ELEMENT)
+
+    AssertTrue(ObjectDataMemberSingleDimensionInteger(0) = FIRST_INTEGER_ELEMENT)
+    AssertTrue(ObjectDataMemberSingleDimensionInteger(1) = SECOND_INTEGER_ELEMENT)
+
+    AssertTrue(ObjectDataMemberSingleDimensionLong(0) = FIRST_LONG_ELEMENT)
+    AssertTrue(ObjectDataMemberSingleDimensionLong(1) = SECOND_LONG_ELEMENT)
+
+    AssertTrue(ObjectDataMemberSingleDimensionSingle(0) = FIRST_SINGLE_ELEMENT)
+    AssertTrue(ObjectDataMemberSingleDimensionSingle(1) = SECOND_SINGLE_ELEMENT)
+
+    AssertTrue(ObjectDataMemberSingleDimensionDouble(0) = FIRST_DOUBLE_ELEMENT)
+    AssertTrue(ObjectDataMemberSingleDimensionDouble(1) = SECOND_DOUBLE_ELEMENT)
+
+    AssertTrue(ObjectDataMemberSingleDimensionString(0) = FIRST_STRING_ELEMENT)
+    AssertTrue(ObjectDataMemberSingleDimensionString(1) = SECOND_STRING_ELEMENT)
+
+    ' Checks array read/write access to a multi dimension object data member static array
+    AssertTrue(ObjectDataMemberMultiDimensionBoolean(0, 0) = FIRST_BOOLEAN_ELEMENT)
+    AssertTrue(ObjectDataMemberMultiDimensionBoolean(1, 1) = SECOND_BOOLEAN_ELEMENT)
+
+    AssertTrue(ObjectDataMemberMultiDimensionByte(0, 0) = FIRST_BYTE_ELEMENT)
+    AssertTrue(ObjectDataMemberMultiDimensionByte(1, 1) = SECOND_BYTE_ELEMENT)
+
+    AssertTrue(ObjectDataMemberMultiDimensionShort(0, 0) = FIRST_SHORT_ELEMENT)
+    AssertTrue(ObjectDataMemberMultiDimensionShort(1, 1) = SECOND_SHORT_ELEMENT)
+
+    AssertTrue(ObjectDataMemberMultiDimensionInteger(0, 0) = FIRST_INTEGER_ELEMENT)
+    AssertTrue(ObjectDataMemberMultiDimensionInteger(1, 1) = SECOND_INTEGER_ELEMENT)
+
+    AssertTrue(ObjectDataMemberMultiDimensionLong(0, 0) = FIRST_LONG_ELEMENT)
+    AssertTrue(ObjectDataMemberMultiDimensionLong(1, 1) = SECOND_LONG_ELEMENT)
+
+    AssertTrue(ObjectDataMemberMultiDimensionSingle(0, 0) = FIRST_SINGLE_ELEMENT)
+    AssertTrue(ObjectDataMemberMultiDimensionSingle(1, 1) = SECOND_SINGLE_ELEMENT)
+
+    AssertTrue(ObjectDataMemberMultiDimensionDouble(0, 0) = FIRST_DOUBLE_ELEMENT)
+    AssertTrue(ObjectDataMemberMultiDimensionDouble(1, 1) = SECOND_DOUBLE_ELEMENT)
+
+    AssertTrue(ObjectDataMemberMultiDimensionString(0, 0) = FIRST_STRING_ELEMENT)
+    AssertTrue(ObjectDataMemberMultiDimensionString(1, 1) = SECOND_STRING_ELEMENT)
+
+    ' Checking dynamically sized array usage
+    Dim singleDimArray2 As Integer(2)
+    SingleDimensionArray = singleDimArray2
+    AssertTrue(SingleDimensionArray Is singleDimArray2)
+    
+    Dim multiDimArray21 As Integer(2, 1)
+    MultiDimensionArray = multiDimArray21
+    AssertTrue(MultiDimensionArray Is multiDimArray21)
+
+    Dim singleDimArray4 As Integer(4)
+    SingleDimensionArraySetter(singleDimArray4)
+    AssertTrue(SingleDimensionArrayGetter() Is singleDimArray4)
+
+    Dim multiDimArray42 As Integer(4, 2)
+    MultiDimensionArraySetter(multiDimArray42)
+    AssertTrue(MultiDimensionArrayGetter() Is multiDimArray42)
+
+    ' Checking single dimension array access via variants
+    Dim singleDimBooleanArray6 As Boolean(6)
+    singleDimBooleanArray6(5) = FIRST_BOOLEAN_ELEMENT
+    AssertTrue(SingleDimVariantArrayElementGetter(singleDimBooleanArray6, 5) = FIRST_BOOLEAN_ELEMENT)
+
+    Dim singleDimBooleanArray3 As Boolean(3)
+    SingleDimVariantArrayElementSetter(singleDimBooleanArray3, 2, SECOND_BOOLEAN_ELEMENT)
+    AssertTrue(singleDimBooleanArray3(2) = SECOND_BOOLEAN_ELEMENT)
+
+    Dim singleDimByteArray6 As Byte(6)
+    singleDimByteArray6(5) = FIRST_BYTE_ELEMENT
+    AssertTrue(SingleDimVariantArrayElementGetter(singleDimByteArray6, 5) = FIRST_BYTE_ELEMENT)
+
+    Dim singleDimByteArray3 As Byte(3)
+    SingleDimVariantArrayElementSetter(singleDimByteArray3, 2, SECOND_BYTE_ELEMENT)
+    AssertTrue(singleDimByteArray3(2) = SECOND_BYTE_ELEMENT)
+
+    Dim singleDimShortArray6 As Short(6)
+    singleDimShortArray6(5) = FIRST_SHORT_ELEMENT
+    AssertTrue(SingleDimVariantArrayElementGetter(singleDimShortArray6, 5) = FIRST_SHORT_ELEMENT)
+
+    Dim singleDimShortArray3 As Short(3)
+    SingleDimVariantArrayElementSetter(singleDimShortArray3, 2, SECOND_SHORT_ELEMENT)
+    AssertTrue(singleDimShortArray3(2) = SECOND_SHORT_ELEMENT)
+
+    Dim singleDimIntegerArray6 As Integer(6)
+    singleDimIntegerArray6(5) = FIRST_INTEGER_ELEMENT
+    AssertTrue(SingleDimVariantArrayElementGetter(singleDimIntegerArray6, 5) = FIRST_INTEGER_ELEMENT)
+
+    Dim singleDimIntegerArray3 As Integer(3) 
+    SingleDimVariantArrayElementSetter(singleDimIntegerArray3, 2, SECOND_INTEGER_ELEMENT)
+    AssertTrue(singleDimIntegerArray3(2) = SECOND_INTEGER_ELEMENT)
+
+    Dim singleDimLongArray6 As Long(6)
+    singleDimLongArray6(5) = FIRST_LONG_ELEMENT
+    AssertTrue(SingleDimVariantArrayElementGetter(singleDimLongArray6, 5) = FIRST_LONG_ELEMENT)
+
+    Dim singleDimLongArray3 As Long(3)
+    SingleDimVariantArrayElementSetter(singleDimLongArray3, 2, SECOND_LONG_ELEMENT)
+    AssertTrue(singleDimLongArray3(2) = SECOND_LONG_ELEMENT)
+
+    Dim singleDimSingleArray6 As Single(6)
+    singleDimSingleArray6(5) = FIRST_SINGLE_ELEMENT
+    AssertTrue(SingleDimVariantArrayElementGetter(singleDimSingleArray6, 5) = FIRST_SINGLE_ELEMENT)
+
+    Dim singleDimSingleArray3 As Single(3)
+    SingleDimVariantArrayElementSetter(singleDimSingleArray3, 2, SECOND_SINGLE_ELEMENT)
+    AssertTrue(singleDimSingleArray3(2) = SECOND_SINGLE_ELEMENT)
+
+    Dim singleDimDoubleArray6 As Double(6)
+    singleDimDoubleArray6(5) = FIRST_DOUBLE_ELEMENT
+    AssertTrue(SingleDimVariantArrayElementGetter(singleDimDoubleArray6, 5) = FIRST_DOUBLE_ELEMENT)
+
+    Dim singleDimDoubleArray3 As Double(3)
+    SingleDimVariantArrayElementSetter(singleDimDoubleArray3, 2, SECOND_DOUBLE_ELEMENT)
+    AssertTrue(singleDimDoubleArray3(2) = SECOND_DOUBLE_ELEMENT)
+
+    Dim singleDimStringArray6 As String(6)
+    singleDimStringArray6(5) = FIRST_STRING_ELEMENT
+    AssertTrue(SingleDimVariantArrayElementGetter(singleDimStringArray6, 5) = FIRST_STRING_ELEMENT)
+
+    Dim singleDimStringArray3 As String(3)
+    SingleDimVariantArrayElementSetter(singleDimStringArray3, 2, SECOND_STRING_ELEMENT)
+    AssertTrue(singleDimStringArray3(2) = SECOND_STRING_ELEMENT)
+
+    ' Checking multi dimension array access via variants
+    Dim multiDimBooleanArray63 As Boolean(6, 3)
+    multiDimBooleanArray63(5, 2) = FIRST_BOOLEAN_ELEMENT
+    AssertTrue(MultiDimVariantArrayElementGetter(multiDimBooleanArray63, 5, 2) = FIRST_BOOLEAN_ELEMENT)
+
+    Dim multiDimBooleanArray36 As Boolean(3, 6)
+    MultiDimVariantArrayElementSetter(multiDimBooleanArray36, 2, 5, SECOND_BOOLEAN_ELEMENT)
+    AssertTrue(multiDimBooleanArray36(2, 5) = SECOND_BOOLEAN_ELEMENT)
+
+    Dim multiDimByteArray63 As Byte(6, 3)
+    multiDimByteArray63(5, 2) = FIRST_BYTE_ELEMENT
+    AssertTrue(MultiDimVariantArrayElementGetter(multiDimByteArray63, 5, 2) = FIRST_BYTE_ELEMENT)
+
+    Dim multiDimByteArray36 As Byte(3, 6)
+    MultiDimVariantArrayElementSetter(multiDimByteArray36, 2, 5, SECOND_BYTE_ELEMENT)
+    AssertTrue(multiDimByteArray36(2, 5) = SECOND_BYTE_ELEMENT)
+
+    Dim multiDimShortArray63 As Short(6, 3)
+    multiDimShortArray63(5, 2) = FIRST_SHORT_ELEMENT
+    AssertTrue(MultiDimVariantArrayElementGetter(multiDimShortArray63, 5, 2) = FIRST_SHORT_ELEMENT)
+
+    Dim multiDimShortArray36 As Short(3, 6)
+    MultiDimVariantArrayElementSetter(multiDimShortArray36, 2, 5, SECOND_SHORT_ELEMENT)
+    AssertTrue(multiDimShortArray36(2, 5) = SECOND_SHORT_ELEMENT)
+
+    Dim multiDimIntegerArray63 As Integer(6, 3)
+    multiDimIntegerArray63(5, 2) = FIRST_INTEGER_ELEMENT
+    AssertTrue(MultiDimVariantArrayElementGetter(multiDimIntegerArray63, 5, 2) = FIRST_INTEGER_ELEMENT)
+
+    Dim multiDimIntegerArray36 As Integer(3, 6)
+    MultiDimVariantArrayElementSetter(multiDimIntegerArray36, 2, 5, SECOND_INTEGER_ELEMENT)
+    AssertTrue(multiDimIntegerArray36(2, 5) = SECOND_INTEGER_ELEMENT)
+
+    Dim multiDimLongArray63 As Long(6, 3)
+    multiDimLongArray63(5, 2) = FIRST_LONG_ELEMENT
+    AssertTrue(MultiDimVariantArrayElementGetter(multiDimLongArray63, 5, 2) = FIRST_LONG_ELEMENT)
+
+    Dim multiDimLongArray36 As Long(3, 6)
+    MultiDimVariantArrayElementSetter(multiDimLongArray36, 2, 5, SECOND_LONG_ELEMENT)
+    AssertTrue(multiDimLongArray36(2, 5) = SECOND_LONG_ELEMENT)
+
+    Dim multiDimSingleArray63 As Single(6, 3)
+    multiDimSingleArray63(5, 2) = FIRST_SINGLE_ELEMENT
+    AssertTrue(MultiDimVariantArrayElementGetter(multiDimSingleArray63, 5, 2) = FIRST_SINGLE_ELEMENT)
+
+    Dim multiDimSingleArray36 As Single(3, 6)
+    MultiDimVariantArrayElementSetter(multiDimSingleArray36, 2, 5, SECOND_SINGLE_ELEMENT)
+    AssertTrue(multiDimSingleArray36(2, 5) = SECOND_SINGLE_ELEMENT)
+
+    Dim multiDimDoubleArray63 As Double(6, 3)
+    multiDimDoubleArray63(5, 2) = FIRST_DOUBLE_ELEMENT
+    AssertTrue(MultiDimVariantArrayElementGetter(multiDimDoubleArray63, 5, 2) = FIRST_DOUBLE_ELEMENT)
+
+    Dim multiDimDoubleArray36 As Double(3, 6)
+    MultiDimVariantArrayElementSetter(multiDimDoubleArray36, 2, 5, SECOND_DOUBLE_ELEMENT)
+    AssertTrue(multiDimDoubleArray36(2, 5) = SECOND_DOUBLE_ELEMENT)
+
+    Dim multiDimStringArray63 As String(6, 3)
+    multiDimStringArray63(5, 2) = FIRST_STRING_ELEMENT
+    AssertTrue(MultiDimVariantArrayElementGetter(multiDimStringArray63, 5, 2) = FIRST_STRING_ELEMENT)
+
+    Dim multiDimStringArray36 As String(3, 6)
+    MultiDimVariantArrayElementSetter(multiDimStringArray36, 2, 5, SECOND_STRING_ELEMENT)
+    AssertTrue(multiDimStringArray36(2, 5) = SECOND_STRING_ELEMENT)
+End Sub
+
+Function LocalSingleDimensionBoolean(index As Integer) As Boolean
+    Dim array As Boolean(2)
+    array(0) = FIRST_BOOLEAN_ELEMENT
+    array(1) = SECOND_BOOLEAN_ELEMENT
+    LocalSingleDimensionBoolean = array(index)
+End Function
+
+Function LocalSingleDimensionByte(index As Integer) As Byte
+    Dim array As Byte(2)
+    array(0) = FIRST_BYTE_ELEMENT
+    array(1) = SECOND_BYTE_ELEMENT
+    LocalSingleDimensionByte = array(index)
+End Function
+
+Function LocalSingleDimensionShort(index As Integer) As Short
+    Dim array As Short(2)
+    array(0) = FIRST_SHORT_ELEMENT
+    array(1) = SECOND_SHORT_ELEMENT
+    LocalSingleDimensionShort = array(index)
+End Function
+
+Function LocalSingleDimensionInteger(index As Integer) As Integer
+    Dim array As Integer(2)
+    array(0) = FIRST_INTEGER_ELEMENT
+    array(1) = SECOND_INTEGER_ELEMENT
+    LocalSingleDimensionInteger = array(index)
+End Function
+
+Function LocalSingleDimensionLong(index As Integer) As Long
+    Dim array As Long(2)
+    array(0) = FIRST_LONG_ELEMENT
+    array(1) = SECOND_LONG_ELEMENT
+    LocalSingleDimensionLong = array(index)
+End Function
+
+Function LocalSingleDimensionSingle(index As Integer) As Single
+    Dim array As Single(2)
+    array(0) = FIRST_SINGLE_ELEMENT
+    array(1) = SECOND_SINGLE_ELEMENT
+    LocalSingleDimensionSingle = array(index)
+End Function
+
+Function LocalSingleDimensionDouble(index As Integer) As Double
+    Dim array As Double(2)
+    array(0) = FIRST_DOUBLE_ELEMENT
+    array(1) = SECOND_DOUBLE_ELEMENT
+    LocalSingleDimensionDouble = array(index)
+End Function
+
+Function LocalSingleDimensionString(index As Integer) As String
+    Dim array As String(2)
+    array(0) = FIRST_STRING_ELEMENT
+    array(1) = SECOND_STRING_ELEMENT
+    LocalSingleDimensionString = array(index)
+End Function
+
+Function LocalMultiDimensionBoolean(index1 As Integer, index2 As Integer) As Boolean
+    Dim array As Boolean(2, 2)
+    array(0, 0) = FIRST_BOOLEAN_ELEMENT
+    array(1, 1) = SECOND_BOOLEAN_ELEMENT
+    LocalMultiDimensionBoolean = array(index1, index2)
+End Function
+
+Function LocalMultiDimensionByte(index1 As Integer, index2 As Integer) As Byte
+    Dim array As Byte(2, 2)
+    array(0, 0) = FIRST_BYTE_ELEMENT
+    array(1, 1) = SECOND_BYTE_ELEMENT
+    LocalMultiDimensionByte = array(index1, index2)
+End Function
+
+Function LocalMultiDimensionShort(index1 As Integer, index2 As Integer) As Short
+    Dim array As Short(2, 2)
+    array(0, 0) = FIRST_SHORT_ELEMENT
+    array(1, 1) = SECOND_SHORT_ELEMENT
+    LocalMultiDimensionShort = array(index1, index2)
+End Function
+
+Function LocalMultiDimensionInteger(index1 As Integer, index2 As Integer) As Integer
+    Dim array As Integer(2, 2)
+    array(0, 0) = FIRST_INTEGER_ELEMENT
+    array(1, 1) = SECOND_INTEGER_ELEMENT
+    LocalMultiDimensionInteger = array(index1, index2)
+End Function
+
+Function LocalMultiDimensionLong(index1 As Integer, index2 As Integer) As Long
+    Dim array As Long(2, 2)
+    array(0, 0) = FIRST_LONG_ELEMENT
+    array(1, 1) = SECOND_LONG_ELEMENT
+    LocalMultiDimensionLong = array(index1, index2)
+End Function
+
+Function LocalMultiDimensionSingle(index1 As Integer, index2 As Integer) As Single
+    Dim array As Single(2, 2)
+    array(0, 0) = FIRST_SINGLE_ELEMENT
+    array(1, 1) = SECOND_SINGLE_ELEMENT
+    LocalMultiDimensionSingle = array(index1, index2)
+End Function
+
+Function LocalMultiDimensionDouble(index1 As Integer, index2 As Integer) As Double
+    Dim array As Double(2, 2)
+    array(0, 0) = FIRST_DOUBLE_ELEMENT
+    array(1, 1) = SECOND_DOUBLE_ELEMENT
+    LocalMultiDimensionDouble = array(index1, index2)
+End Function
+
+Function LocalMultiDimensionString(index1 As Integer, index2 As Integer) As String
+    Dim array As String(2, 2)
+    array(0, 0) = FIRST_STRING_ELEMENT
+    array(1, 1) = SECOND_STRING_ELEMENT
+    LocalMultiDimensionString = array(index1, index2)
+End Function
+
+Function InstanceDataMemberSingleDimensionBoolean(index As Integer) As Boolean
+    InstanceDataMemberSingleDimensionBoolean = instanceDataMemberSingleDimensionBooleanArray(index)
+End Function
+
+Function InstanceDataMemberSingleDimensionByte(index As Integer) As Byte
+    InstanceDataMemberSingleDimensionByte = instanceDataMemberSingleDimensionByteArray(index)
+End Function
+
+Function InstanceDataMemberSingleDimensionShort(index As Integer) As Short
+    InstanceDataMemberSingleDimensionShort = instanceDataMemberSingleDimensionShortArray(index)
+End Function
+
+Function InstanceDataMemberSingleDimensionInteger(index As Integer) As Integer
+    InstanceDataMemberSingleDimensionInteger = instanceDataMemberSingleDimensionIntegerArray(index)
+End Function
+
+Function InstanceDataMemberSingleDimensionLong(index As Integer) As Long
+    InstanceDataMemberSingleDimensionLong = instanceDataMemberSingleDimensionLongArray(index)
+End Function
+
+Function InstanceDataMemberSingleDimensionSingle(index As Integer) As Single
+    InstanceDataMemberSingleDimensionSingle = instanceDataMemberSingleDimensionSingleArray(index)
+End Function
+
+Function InstanceDataMemberSingleDimensionDouble(index As Integer) As Double
+    InstanceDataMemberSingleDimensionDouble = instanceDataMemberSingleDimensionDoubleArray(index)
+End Function
+
+Function InstanceDataMemberSingleDimensionString(index As Integer) As String
+    InstanceDataMemberSingleDimensionString = instanceDataMemberSingleDimensionStringArray(index)
+End Function
+
+Function InstanceDataMemberMultiDimensionBoolean(index1 As Integer, index2 As Integer) As Boolean
+    InstanceDataMemberMultiDimensionBoolean = instanceDataMemberMultiDimensionBooleanArray(index1, index2)
+End Function
+
+Function InstanceDataMemberMultiDimensionByte(index1 As Integer, index2 As Integer) As Byte
+    InstanceDataMemberMultiDimensionByte = instanceDataMemberMultiDimensionByteArray(index1, index2)
+End Function
+
+Function InstanceDataMemberMultiDimensionShort(index1 As Integer, index2 As Integer) As Short
+    InstanceDataMemberMultiDimensionShort = instanceDataMemberMultiDimensionShortArray(index1, index2)
+End Function
+
+Function InstanceDataMemberMultiDimensionInteger(index1 As Integer, index2 As Integer) As Integer
+    InstanceDataMemberMultiDimensionInteger = instanceDataMemberMultiDimensionIntegerArray(index1, index2)
+End Function
+
+Function InstanceDataMemberMultiDimensionLong(index1 As Integer, index2 As Integer) As Long
+    InstanceDataMemberMultiDimensionLong = instanceDataMemberMultiDimensionLongArray(index1, index2)
+End Function
+
+Function InstanceDataMemberMultiDimensionSingle(index1 As Integer, index2 As Integer) As Single
+    InstanceDataMemberMultiDimensionSingle = instanceDataMemberMultiDimensionSingleArray(index1, index2)
+End Function
+
+Function InstanceDataMemberMultiDimensionDouble(index1 As Integer, index2 As Integer) As Double
+    InstanceDataMemberMultiDimensionDouble = instanceDataMemberMultiDimensionDoubleArray(index1, index2)
+End Function
+
+Function InstanceDataMemberMultiDimensionString(index1 As Integer, index2 As Integer) As String
+    InstanceDataMemberMultiDimensionString = instanceDataMemberMultiDimensionStringArray(index1, index2)
+End Function
+
+Function ObjectDataMemberSingleDimensionBoolean(index As Integer) As Boolean
+    ObjectDataMemberSingleDimensionBoolean = objectDataMemberSingleDimensionBooleanArray(index)
+End Function
+
+Function ObjectDataMemberSingleDimensionByte(index As Integer) As Byte
+    ObjectDataMemberSingleDimensionByte = objectDataMemberSingleDimensionByteArray(index)
+End Function
+
+Function ObjectDataMemberSingleDimensionShort(index As Integer) As Short
+    ObjectDataMemberSingleDimensionShort = objectDataMemberSingleDimensionShortArray(index)
+End Function
+
+Function ObjectDataMemberSingleDimensionInteger(index As Integer) As Integer
+    ObjectDataMemberSingleDimensionInteger = objectDataMemberSingleDimensionIntegerArray(index)
+End Function
+
+Function ObjectDataMemberSingleDimensionLong(index As Integer) As Long
+    ObjectDataMemberSingleDimensionLong = objectDataMemberSingleDimensionLongArray(index)
+End Function
+
+Function ObjectDataMemberSingleDimensionSingle(index As Integer) As Single
+    ObjectDataMemberSingleDimensionSingle = objectDataMemberSingleDimensionSingleArray(index)
+End Function
+
+Function ObjectDataMemberSingleDimensionDouble(index As Integer) As Double
+    ObjectDataMemberSingleDimensionDouble = objectDataMemberSingleDimensionDoubleArray(index)
+End Function
+
+Function ObjectDataMemberSingleDimensionString(index As Integer) As String
+    ObjectDataMemberSingleDimensionString = objectDataMemberSingleDimensionStringArray(index)
+End Function
+
+Function ObjectDataMemberMultiDimensionBoolean(index1 As Integer, index2 As Integer) As Boolean
+    ObjectDataMemberMultiDimensionBoolean = objectDataMemberMultiDimensionBooleanArray(index1, index2)
+End Function
+
+Function ObjectDataMemberMultiDimensionByte(index1 As Integer, index2 As Integer) As Byte
+    ObjectDataMemberMultiDimensionByte = objectDataMemberMultiDimensionByteArray(index1, index2)
+End Function
+
+Function ObjectDataMemberMultiDimensionShort(index1 As Integer, index2 As Integer) As Short
+    ObjectDataMemberMultiDimensionShort = objectDataMemberMultiDimensionShortArray(index1, index2)
+End Function
+
+Function ObjectDataMemberMultiDimensionInteger(index1 As Integer, index2 As Integer) As Integer
+    ObjectDataMemberMultiDimensionInteger = objectDataMemberMultiDimensionIntegerArray(index1, index2)
+End Function
+
+Function ObjectDataMemberMultiDimensionLong(index1 As Integer, index2 As Integer) As Long
+    ObjectDataMemberMultiDimensionLong = objectDataMemberMultiDimensionLongArray(index1, index2)
+End Function
+
+Function ObjectDataMemberMultiDimensionSingle(index1 As Integer, index2 As Integer) As Single
+    ObjectDataMemberMultiDimensionSingle = objectDataMemberMultiDimensionSingleArray(index1, index2)
+End Function
+
+Function ObjectDataMemberMultiDimensionDouble(index1 As Integer, index2 As Integer) As Double
+    ObjectDataMemberMultiDimensionDouble = objectDataMemberMultiDimensionDoubleArray(index1, index2)
+End Function
+
+Function ObjectDataMemberMultiDimensionString(index1 As Integer, index2 As Integer) As String
+    ObjectDataMemberMultiDimensionString = objectDataMemberMultiDimensionStringArray(index1, index2)
+End Function
+
+Property SingleDimensionArray As Integer()
+    Get
+        SingleDimensionArray = instanceSingleDimensionArray
+    End Get
+
+    Set
+        instanceSingleDimensionArray = SingleDimensionArray 
+    End Set
+End Property
+
+Function SingleDimensionArrayGetter() As Integer()
+    SingleDimensionArrayGetter = instanceSingleDimensionArray
+End Function
+
+Sub SingleDimensionArraySetter(SingleDimensionArray As Integer())
+    instanceSingleDimensionArray = SingleDimensionArray
+End Sub
+
+Property MultiDimensionArray As Integer(,)
+    Get
+        MultiDimensionArray = instanceMultiDimensionArray
+    End Get
+
+    Set
+        instanceMultiDimensionArray = MultiDimensionArray 
+    End Set
+End Property
+
+Function MultiDimensionArrayGetter() As Integer(,)
+    MultiDimensionArrayGetter = instanceMultiDimensionArray
+End Function
+
+Sub MultiDimensionArraySetter(MultiDimensionArray As Integer(,))
+    instanceMultiDimensionArray = MultiDimensionArray
+End Sub
+
+Function SingleDimVariantArrayElementGetter(array As Variant, index As Variant) As Variant
+  SingleDimVariantArrayElementGetter = array(index)
+End Function
+
+Sub SingleDimVariantArrayElementSetter(array As Variant, index As Variant, value As Variant)
+  array(index) = value
+End Sub
+
+Function MultiDimVariantArrayElementGetter(array As Variant, index1 As Variant, index2 As Variant) As Variant
+  MultiDimVariantArrayElementGetter = array(index1, index2)
+End Function
+
+Sub MultiDimVariantArrayElementSetter(array As Variant, index1 As Variant, index2 As Variant, value As Variant)
+  array(index1, index2) = value
+End Sub
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

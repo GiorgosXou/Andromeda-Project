@@ -1,0 +1,102 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests TypeOf...Is... expressions
+
+Alias BaseObject = com.google.devtools.simple.smoketest.utils.BaseObject
+Alias DerivedObject = com.google.devtools.simple.smoketest.utils.DerivedObject
+Alias ObjectWithEvent = com.google.devtools.simple.smoketest.utils.ObjectWithEvent
+
+Function Name() As String
+    Name = "TypeOf Expression Tests"
+End Function
+
+Sub Run()
+  ' Checking TypeOf for objects
+  Dim do As DerivedObject
+  AssertFalse(TypeOf do Is BaseObject)
+  AssertFalse(TypeOf do Is DerivedObject)
+  AssertFalse(TypeOf do Is ObjectWithEvent)
+  AssertFalse(TypeOf do Is Variant)
+  do = New DerivedObject
+  AssertTrue(TypeOf do Is BaseObject)
+  AssertTrue(TypeOf do Is DerivedObject)
+  AssertFalse(TypeOf do Is ObjectWithEvent)
+  AssertFalse(TypeOf do Is Variant)
+
+  ' Checking TypeOf for arrays
+  Dim sa As Integer(2)
+  AssertTrue(TypeOf sa Is Object)
+  AssertTrue(TypeOf sa Is Integer())
+  AssertFalse(TypeOf sa Is Integer)
+  AssertFalse(TypeOf sa Is Integer(,))
+  AssertFalse(TypeOf sa Is Variant)
+
+  Dim da As Integer()
+  AssertFalse(TypeOf da Is Object)
+  AssertFalse(TypeOf da Is Integer())
+  AssertFalse(TypeOf da Is Integer)
+  AssertFalse(TypeOf da Is Integer(,))
+  AssertFalse(TypeOf da Is Variant)
+  da = New Integer(2)
+  AssertTrue(TypeOf da Is Object)
+  AssertTrue(TypeOf da Is Integer())
+  AssertFalse(TypeOf da Is Integer)
+  AssertFalse(TypeOf da Is Integer(,))
+  AssertFalse(TypeOf da Is Variant)
+
+  ' Checking TypeOf for strings
+  Dim s As String
+  AssertTrue(TypeOf s Is String)
+  AssertFalse(TypeOf s Is String())
+  AssertFalse(TypeOf s Is Object)
+  AssertFalse(TypeOf s Is Integer)
+  AssertFalse(TypeOf s Is Variant)
+  s = "0"
+  AssertTrue(TypeOf s Is Boolean)
+  AssertTrue(TypeOf s Is Byte)
+  AssertTrue(TypeOf s Is Short)
+  AssertTrue(TypeOf s Is Integer)
+  AssertTrue(TypeOf s Is Single)
+  AssertTrue(TypeOf s Is Double)
+  AssertFalse(TypeOf s Is Date)
+
+  ' Checking TypeOf for dates
+  Dim d As Date
+  AssertTrue(TypeOf d Is Date)
+  AssertFalse(TypeOf d Is Date())
+  AssertFalse(TypeOf d Is Object)
+  AssertFalse(TypeOf d Is Integer)
+  AssertFalse(TypeOf d Is Variant)
+
+  ' Checking TypeOf for numerical types
+  Dim i As Integer
+  AssertTrue(TypeOf i Is Integer)
+  AssertFalse(TypeOf i Is Integer())
+  AssertFalse(TypeOf i Is Object)
+  AssertFalse(TypeOf i Is Variant)
+
+  ' Checking TypeOf for uninitialized variants
+  Dim v As Variant
+  AssertFalse(TypeOf v Is Variant)
+  AssertFalse(TypeOf v Is Integer)
+  AssertFalse(TypeOf v Is String)
+  AssertFalse(TypeOf v Is Integer())
+  AssertFalse(TypeOf v Is Object)
+End Sub
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

@@ -1,0 +1,114 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Start screen of device tests.
+
+Static Dim AccelerometerTestsForm As Form
+Static Dim ButtonTestsForm As Form
+Static Dim CanvasTestsForm As Form
+Static Dim EmailPickerTestsForm As Form
+Static Dim CheckBoxTestsForm As Form
+Static Dim ImageTestsForm As Form
+Static Dim LabelTestsForm As Form
+Static Dim LocationSensorTestsForm As Form
+Static Dim OrientationSensorTestsForm As Form
+Static Dim PanelTestsForm As Form
+Static Dim PasswordTextBoxTestsForm As Form
+Static Dim RadioButtonTestsForm As Form
+Static Dim TimerTestsForm As Form
+
+Static Dim StartTestsForm As Form
+Static Dim FinishTestsForm As Form
+
+Static Dim CurrentTestIndex As Integer
+
+Static Sub NextTest()
+  CurrentTestIndex = CurrentTestIndex + 1
+  SwitchForm(GetTestForm(CurrentTestIndex))
+End Sub
+
+Static Sub PrevTest()
+  CurrentTestIndex = CurrentTestIndex - 1
+  SwitchForm(GetTestForm(CurrentTestIndex))
+End Sub
+
+Static Function GetTestForm(testIndex As Integer) As Form
+  Select testIndex
+    Case 0
+      GetTestForm = StartTestsForm
+    Case 1
+      If AccelerometerTestsForm = Nothing Then AccelerometerTestsForm = New AccelerometerTests : GetTestForm = AccelerometerTestsForm
+    Case 2
+      If ButtonTestsForm = Nothing Then ButtonTestsForm = New ButtonTests : GetTestForm = ButtonTestsForm
+    Case 3
+      If CanvasTestsForm = Nothing Then CanvasTestsForm = New CanvasTests : GetTestForm = CanvasTestsForm
+    Case 4
+      If EmailPickerTestsForm = Nothing Then EmailPickerTestsForm = New EmailPickerTests : GetTestForm = EmailPickerTestsForm
+    Case 5
+      If CheckBoxTestsForm = Nothing Then CheckBoxTestsForm = New CheckBoxTests : GetTestForm = CheckBoxTestsForm
+    Case 6
+      If ImageTestsForm = Nothing Then ImageTestsForm = New ImageTests : GetTestForm = ImageTestsForm
+    Case 7
+      If LabelTestsForm = Nothing Then LabelTestsForm = New LabelTests : GetTestForm = LabelTestsForm
+    Case 8
+      If LocationSensorTestsForm = Nothing Then LocationSensorTestsForm = New LocationSensorTests : GetTestForm = LocationSensorTestsForm
+    Case 9
+      If OrientationSensorTestsForm = Nothing Then OrientationSensorTestsForm = New OrientationSensorTests : GetTestForm = OrientationSensorTestsForm
+    Case 10
+      If PanelTestsForm = Nothing Then PanelTestsForm = New PanelTests : GetTestForm = PanelTestsForm
+    Case 11
+      If PasswordTextBoxTestsForm = Nothing Then PasswordTextBoxTestsForm = New PasswordTextBoxTests : GetTestForm = PasswordTextBoxTestsForm
+    Case 12
+      If RadioButtonTestsForm = Nothing Then RadioButtonTestsForm = New RadioButtonTests : GetTestForm = RadioButtonTestsForm
+    Case 13
+      If TimerTestsForm = Nothing Then TimerTestsForm = New TimerTests : GetTestForm = TimerTestsForm
+    Case Else
+      If FinishTestsForm = Nothing Then FinishTestsForm = New FinishTests : GetTestForm = FinishTestsForm
+  End Select
+End Function
+
+Event StartTests.Initialize()
+  StartTestsForm = Me
+End Event
+
+Event ExitButton.Click()
+  Finish()
+End Event
+
+Event NextButton.Click()
+  NextTest()
+End Event
+
+$Properties
+$Source $Form
+$Define StartTests $As Form
+  Layout = 1
+  Layout.Orientation = 1
+  $Define TopPanel $As Panel
+    Layout = 1
+    Layout.Orientation = 0
+    BackgroundColor = &HFF000000
+    Width = -2
+    $Define NextButton $As Button
+      Text = "Next"
+    $End $Define
+    $Define ExitButton $As Button
+      Text = "Exit"
+    $End $Define
+  $End $Define
+  $Define InstructionsLabel $As Label
+    Text = "Touch the Next Button on each screen to proceed..."
+  $End $Define
+$End $Define
+$End $Properties

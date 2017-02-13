@@ -1,0 +1,166 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests logical and bitwise Xor expressions
+
+' The following constants are used as return values for the functions testing logical expressions
+' within branch statements indicating which statement block was actually executed.
+Const NONE As String = "None"
+Const TRUE As String = "True"
+Const FALSE As String = "False"
+
+Function Name() As String
+    Name = "Xor Expression Tests"
+End Function
+
+Sub Run()
+    ' Bitwise Xor
+    ' While these don't check that constant folding is done, they do ensure that it is done
+    ' correctly if it is done at all!
+    AssertTrue(FourInteger() = &H4)
+
+    ' Simple bitwise Xor
+    AssertTrue(SimpleXorInteger(&HF, &H88) = &H87)
+    AssertTrue(SimpleXorLong(&HFFFF, &H800080008000) = &H800080007FFF)
+    AssertTrue(SimpleXorVariant(&HF, &H88) = &H87)
+    AssertTrue(SimpleXorVariant(&HFFFF, &H800080008000) = &H800080007FFF)
+
+    ' Complex bitwise Xor
+    AssertTrue(ComplexXorInteger(&HF, &H88) = &HEE)
+    AssertTrue(ComplexXorLong(&HFFFF, &H800880088800) = &HE0FFE)
+    AssertTrue(ComplexXorVariant(&HF, &H88) = &HEE)
+
+    ' Logical Xor
+    ' While these don't check that constant folding is done, they do ensure that it is done
+    ' correctly if it is done at all!
+    AssertFalse(TrueTrueBoolean())
+    AssertTrue(TrueFalseBoolean())
+    AssertTrue(FalseTrueBoolean())
+    AssertFalse(FalseFalseBoolean())
+
+    ' Simple logical Xor
+    AssertFalse(SimpleXorBoolean(True, True))
+    AssertTrue(SimpleXorBoolean(True, False))
+    AssertTrue(SimpleXorBoolean(False, True))
+    AssertFalse(SimpleXorBoolean(False, False))
+
+    AssertTrue(SimpleXorBooleanWithBranchOnFalse(True, True) = FALSE)
+    AssertTrue(SimpleXorBooleanWithBranchOnFalse(True, False) = TRUE)
+    AssertTrue(SimpleXorBooleanWithBranchOnFalse(False, True) = TRUE)
+    AssertTrue(SimpleXorBooleanWithBranchOnFalse(False, False) = FALSE)
+
+    AssertTrue(SimpleXorBooleanWithBranchOnTrue(True, True) = FALSE)
+    AssertTrue(SimpleXorBooleanWithBranchOnTrue(True, False) = TRUE)
+    AssertTrue(SimpleXorBooleanWithBranchOnTrue(False, True) = TRUE)
+    AssertTrue(SimpleXorBooleanWithBranchOnTrue(False, False) = FALSE)
+
+    ' Complex logical Xor
+    AssertFalse(ComplexXorBoolean(True, True))
+    AssertFalse(ComplexXorBoolean(True, False))
+    AssertTrue(ComplexXorBoolean(False, True))
+    AssertFalse(ComplexXorBoolean(False, False))
+
+    AssertTrue(ComplexXorBooleanWithBranch(True, True) = FALSE)
+    AssertTrue(ComplexXorBooleanWithBranch(True, False) = FALSE)
+    AssertTrue(ComplexXorBooleanWithBranch(False, True) = TRUE)
+    AssertTrue(ComplexXorBooleanWithBranch(False, False) = FALSE)
+End Sub
+
+Function FourInteger() As Integer
+    FourInteger = &H7 Xor &H3
+End Function
+
+Function SimpleXorInteger(e1 As Integer, e2 As Integer) As Integer
+    SimpleXorInteger = e1 Xor e2
+End Function
+
+Function SimpleXorLong(e1 As Long, e2 As Long) As Long
+    SimpleXorLong = e1 Xor e2
+End Function
+
+Function SimpleXorVariant(e1 As Variant, e2 As Variant) As Variant
+    SimpleXorVariant = e1 Xor e2
+End Function
+
+Function ComplexXorInteger(e1 As Integer, e2 As Integer) As Integer
+    ComplexXorInteger = e1 + e2 Xor e2 - e1
+End Function
+
+Function ComplexXorLong(e1 As Long, e2 As Long) As Long
+    ComplexXorLong = e1 + e2 Xor e2 - e1
+End Function
+
+Function ComplexXorVariant(e1 As Variant, e2 As Variant) As Variant
+    ComplexXorVariant = e1 + e2 Xor e2 - e1
+End Function
+
+Function TrueTrueBoolean() As Boolean
+    TrueTrueBoolean = True Xor True
+End Function
+
+Function TrueFalseBoolean() As Boolean
+    TrueFalseBoolean = True Xor False
+End Function
+
+Function FalseTrueBoolean() As Boolean
+    FalseTrueBoolean = False Xor True
+End Function
+
+Function FalseFalseBoolean() As Boolean
+    FalseFalseBoolean = False Xor False
+End Function
+
+Function SimpleXorBoolean(e1 As Boolean, e2 As Boolean) As Boolean
+    SimpleXorBoolean = e1 Xor e2
+End Function
+
+Function SimpleXorBooleanWithBranchOnFalse(e1 As Boolean, e2 As Boolean) As String
+    SimpleXorBooleanWithBranchOnFalse = NONE
+    If e1 Xor e2 Then
+        SimpleXorBooleanWithBranchOnFalse = TRUE
+    Else
+        SimpleXorBooleanWithBranchOnFalse = FALSE
+    End If
+End Function
+
+Function SimpleXorBooleanWithBranchOnTrue(e1 As Boolean, e2 As Boolean) As String
+    SimpleXorBooleanWithBranchOnTrue = NONE
+    Dim return As Boolean
+    Do
+      If return Then
+        SimpleXorBooleanWithBranchOnTrue = TRUE
+        Exit Function
+      End If
+      return = True
+    While e1 Xor e2
+    SimpleXorBooleanWithBranchOnTrue = FALSE
+End Function
+
+Function ComplexXorBoolean(e1 As Boolean, e2 As Boolean) As Boolean
+    ComplexXorBoolean = Not e1 Or e2 And e1 Xor e2
+End Function
+
+Function ComplexXorBooleanWithBranch(e1 As Boolean, e2 As Boolean) As String
+    ComplexXorBooleanWithBranch = NONE
+    If Not e1 Or e2 And e1 Xor e2 Then
+        ComplexXorBooleanWithBranch = TRUE
+    Else
+        ComplexXorBooleanWithBranch = FALSE
+    End If
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

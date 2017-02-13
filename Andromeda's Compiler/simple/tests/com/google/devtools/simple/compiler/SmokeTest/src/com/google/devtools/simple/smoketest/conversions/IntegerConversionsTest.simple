@@ -1,0 +1,128 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests results of converting Integers into other types.
+
+Const MIN_INTEGER As Integer = -2147483648
+Const MAX_INTEGER As Integer = 2147483647
+
+Function Name() As String
+    Name = "Integer Conversion Tests"
+End Function
+
+Sub Run()
+    ' Integer to Boolean
+    AssertTrue(ConvertToBoolean(MIN_INTEGER - 1))
+    AssertTrue(ConvertToBoolean(MIN_INTEGER))
+    AssertFalse(ConvertToBoolean(0))
+    AssertTrue(ConvertToBoolean(MAX_INTEGER))
+    AssertTrue(ConvertToBoolean(MAX_INTEGER + 1))
+
+    ' Integer to Byte
+    AssertTrue(ConvertToByte(MIN_INTEGER - 1) = -1)
+    AssertTrue(ConvertToByte(MIN_INTEGER) = 0)
+    AssertTrue(ConvertToByte(0) = 0)
+    AssertTrue(ConvertToByte(MAX_INTEGER) = -1)
+    AssertTrue(ConvertToByte(MAX_INTEGER + 1) = 0)
+
+    ' Integer to Short
+    AssertTrue(ConvertToShort(MIN_INTEGER - 1) = -1)
+    AssertTrue(ConvertToShort(MIN_INTEGER) = 0)
+    AssertTrue(ConvertToShort(0) = 0)
+    AssertTrue(ConvertToShort(MAX_INTEGER) = -1)
+    AssertTrue(ConvertToShort(MAX_INTEGER + 1) = 0)
+
+    ' Integer to Integer
+    AssertTrue(ConvertToInteger(MIN_INTEGER - 1) = MAX_INTEGER)
+    AssertTrue(ConvertToInteger(MIN_INTEGER) = MIN_INTEGER)
+    AssertTrue(ConvertToInteger(0) = 0)
+    AssertTrue(ConvertToInteger(MAX_INTEGER) = MAX_INTEGER)
+    AssertTrue(ConvertToInteger(MAX_INTEGER + 1) = MIN_INTEGER)
+
+    ' Integer to Long
+    AssertTrue(ConvertToLong(MIN_INTEGER - 1) = MAX_INTEGER)
+    AssertTrue(ConvertToLong(MIN_INTEGER) = MIN_INTEGER)
+    AssertTrue(ConvertToLong(0) = 0)
+    AssertTrue(ConvertToLong(MAX_INTEGER) = MAX_INTEGER)
+    AssertTrue(ConvertToLong(MAX_INTEGER + 1) = MIN_INTEGER)
+
+    ' Integer to Single
+    AssertTrue(ConvertToSingle(MIN_INTEGER - 1) = MAX_INTEGER)
+    AssertTrue(ConvertToSingle(MIN_INTEGER) = MIN_INTEGER)
+    AssertTrue(ConvertToSingle(0) = 0)
+    AssertTrue(ConvertToSingle(MAX_INTEGER) = MAX_INTEGER)
+    AssertTrue(ConvertToSingle(MAX_INTEGER + 1) = MIN_INTEGER)
+
+    ' Integer to Double
+    AssertTrue(ConvertToDouble(MIN_INTEGER - 1) = MAX_INTEGER)
+    AssertTrue(ConvertToDouble(MIN_INTEGER) = MIN_INTEGER)
+    AssertTrue(ConvertToDouble(0) = 0)
+    AssertTrue(ConvertToDouble(MAX_INTEGER) = MAX_INTEGER)
+    AssertTrue(ConvertToDouble(MAX_INTEGER + 1) = MIN_INTEGER)
+
+    ' Integer to String
+    AssertTrue(ConvertToString(MIN_INTEGER - 1) = "2147483647")
+    AssertTrue(ConvertToString(MIN_INTEGER) = "-2147483648")
+    AssertTrue(ConvertToString(0) = "0")
+    AssertTrue(ConvertToString(MAX_INTEGER) = "2147483647")
+    AssertTrue(ConvertToString(MAX_INTEGER + 1) = "-2147483648")
+
+    ' Integer to Variant
+    AssertTrue(ConvertToVariant(MIN_INTEGER - 1) = MAX_INTEGER)
+    AssertTrue(ConvertToVariant(MIN_INTEGER) = MIN_INTEGER)
+    AssertTrue(ConvertToVariant(0) = 0)
+    AssertTrue(ConvertToVariant(MAX_INTEGER) = MAX_INTEGER)
+    AssertTrue(ConvertToVariant(MAX_INTEGER + 1) = MIN_INTEGER)
+End Sub
+
+Function ConvertToBoolean(value As Integer) As Boolean
+    ConvertToBoolean = value
+End Function
+
+Function ConvertToByte(value As Integer) As Byte
+    ConvertToByte = value
+End Function
+
+Function ConvertToShort(value As Integer) As Short
+    ConvertToShort = value
+End Function
+
+Function ConvertToInteger(value As Integer) As Integer
+    ConvertToInteger = value
+End Function
+
+Function ConvertToLong(value As Integer) As Long
+    ConvertToLong = value
+End Function
+
+Function ConvertToSingle(value As Integer) As Single
+    ConvertToSingle = value
+End Function
+
+Function ConvertToDouble(value As Integer) As Double
+    ConvertToDouble = value
+End Function
+
+Function ConvertToString(value As Integer) As String
+    ConvertToString = value
+End Function
+
+Function ConvertToVariant(value As Integer) As Variant
+    ConvertToVariant = value
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

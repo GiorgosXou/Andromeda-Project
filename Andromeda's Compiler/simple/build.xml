@@ -1,0 +1,283 @@
+<!--
+  - Copyright 2009 Google Inc.
+  -
+  - Licensed under the Apache License, Version 2.0 (the "License");
+  - you may not use this file except in compliance with the License.
+  - You may obtain a copy of the License at
+  -
+  -      http://www.apache.org/licenses/LICENSE-2.0
+  -
+  - Unless required by applicable law or agreed to in writing, software
+  - distributed under the License is distributed on an "AS IS" BASIS,
+  - WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  - See the License for the specific language governing permissions and
+  - limitations under the License.
+  -->
+
+<!--
+  - For a list of targets, cd to the directory containing this file and run
+  -    ant -p
+  -
+  - To build a target, cd to the directory containing this file, run
+  -    ant <targetname>
+  -->
+
+<project name="Simple" default="all" basedir=".">
+    <description>
+        Build file for VB4ACompiler (based on Simple compiler) and runtime
+    </description>
+
+	<!--
+      - In order to build the Simple package an Android SDK installation is required. The path to
+      - the root directory of the SDK installation must be set in the environment variable
+      - ANDROID_HOME.
+      - The Android SDK must be version 1.5 or newer. 
+      -->
+	<property environment="env"/>
+	<echo message="ANDROID_HOME = ${env.ANDROID_HOME}"/>
+
+	<!--
+	  - SIMPLE_HOME must be set to the proper distribution directory for the tests to run
+	  - successfully. SIMPLE_HOME is used by the compiler to locate libraries and certificates.
+	  -->
+	<echo message="SIMPLE_HOME = ${env.SIMPLE_HOME}"/>
+
+	<!--
+      - Building the Simple package requires a Java SDK 1.6 or newer.
+      - Note that if you are building on a Mac and it defaults to an older version, the only way
+      - to fix this, is to additionally define the following environment variable (with a possible
+      - adjustment of the version number depending on your system):
+      - JAVA_HOME=/System/Library/Frameworks/JavaVM.framework/Versions/1.6.0/Home
+      -->
+    <property name="build.compiler" value="javac1.6"/>
+	<echo message="JAVA_HOME = ${env.JAVA_HOME}"/>
+
+	<!--
+      - Version number.
+      -->
+	<property name="version.number" value="VB4ACompiler-0.2"/>
+
+	<!--
+      - Definitions for input and output directories.
+      -->
+    <property name="src" location="src"/>
+    <property name="tests" location="tests"/>
+    <property name="scripts" location="scripts"/>
+    <property name="third_party" location="third_party"/>
+    <property name="build" location="build"/>
+	<property name="lib" location="lib"/>
+    <property name="build.instrumented" location="${build}/instrumented/classes"/>
+    <property name="build.simplecompiler" location="${build}/compiler/classes"/>
+    <property name="build.simpleruntime.android" location="${build}/runtime/android/classes"/>
+    <property name="build.tests" location="${build}/tests/classes"/>
+    <property name="reports" location="reports"/>
+    <property name="reports.tests" location="${reports}/tests"/>
+    <property name="reports.coverage" location="${reports}/coverage"/>
+    <property name="dist"  location="dist"/>
+    <property name="dist.common"  location="${dist}/common"/>
+    <property name="dist.windows"  location="${dist}/vb4a"/>
+    <property name="dist.zips"  location="${dist}/zips"/>
+
+	<!--
+      - Definitions for class paths.
+      -->
+    <path id="classpath.extensions">
+        <pathelement path="${third_party}/emma/emma_ant.jar"/>
+        <pathelement path="${third_party}/emma/emma.jar"/>
+    </path>
+	
+    <path id="adlib.classpath">
+        <pathelement path="${lib}/adlib_android.jar"/>
+    </path>
+
+	<path id="simplecompiler.classpath">
+        <pathelement location="${build.simplecompiler}"/>
+        <pathelement location="${lib}/apkbuilder.jar"/>
+        <pathelement location="${lib}/dx.jar"/>
+    </path>
+
+    <path id="simpleruntime.android.classpath">
+        <pathelement location="${build.simpleruntime.android}"/>
+        <pathelement location="${lib}/android.jar"/>
+		<pathelement location="${lib}/android-support-v4.jar"/>
+		<pathelement location="${lib}/android-support-v7-appcompat.jar"/>
+		<pathelement location="${lib}/actionbarsherlock.jar"/>
+		<pathelement location="${lib}/achartengine-1.1.0.jar"/>
+    </path>
+
+	<path id="tests.compile.classpath">
+	    <path refid="simplecompiler.classpath"/>
+	    <path refid="simpleruntime.android.classpath"/>
+    </path>
+
+	<path id="tests.run.classpath">
+	    <pathelement path="${third_party}/emma/emma.jar"/>
+	    <path refid="tests.compile.classpath"/>
+	    <pathelement path="${build.tests}"/>
+    </path>
+
+	<taskdef resource="emma_ant.properties" classpathref="classpath.extensions"/>
+
+	<!--
+      - Creates required directory structure needed for building.
+      -->
+
+    <target name="init">
+        <mkdir dir="${build.instrumented}"/>
+        <mkdir dir="${build.simplecompiler}"/>
+        <mkdir dir="${build.simpleruntime.android}"/>
+        <mkdir dir="${build.tests}"/>
+        <mkdir dir="${reports.tests}"/>
+        <mkdir dir="${reports.coverage}"/>
+        <mkdir dir="${dist.common}"/>
+        <mkdir dir="${dist.windows}"/>
+        <mkdir dir="${dist.zips}"/>
+    </target>
+
+    <!--
+      - Builds the Simple compiler.
+      -->
+    <target name="SimpleCompiler" depends="SimpleAndroidRuntime,init"
+	  description="Build Simple compiler">
+        <javac encoding="cp1252" debug="true" destdir="${build.simplecompiler}" source="1.6" target="1.6">
+            <compilerarg value="-Xlint"/>
+            <src path="${src}"/>
+            <include name="com/google/devtools/simple/classfiles/"/>
+            <include name="com/google/devtools/simple/compiler/"/>
+            <include name="com/google/devtools/simple/tools/"/>
+            <include name="com/google/devtools/simple/util/"/>
+            <classpath refid="simplecompiler.classpath"/>
+        </javac>
+        <copy file="${src}/com/google/devtools/simple/compiler/resources/simple.png"
+          tofile="${build.simplecompiler}/com/google/devtools/simple/compiler/resources/simple.png"/>
+    </target>
+
+    <!--
+      - Builds the Simple runtime library (for Android).
+      -->
+    <target name="SimpleAndroidRuntime" depends="init" description="Build Simple runtime libraries">
+        <javac encoding="cp1252" debug="true" destdir="${build.simpleruntime.android}" source="1.5" target="1.5">
+            <compilerarg value="-Xlint"/>
+            <src path="${src}"/>
+            <include name="com/google/devtools/simple/runtime/"/>
+            <classpath refid="simpleruntime.android.classpath"/>
+        </javac>
+    </target>
+
+    
+	<!--
+      - Compiles and runs all tests.
+      - ABSOLUTELY MUST BE RUN BEFORE ALL CODE SUBMISSIONS! NO EXCUSES!
+      -->
+    <target name="compiletests" depends="distribution">
+        <javac encoding="cp1252" debug="true" destdir="${build.tests}" source="1.6" target="1.6">
+            <src path="${tests}"/>
+            <exclude name="com/google/devtools/simple/runtime/DeviceTests/"/>
+            <classpath refid="tests.compile.classpath"/>
+        </javac>
+    </target>
+
+    <target name="runtests" depends="compiletests"
+	  description="Runs tests. ABSOLUTELY MUST BE RUN BEFORE ALL CODE SUBMISSIONS! NO EXCUSES!">
+
+    	<!-- Instrument the compiled class files to gather code coverage stats -->
+        <emma enabled="${emma.enabled}">
+           <instr instrpath="${build.simplecompiler}" destdir="${build.instrumented}"
+           	 mode="fullcopy" metadatafile="${reports.coverage}/metadata.em" merge="true">
+               <filter value="${emma.filter}"/>
+           </instr>
+        </emma>
+
+    	<junit printsummary="on" haltonfailure="yes">
+            <classpath>
+                <path refid="tests.run.classpath"/>
+    	        <pathelement location="${build.instrumented}"/>
+            </classpath>
+       
+    		<formatter type="plain"/>
+
+            <sysproperty key="user.language" value="en"/>
+            <sysproperty key="user.region" value="US"/>
+
+            <batchtest fork="yes" todir="${reports.tests}" unless="emma.enabled">
+                <fileset dir="${tests}">
+                    <include name="**/*Test*.java"/>
+                    <exclude name="**/AllTests.java"/>
+                </fileset>
+            </batchtest>
+
+    		<sysproperty key="emma.coverage.out.file" value="${reports.coverage}/coverage.ec"/>
+            <sysproperty key="emma.coverage.out.merge" value="true"/>
+
+            <test name="com.google.devtools.simple.AllTests" if="emma.enabled"/>
+    	</junit>
+
+        <!-- Generate the code coverage report. -->
+        <emma enabled="${emma.enabled}">
+            <report sourcepath="${src}:${tests}" sort="+name"
+              metrics="method:70,block:80,line:80,class:100">
+                <fileset dir="${reports.coverage}">
+                    <include name="*.em"/>
+                    <include name="*.ec"/>
+                </fileset>
+                <html outfile="${reports.coverage}/index.html" encoding="UTF-8"/>
+            </report>
+        </emma>
+    </target>
+
+    <!--
+      - Builds jar files of the compiler and runtime library for distribution.
+      -->
+    <target name="distribution" depends="SimpleCompiler,SimpleAndroidRuntime"
+      description="Builds a distribution.">
+        <jar jarfile="${dist.common}/SimpleCompiler.jar">
+            <fileset dir="${build.simplecompiler}"/>
+            <manifest>
+                <attribute name="Main-Class" value="com.google.devtools.simple.compiler.Main"/>
+            </manifest>
+        </jar>
+        <jar jarfile="${dist.common}/SimpleAndroidRuntime.jar">
+            <fileset dir="${build.simpleruntime.android}"/>
+        </jar>
+        <!-- Windows distribution -->
+        <copy file="${dist.common}/SimpleCompiler.jar" tofile="${dist.windows}/VB4ACompiler.jar"/>
+        <copy file="${dist.common}/SimpleAndroidRuntime.jar" tofile="${dist.windows}/VB4ARuntime.jar"/>
+        <zip destfile="${dist.zips}/Simple-windows-${version.number}.zip" basedir="${dist.windows}"/>
+    </target>
+
+    <!--
+      - Complete build including generating a distribution and running all tests.
+      -->
+    <target name="all" depends="runtests" description="Complete build"/>
+
+    <!--
+      - Cleans up all generated files.
+      -->
+    <target name="clean"  description="Cleans up all generated files.">
+        <delete dir="${build}"/>
+        <delete dir="${reports}"/>
+        <delete dir="${dist}"/>
+    </target>
+
+    <!--
+      - Enable Emma.
+      -
+      - See
+      - * http://wiki.metawerx.net/Wiki.jsp?page=UsingEMMAWithANTForJUnitTestCoverageReporting
+      - * http://emma.sourceforge.net/reference_single/reference.html#tool-ref.run
+      -
+      - Note: If code coverage fails with an unexpected error and you are using a 64-bit VM,
+      -       try using a 32-bit VM
+      -->
+    <target name="emma" depends="init" description="Turns on EMMA instrumentation and reporting.">
+        <property name="emma.enabled" value="true"/>
+        <!--
+          - See http://emma.sourceforge.net/reference/ch02s06s02.html
+          - This property can be overriden via -Demma.filter=<list of filter specs>
+          - on ANT's command line, will set the coverage filter; by default, all
+          - com.google.devtools.simple classes will be instrumented.
+          -->
+        <property name="emma.filter" value="com.google.devtools.simple.*"/>
+    </target>
+
+</project>

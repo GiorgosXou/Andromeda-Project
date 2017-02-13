@@ -1,0 +1,78 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests Accelerometer component.
+
+Event PrevButton.Click()
+  StartTests.PrevTest()
+End Event
+
+Event NextButton.Click()
+  StartTests.NextTest()
+End Event
+
+Event ExitButton.Click()
+  Finish()
+End Event
+
+Event Accelerometer.AccelerationChanged(xAccel As Single, yAccel As Single, zAccel As Single)
+  XLabel.Text = "x acceleration: " & xAccel
+  YLabel.Text = "y acceleration: " & yAccel
+  ZLabel.Text = "z acceleration: " & zAccel
+End Event
+
+Event Accelerometer.Shaking()
+  ShakeLabel.Text = "Shaking works."
+End Event
+
+$Properties
+$Source $Form
+$Define AccelerometerTests $As Form
+  Layout = 1
+  Layout.Orientation = 1
+  Title = "Testing Accelerometer"
+
+  $Define TopPanel $As Panel
+    Layout = 1
+    Layout.Orientation = 0
+    BackgroundColor = &HFF000000
+    Width = -2
+    $Define PrevButton $As Button
+      Text = "Previous"
+    $End $Define
+    $Define NextButton $As Button
+      Text = "Next"
+    $End $Define
+    $Define ExitButton $As Button
+      Text = "Exit"
+    $End $Define
+  $End $Define
+
+  $Define Accelerometer $As AccelerometerSensor
+  $End $Define
+  $Define XLabel $As Label
+    Text = "x acceleration: n/a"
+  $End $Define
+  $Define YLabel $As Label
+    Text = "y acceleration: n/a"
+  $End $Define
+  $Define ZLabel $As Label
+    Text = "z acceleration: n/a"
+  $End $Define
+  $Define ShakeLabel $As Label
+    Text = "Shake me!"
+  $End $Define
+
+$End $Define
+$End $Properties

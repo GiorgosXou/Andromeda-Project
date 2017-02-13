@@ -1,0 +1,54 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+Dim x As Integer
+Dim y As Integer
+
+Event OrientationSensor1.OrientationChanged(yaw As Single, pitch As Single, roll As Single)
+  If roll < -20 Then
+    x = Math.Min(Canvas1.Width, x + 1)
+  ElseIf roll > 20 Then
+    x = Math.Max(0, x - 1)
+  End If
+  If pitch < -20 Then
+    y = Math.Min(Canvas1.Height, y + 1)
+  ElseIf pitch > 20 Then
+    y = Math.Max(0, y - 1)
+  End If
+  Canvas1.DrawPoint(x, y)
+End Event
+
+Event EtchSketch.Initialize()
+  x = Canvas1.Width / 2
+  y = Canvas1.Height / 2
+End Event
+
+Event AccelerometerSensor1.Shaking()
+  Canvas1.Clear()
+End Event
+
+$Properties
+$Source $Form
+$Define EtchSketch $As Form
+Layout = 3
+BackgroundColor = &HFFFFFFFF
+Title = "EtchSketch: Tilt to draw - Shake to clear"
+$Define Canvas1 $As Canvas
+$End $Define
+$Define OrientationSensor1 $As OrientationSensor
+$End $Define
+$Define AccelerometerSensor1 $As AccelerometerSensor
+$End $Define
+$End $Define
+$End $Properties

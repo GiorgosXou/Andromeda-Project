@@ -1,0 +1,78 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests the various forms of the Do-Until statement
+
+Function Name() As String
+    Name = "Do-Until Statement Tests"
+End Function
+
+Sub Run()
+    ' Simple Do-Until loop 
+    AssertTrue(DoUntilTest(0, 5) = 5)
+
+    ' Do-Until loop with constant True expression
+    AssertTrue(DoUntilTrueTest(0) = 1)
+
+    ' Do-Until loop with constant False expression
+    AssertTrue(DoUntilFalseTest() = 5)
+
+    ' Do-Until loop with Exit
+    AssertTrue(DoUntilWithExitTest(5))
+End Sub
+
+Function DoUntilTest(start As Integer, stop As Integer) As Integer
+    Do
+        start = start + 1
+    Until start = stop
+    DoUntilTest = start
+End Function
+
+Function DoUntilTrueTest(start As Integer) As Integer
+    Do
+        start = start + 1
+    Until True
+    DoUntilTrueTest = start
+End Function
+
+Function DoUntilFalseTest() As Integer
+    Dim i As Integer
+    i = 0
+    Do
+        i = i + 1
+        If i = 5 Then
+            DoUntilFalseTest = 5
+            Exit Function
+        End If
+    Until False
+End Function
+
+Function DoUntilWithExitTest(v As Integer) As Boolean
+    Do
+        Dim i As Integer
+        For i = 0 To v + 10
+            If i = v Then
+                DoUntilWithExitTest = True
+                Exit Do
+            End If
+            DoUntilWithExitTest = False
+        Next
+        DoUntilWithExitTest = False
+    Until False
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

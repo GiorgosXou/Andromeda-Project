@@ -1,0 +1,35 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests New expressions
+
+Function Name() As String
+    Name = "New Expression Tests"
+End Function
+
+Sub Run()
+    ' The only thing we test here is checking that the allocation succeeded.
+    ' We do this by accessing a data member or array element and if there is no crash
+    ' we conclude that it worked.
+
+    ' TODO: check object allocation
+
+    Dim singleDimArray As Integer() : singleDimArray = New Integer(5) : singleDimArray(4) = 42 
+    Dim multiDimArray As Integer(,) : multiDimArray = New Integer(5, 3) : multiDimArray(4, 2) = 42 
+End Sub
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

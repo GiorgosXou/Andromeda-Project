@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.google.devtools.simple.runtime.tests">
+   <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+   <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+   <uses-permission android:name="android.permission.READ_CONTACTS" />
+   <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+   <application>
+     <activity android:name="com.google.devtools.simple.runtime.android.ApplicationImpl" android:icon="@drawable/simple" android:label="StartTests">
+         <meta-data android:name="com.google.devtools.simple.runtime.android.MainForm" android:value="com.google.devtools.simple.runtime.tests.StartTests" />
+         <intent-filter>
+            <action android:name="android.intent.action.MAIN"/>
+            <category android:name="android.intent.category.LAUNCHER"/>
+         </intent-filter>
+      </activity>
+   </application>
+</manifest>

@@ -1,0 +1,126 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests the various forms of the For-Each statement
+
+' Counters for checking that init expression is evaluated just once
+Dim initCounter As Integer
+
+Dim c As Collection
+Dim a As Integer(3)
+
+Function Name() As String
+    Name = "For-Each Statement Tests"
+End Function
+
+Event ForEachStatementsTest.Initialize()
+    ' Initialize collection and array
+    c = New Collection
+    c.Add("one")
+    c.Add(2)
+    c.Add(Me)
+End Event
+
+Sub Run()
+    ' For-Each with a collection
+    initCounter = 0
+    AssertTrue(ForEachCollectionTest() = c.Count)
+    AssertTrue(initCounter = 1)
+
+    initCounter = 0
+    AssertTrue(ForEachVariantCollectionTest() = c.Count)
+    AssertTrue(initCounter = 1)
+
+    ' For-Each with an array
+    initCounter = 0
+    AssertTrue(ForEachArrayTest() = Arrays.UBound(a, 1))
+    AssertTrue(initCounter = 1)
+
+    initCounter = 0
+    AssertTrue(ForEachVariantArrayTest() = Arrays.UBound(a, 1))
+    AssertTrue(initCounter = 1)
+
+    ' For-Each with Exit
+    AssertTrue(ForEachWithExitTest(5))
+End Sub
+
+Function ForEachCollectionTest() As Integer
+    Dim v As Variant
+    For Each v In GetCollection()
+        ForEachCollectionTest = ForEachCollectionTest + 1
+    Next v
+End Function
+
+Function ForEachVariantCollectionTest() As Integer
+    Dim v As Variant
+    For Each v In GetVariantCollection()
+        ForEachVariantCollectionTest = ForEachVariantCollectionTest + 1
+    Next v
+End Function
+
+Function ForEachArrayTest() As Integer
+    Dim i As Integer
+    For Each i In GetArray()
+        ForEachArrayTest = ForEachArrayTest + 1
+    Next i
+End Function
+
+Function ForEachVariantArrayTest() As Integer
+    Dim i As Integer
+    For Each i In GetVariantArray()
+        ForEachVariantArrayTest = ForEachVariantArrayTest + 1
+    Next i
+End Function
+
+Function ForEachWithExitTest(x As Integer) As Boolean
+    Dim v As Variant
+    For Each v In GetCollection()
+        Dim i As Integer
+        i = 0
+        While True
+            If i = x Then
+                ForEachWithExitTest = True
+                Exit For
+            End If
+            ForEachWithExitTest = False
+            i = i + 1
+        End While
+        ForEachWithExitTest = False
+    Next v
+End Function
+
+Function GetCollection() As Collection
+    initCounter = initCounter + 1
+    GetCollection = c
+End Function
+
+Function GetVariantCollection() As Variant
+    initCounter = initCounter + 1
+    GetVariantCollection = c
+End Function
+
+Function GetArray() As Integer()
+    initCounter = initCounter + 1
+    GetArray = a
+End Function
+
+Function GetVariantArray() As Variant
+    initCounter = initCounter + 1
+    GetVariantArray = a
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

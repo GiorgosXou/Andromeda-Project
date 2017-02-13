@@ -1,0 +1,103 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+IdeVB4A
+</name>
+</assembly>
+<members>
+<member name="T:IdeVB4A.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:IdeVB4A.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:IdeVB4A.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="P:IdeVB4A.My.Resources.Resources.BringtoFront_10687">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:IdeVB4A.My.Resources.Resources.browser16__1_">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:IdeVB4A.My.Resources.Resources.Copy_6524">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:IdeVB4A.My.Resources.Resources.Cut_6523">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:IdeVB4A.My.Resources.Resources.delete">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:IdeVB4A.My.Resources.Resources.icon">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:IdeVB4A.My.Resources.Resources.lock_15x15">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:IdeVB4A.My.Resources.Resources.Paste_6520">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:IdeVB4A.My.Resources.Resources.Property_501">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:IdeVB4A.My.Resources.Resources.SendtoBack_10681">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:IdeVB4A.My.Resources.Resources.Timer">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:IdeVB4A.My.Resources.Resources.viewcode">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="T:IdeVB4A.DrawingArea">
+ <summary>
+ Use this for drawing custom graphics and text with transparency.
+ Inherit from DrawingArea and override the OnDraw method.
+ </summary>
+</member>
+<member name="F:IdeVB4A.DrawingArea.graphics">
+ <summary>
+ Drawing surface where graphics should be drawn.
+ Use this member in the OnDraw method.
+ </summary>
+</member>
+<member name="M:IdeVB4A.DrawingArea.OnDraw">
+ <summary>
+ Override this method in subclasses for drawing purposes.
+ </summary>
+</member>
+</members>
+</doc>

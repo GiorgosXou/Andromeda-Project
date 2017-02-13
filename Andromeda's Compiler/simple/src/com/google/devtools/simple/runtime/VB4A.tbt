@@ -1,0 +1,117 @@
+/*
+ * Copyright 2013 Lu Chengwei
+ * VB for Android Extended Module
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.google.devtools.simple.runtime;
+
+import android.app.Activity;
+import com.google.devtools.simple.runtime.annotations.SimpleFunction;
+import com.google.devtools.simple.runtime.annotations.SimpleObject;
+import com.google.devtools.simple.runtime.variants.Variant;
+import android.media.MediaPlayer;   
+import android.media.MediaPlayer.OnCompletionListener;
+import java.io.FileDescriptor; 
+import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
+import java.util.Locale;
+import java.io.IOException;  
+import android.content.Context;  
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+/**
+ * Implementation of various conversion related runtime functions.
+ * 
+ * @author Herbert Czymontek
+ */
+@SimpleObject
+public final class VB4A extends Activity {
+
+  private MediaPlayer vb4amp;
+
+  private VB4A() {
+  }
+
+
+
+  /**
+   * Returns the unicode value of the first character of the given string.
+   *
+   * @param str  string to convert first character of
+   * @return  unicode value of first character of {@code str}
+   */
+ @SimpleFunction
+ public void CreatePlay(String mFile) {
+ 	try
+	{
+		vb4amp=new MediaPlayer();
+		AssetFileDescriptor aFD = this.getAssets().openFd(mFile);
+		FileDescriptor fileDescriptor = aFD.getFileDescriptor();
+		vb4amp.setDataSource(fileDescriptor, aFD.getStartOffset(), aFD.getLength());
+		aFD.close();
+		vb4amp.prepare();
+		vb4amp.start();
+	}
+	catch (IllegalArgumentException e)
+	{
+		e.printStackTrace();
+	}
+	catch (IllegalStateException e) {
+		e.printStackTrace();
+	}
+	catch (IOException e) {
+		e.printStackTrace();
+	}
+ }
+
+ @SimpleFunction
+ public void StopPlay() {
+	try
+	{
+		vb4amp.stop();
+		vb4amp.release();
+	}
+	catch (IllegalArgumentException e)
+	{
+		e.printStackTrace();
+	}
+
+ }
+
+ @SimpleFunction
+ public void Play() {
+
+	try
+	{
+		vb4amp.prepare();
+		vb4amp.start();
+	}
+	catch (IllegalArgumentException e)
+	{
+		e.printStackTrace();
+	}
+	catch (IllegalStateException e) {
+		e.printStackTrace();
+	}
+	catch (IOException e) {
+		e.printStackTrace();
+	}
+	vb4amp.setOnCompletionListener(new OnCompletionListener() {
+			public void onCompletion(MediaPlayer vb4amp) {
+				vb4amp.release();
+		}
+	});
+ }
+}

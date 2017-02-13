@@ -1,0 +1,78 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests the various forms of the Do-While statement
+
+Function Name() As String
+    Name = "Do-While Statement Tests"
+End Function
+
+Sub Run()
+    ' Simple Do-While loop 
+    AssertTrue(DoWhileTest(0, 5) = 5)
+
+    ' Do-While loop with constant False expression
+    AssertTrue(DoWhileFalseTest(0) = 1)
+
+    ' Do-While loop with constant True expression
+    AssertTrue(DoWhileTrueTest() = 5)
+
+    ' Do-While loop with Exit
+    AssertTrue(DoWhileWithExitTest(5))
+End Sub
+
+Function DoWhileTest(start As Integer, stop As Integer) As Integer
+    Do
+        start = start + 1
+    While start < stop
+    DoWhileTest = start
+End Function
+
+Function DoWhileFalseTest(start As Integer) As Integer
+    Do
+        start = start + 1
+    While False
+    DoWhileFalseTest = start
+End Function
+
+Function DoWhileTrueTest() As Integer
+    Dim i As Integer
+    i = 0
+    Do
+        i = i + 1
+        If i = 5 Then
+            DoWhileTrueTest = 5
+            Exit Function
+        End If
+    While True
+End Function
+
+Function DoWhileWithExitTest(v As Integer) As Boolean
+    Do
+        Dim i As Integer
+        For i = 0 To v + 10
+            If i = v Then
+                DoWhileWithExitTest = True
+                Exit Do
+            End If
+            DoWhileWithExitTest = False
+        Next
+        DoWhileWithExitTest = False
+    While True
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

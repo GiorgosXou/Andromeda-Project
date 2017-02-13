@@ -1,0 +1,67 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' The purpose of this object is to allow us to execute the smoke tests from
+' a Java class.
+
+Static Sub RunSmokeTests()
+    Dim tests As Collection
+    tests = New Collection
+
+    ' Conversion tests
+    tests.Add(New com.google.devtools.simple.smoketest.conversions.BooleanConversionsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.conversions.ByteConversionsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.conversions.ShortConversionsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.conversions.IntegerConversionsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.conversions.LongConversionsTest)
+
+    ' Expression tests
+    tests.Add(New com.google.devtools.simple.smoketest.expressions.AdditionExpressionsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.expressions.AndExpressionsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.expressions.ArrayExpressionsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.expressions.CallExpressionsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.expressions.ConcatenationExpressionsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.expressions.IdentityExpressionsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.expressions.IntegerDivisionExpressionsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.expressions.LikeExpressionsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.expressions.NewExpressionsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.expressions.OrExpressionsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.expressions.TypeOfExpressionsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.expressions.XorExpressionsTest)
+
+    ' Scopes tests
+    tests.Add(New com.google.devtools.simple.smoketest.scopes.ScopesTest)
+
+    ' Statement tests
+    tests.Add(New com.google.devtools.simple.smoketest.statements.DoUntilStatementsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.statements.DoWhileStatementsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.statements.ExitStatementsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.statements.IfThenElseIfElseStatementsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.statements.ForNextStatementsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.statements.ForEachStatementsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.statements.OnErrorStatementsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.statements.RaiseEventStatementsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.statements.SelectStatementsTest)
+    tests.Add(New com.google.devtools.simple.smoketest.statements.WhileDoStatementsTest)
+
+    ' Run all tests
+    Dim t As Test
+    For Each t In tests
+        t.Run()
+    Next t
+End Sub
+
+$Properties
+  $Source $Object
+$End $Properties

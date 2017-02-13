@@ -1,0 +1,66 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests the RaiseEvent statement
+
+Alias ObjectWithEvent = com.google.devtools.simple.smoketest.utils.ObjectWithEvent
+
+Const TestValue As Integer = 42
+
+Dim dataMember1 As ObjectWithEvent
+Dim dataMember2 As ObjectWithEvent
+
+Dim testEvent1Value As Integer
+Dim testEvent2Value As Integer
+
+Function Name() As String
+    Name = "RaiseEvent Statement Tests"
+End Function
+
+Sub Run()
+    Dim owe As ObjectWithEvent
+    owe = New ObjectWithEvent
+
+    ' TriggerTestEvent contains the RaiseEvent statement that we testing here
+    ResetTestEventValues()
+    dataMember1 = owe : dataMember2 = Nothing : owe.TriggerTestEvent(TestValue)
+    AssertTrue(testEvent1Value = TestValue And testEvent2Value = 0)
+
+    ResetTestEventValues()
+    dataMember1 = Nothing : dataMember2 = owe : owe.TriggerTestEvent(TestValue)
+    AssertTrue(testEvent1Value = 0 And testEvent2Value = TestValue)
+
+    ResetTestEventValues()
+    dataMember1 = owe : dataMember2 = owe : owe.TriggerTestEvent(TestValue)
+    AssertTrue(testEvent1Value = TestValue And testEvent2Value = TestValue)
+
+End Sub
+
+Sub ResetTestEventValues()
+    testEvent1Value = 0
+    testEvent2Value = 0
+End Sub
+
+Event dataMember1.TestEvent(X As Integer)
+    testEvent1Value = X
+End Event
+
+Event dataMember2.TestEvent(X As Integer)
+    testEvent2Value = X
+End Event
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

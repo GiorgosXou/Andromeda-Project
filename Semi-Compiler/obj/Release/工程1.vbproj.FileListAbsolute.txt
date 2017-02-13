@@ -1,0 +1,3 @@
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\obj\Release\ResolveAssemblyReference.cache
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\obj\Release\Ή¤³Μ1.Form1.resources
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\obj\Release\工程1.vbproj.GenerateResource.Cache

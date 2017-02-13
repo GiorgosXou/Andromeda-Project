@@ -1,0 +1,84 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Test Timer component.
+
+Dim Seconds As Integer
+
+Event PrevButton.Click()
+  StartTests.PrevTest()
+End Event
+
+Event NextButton.Click()
+  StartTests.NextTest()
+End Event
+
+Event ExitButton.Click()
+  Finish()
+End Event
+
+Event CountdownButton.Click()
+  Seconds = 4
+  CountdownButton.Enabled = False
+  StatusLabel.Text = "Timer running: 4"
+  Timer1.Enabled =  True
+End Event
+
+Event Timer1.Timer()
+  Seconds = Seconds - 1
+  If Seconds <= 0 Then
+    Timer1.Enabled =  False
+    StatusLabel.Text = "Timer stopped"
+    CountdownButton.Enabled = True
+  Else
+    StatusLabel.Text = "Timer running: " & Seconds
+  End If
+End Event
+
+$Properties
+$Source $Form
+$Define TimerTests $As Form
+  Layout = 1
+  Layout.Orientation = 1
+  Scrollable = True
+  Title = "Testing Timer"
+  $Define TopPanel $As Panel
+    Layout = 1
+    Layout.Orientation = 0
+    BackgroundColor = &HFF000000
+    Width = -2
+    $Define PrevButton $As Button
+      Text = "Previous"
+    $End $Define
+    $Define NextButton $As Button
+      Text = "Next"
+    $End $Define
+    $Define ExitButton $As Button
+      Text = "Exit"
+    $End $Define
+  $End $Define
+
+  $Define CountdownButton $As Button
+    Text = "Start 5 sec countdown"
+  $End $Define
+  $Define StatusLabel $As Label
+    Text = "Timer stopped"
+  $End $Define
+  $Define Timer1 $As Timer
+    Enabled = False
+    Interval = 1000
+  $End $Define
+
+$End $Define
+$End $Properties

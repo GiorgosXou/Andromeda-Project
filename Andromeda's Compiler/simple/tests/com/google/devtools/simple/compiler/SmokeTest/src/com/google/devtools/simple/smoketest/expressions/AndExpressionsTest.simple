@@ -1,0 +1,181 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests logical and bitwise And expressions
+
+' The following constants are used as return values for the functions testing logical expressions
+' within branch statements indicating which statement block was actually executed.
+Const NONE As String = "None"
+Const TRUE As String = "True"
+Const FALSE As String = "False"
+
+' For side-effect during short-circuit evaluation
+Dim sideEffect As Boolean
+
+Function Name() As String
+    Name = "And Expression Tests"
+End Function
+
+Sub Run()
+    ' Bitwise And
+    ' While these don't check that constant folding is done, they do ensure that it is done
+    ' correctly if it is done at all!
+    AssertTrue(FourInteger() = &H4)
+
+    ' Simple bitwise And
+    AssertTrue(SimpleAndInteger(&HFF, &H88) = &H88)
+    AssertTrue(SimpleAndLong(&HFFFFFFFFFFFF, &H800080008000) = &H800080008000)
+    AssertTrue(SimpleAndVariant(&HFF, &H88) = &H88)
+    AssertTrue(SimpleAndVariant(&HFFFFFFFFFFFF, &H800080008000) = &H800080008000)
+
+    ' Complex bitwise And
+    AssertTrue(ComplexAndInteger(&HFF, &H88) = &H7)
+    AssertTrue(ComplexAndLong(&HFFFFFFFFFFFF, &H800880088800) = &H7FF)
+    AssertTrue(ComplexAndVariant(&HFF, &H88) = &H7)
+
+    ' Logical And
+    ' While these don't check that constant folding is done, they do ensure that it is done
+    ' correctly if it is done at all!
+    AssertTrue(TrueTrueBoolean())
+    AssertFalse(TrueFalseBoolean())
+    AssertFalse(FalseTrueBoolean())
+    AssertFalse(FalseFalseBoolean())
+
+    ' Simple logical And
+    AssertTrue(SimpleAndBoolean(True, True))
+    AssertFalse(SimpleAndBoolean(True, False))
+    AssertFalse(SimpleAndBoolean(False, True))
+    AssertFalse(SimpleAndBoolean(False, False))
+
+    AssertTrue(SimpleAndBooleanWithBranchOnFalse(True, True) = TRUE)
+    AssertTrue(SimpleAndBooleanWithBranchOnFalse(True, False) = FALSE)
+    AssertTrue(SimpleAndBooleanWithBranchOnFalse(False, True) = FALSE)
+    AssertTrue(SimpleAndBooleanWithBranchOnFalse(False, False) = FALSE)
+
+    AssertTrue(SimpleAndBooleanWithBranchOnTrue(True, True) = TRUE)
+    AssertTrue(SimpleAndBooleanWithBranchOnTrue(True, False) = FALSE)
+    AssertTrue(SimpleAndBooleanWithBranchOnTrue(False, True) = FALSE)
+    AssertTrue(SimpleAndBooleanWithBranchOnTrue(False, False) = FALSE)
+
+    ' Complex logical And
+    AssertFalse(ComplexAndBoolean(True, True))
+    AssertFalse(ComplexAndBoolean(True, False))
+    AssertTrue(ComplexAndBoolean(False, True))
+    AssertFalse(ComplexAndBoolean(False, False))
+
+    AssertTrue(ComplexAndBooleanWithBranch(True, True) = FALSE)
+    AssertTrue(ComplexAndBooleanWithBranch(True, False) = FALSE)
+    AssertTrue(ComplexAndBooleanWithBranch(False, True) = TRUE)
+    AssertTrue(ComplexAndBooleanWithBranch(False, False) = FALSE)
+
+    ' Short curcuit evaluation
+    sideEffect = False : CheckShortCurcuitEvaluation(False) : AssertFalse(sideEffect)
+End Sub
+
+Function FourInteger() As Integer
+    FourInteger = &H4 And &H4
+End Function
+
+Function SimpleAndInteger(e1 As Integer, e2 As Integer) As Integer
+    SimpleAndInteger = e1 And e2
+End Function
+
+Function SimpleAndLong(e1 As Long, e2 As Long) As Long
+    SimpleAndLong = e1 And e2
+End Function
+
+Function SimpleAndVariant(e1 As Variant, e2 As Variant) As Variant
+    SimpleAndVariant = e1 And e2
+End Function
+
+Function ComplexAndInteger(e1 As Integer, e2 As Integer) As Integer
+    ComplexAndInteger = e1 + e2 And e1 - e2
+End Function
+
+Function ComplexAndLong(e1 As Long, e2 As Long) As Long
+    ComplexAndLong = e1 + e2 And e1 - e2
+End Function
+
+Function ComplexAndVariant(e1 As Variant, e2 As Variant) As Variant
+    ComplexAndVariant = e1 + e2 And e1 - e2
+End Function
+
+Function TrueTrueBoolean() As Boolean
+    TrueTrueBoolean = True And True
+End Function
+
+Function TrueFalseBoolean() As Boolean
+    TrueFalseBoolean = True And False
+End Function
+
+Function FalseTrueBoolean() As Boolean
+    FalseTrueBoolean = False And True
+End Function
+
+Function FalseFalseBoolean() As Boolean
+    FalseFalseBoolean = False And False
+End Function
+
+Function SimpleAndBoolean(e1 As Boolean, e2 As Boolean) As Boolean
+    SimpleAndBoolean = e1 And e2
+End Function
+
+Function SimpleAndBooleanWithBranchOnFalse(e1 As Boolean, e2 As Boolean) As String
+    SimpleAndBooleanWithBranchOnFalse = NONE
+    If e1 And e2 Then
+        SimpleAndBooleanWithBranchOnFalse = TRUE
+    Else
+        SimpleAndBooleanWithBranchOnFalse = FALSE
+    End If
+End Function
+
+Function SimpleAndBooleanWithBranchOnTrue(e1 As Boolean, e2 As Boolean) As String
+    SimpleAndBooleanWithBranchOnTrue = NONE
+    Dim return As Boolean
+    Do
+      If return Then
+        SimpleAndBooleanWithBranchOnTrue = TRUE
+        Exit Function
+      End If
+      return = True
+    While e1 And e2
+    SimpleAndBooleanWithBranchOnTrue = FALSE
+End Function
+
+Function ComplexAndBoolean(e1 As Boolean, e2 As Boolean) As Boolean
+    ComplexAndBoolean = Not e1 Or e2 And e1 Xor e2
+End Function
+
+Function ComplexAndBooleanWithBranch(e1 As Boolean, e2 As Boolean) As String
+    ComplexAndBooleanWithBranch = NONE
+    If Not e1 Or e2 And e1 Xor e2 Then
+        ComplexAndBooleanWithBranch = TRUE
+    Else
+        ComplexAndBooleanWithBranch = FALSE
+    End If
+End Function
+
+Function CheckShortCurcuitEvaluation(e As Boolean) As Boolean
+    CheckShortCurcuitEvaluation = e And FunctionWithSideEffect()
+End Function
+
+Function FunctionWithSideEffect() As Boolean
+    sideEffect = True
+    FunctionWithSideEffect = True
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

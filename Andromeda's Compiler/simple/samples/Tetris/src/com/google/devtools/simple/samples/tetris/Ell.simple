@@ -1,0 +1,67 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+Const BRICK_COLOR As Integer = Component.COLOR_CYAN
+
+Dim Shape0 As Integer(3, 2)
+Dim Shape90 As Integer(2, 3)
+Dim Shape180 As Integer(3, 2)
+Dim Shape270 As Integer(2, 3)
+
+Event Ell.Initialize()
+  Shape0(0, 0) = BRICK_COLOR
+  Shape0(0, 1) = Tetris.NO_COLOR
+  Shape0(1, 0) = BRICK_COLOR
+  Shape0(1, 1) = Tetris.NO_COLOR
+  Shape0(2, 0) = BRICK_COLOR
+  Shape0(2, 1) = BRICK_COLOR
+
+  Shape90(0, 0) = BRICK_COLOR
+  Shape90(0, 1) = BRICK_COLOR
+  Shape90(0, 2) = BRICK_COLOR
+  Shape90(1, 0) = BRICK_COLOR
+  Shape90(1, 1) = Tetris.NO_COLOR
+  Shape90(1, 2) = Tetris.NO_COLOR
+
+  Shape180(0, 0) = BRICK_COLOR
+  Shape180(0, 1) = BRICK_COLOR
+  Shape180(1, 0) = Tetris.NO_COLOR
+  Shape180(1, 1) = BRICK_COLOR
+  Shape180(2, 0) = Tetris.NO_COLOR
+  Shape180(2, 1) = BRICK_COLOR
+
+  Shape270(0, 0) = Tetris.NO_COLOR
+  Shape270(0, 1) = Tetris.NO_COLOR
+  Shape270(0, 2) = BRICK_COLOR
+  Shape270(1, 0) = BRICK_COLOR
+  Shape270(1, 1) = BRICK_COLOR
+  Shape270(1, 2) = BRICK_COLOR
+End Event
+
+Function GetShape(orientation As Integer) As Integer(,)
+  Select orientation
+    Case ORIENTATION_0
+      GetShape = Shape0
+    Case ORIENTATION_90
+      GetShape = Shape90
+    Case ORIENTATION_180
+      GetShape = Shape180
+    Case ORIENTATION_270
+      GetShape = Shape270
+  End Select
+End Function
+$Properties
+$Source $Object
+BaseObject = com.google.devtools.simple.samples.tetris.Brick
+$End $Properties

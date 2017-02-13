@@ -1,0 +1,162 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests call expressions
+
+Alias BaseObject = com.google.devtools.simple.smoketest.utils.BaseObject
+Alias DerivedObject = com.google.devtools.simple.smoketest.utils.DerivedObject
+Alias ObjectNameInterface = com.google.devtools.simple.smoketest.utils.ObjectNameInterface
+
+Dim fieldBoolean As Boolean
+Dim fieldByte As Byte
+Dim fieldShort As Short
+Dim fieldInteger As Integer
+Dim fieldLong As Long
+Dim fieldSingle As Single
+Dim fieldDouble As Double
+Dim fieldString As String
+Dim fieldVariant As Variant
+
+Static Dim staticBoolean As Boolean
+Static Dim staticByte As Byte
+Static Dim staticShort As Short
+Static Dim staticInteger As Integer
+Static Dim staticLong As Long
+Static Dim staticSingle As Single
+Static Dim staticDouble As Double
+Static Dim staticString As String
+Static Dim staticVariant As Variant
+
+Function Name() As String
+    Name = "Call Expression Tests"
+End Function
+
+Sub Run()
+    ' Since call expressions are already exercised by the test framework quite extensively
+    ' we limit ourselves here to testing reference parameters
+    Dim localBoolean As Boolean : BooleanSwap(localBoolean, True) : AssertTrue(localBoolean)
+    BooleanSwap(fieldBoolean, True) : AssertTrue(fieldBoolean)
+    BooleanSwap(staticBoolean, True) : AssertTrue(staticBoolean)
+    Dim ArrayBoolean As Boolean(1) : BooleanSwap(ArrayBoolean(0), 6) : AssertTrue(ArrayBoolean(0))
+
+    Dim localByte As Byte : ByteSwap(localByte, 3) : AssertTrue(3 = localByte)
+    ByteSwap(fieldByte, 4) : AssertTrue(4 = fieldByte)
+    ByteSwap(staticByte, 5) : AssertTrue(5 = staticByte)
+    Dim ArrayByte As Byte(1) : ByteSwap(ArrayByte(0), 6) : AssertTrue(6 = ArrayByte(0))
+
+    Dim localShort As Short : ShortSwap(localShort, 13) : AssertTrue(13 = localShort)
+    ShortSwap(fieldShort, 14) : AssertTrue(14 = fieldShort)
+    ShortSwap(staticShort, 15) : AssertTrue(15 = staticShort)
+    Dim ArrayShort As Short(1) : ShortSwap(ArrayShort(0), 16) : AssertTrue(16 = ArrayShort(0))
+
+    Dim localInteger As Integer : IntegerSwap(localInteger, 23) : AssertTrue(23 = localInteger)
+    IntegerSwap(fieldInteger, 24) : AssertTrue(24 = fieldInteger)
+    IntegerSwap(staticInteger, 25) : AssertTrue(25 = staticInteger)
+    Dim ArrayInteger As Integer(1) : IntegerSwap(ArrayInteger(0), 26) : AssertTrue(26 = ArrayInteger(0))
+
+    Dim localLong As Long : LongSwap(localLong, 33) : AssertTrue(33 = localLong)
+    LongSwap(fieldLong, 34) : AssertTrue(34 = fieldLong)
+    LongSwap(staticLong, 35) : AssertTrue(35 = staticLong)
+    Dim ArrayLong As Long(1) : LongSwap(ArrayLong(0), 36) : AssertTrue(36 = ArrayLong(0))
+
+    Dim localSingle As Single : SingleSwap(localSingle, 43) : AssertTrue(43 = localSingle)
+    SingleSwap(fieldSingle, 44) : AssertTrue(44 = fieldSingle)
+    SingleSwap(staticSingle, 45) : AssertTrue(45 = staticSingle)
+    Dim ArraySingle As Single(1) : SingleSwap(ArraySingle(0), 46) : AssertTrue(46 = ArraySingle(0))
+
+    Dim localDouble As Double : DoubleSwap(localDouble, 53) : AssertTrue(53 = localDouble)
+    DoubleSwap(fieldDouble, 54) : AssertTrue(54 = fieldDouble)
+    DoubleSwap(staticDouble, 55) : AssertTrue(55 = staticDouble)
+    Dim ArrayDouble As Double(1) : DoubleSwap(ArrayDouble(0), 56) : AssertTrue(56 = ArrayDouble(0))
+
+    Dim localString As String : StringSwap(localString, "63") : AssertTrue("63" = localString)
+    StringSwap(fieldString, "64") : AssertTrue("64" = fieldString)
+    StringSwap(staticString, "65") : AssertTrue("65" = staticString)
+    Dim ArrayString As String(1) : StringSwap(ArrayString(0), "66") : AssertTrue("66" = ArrayString(0))
+
+    Dim localVar1 As Variant : localVar1 = 73
+    Dim localVar2 As Variant : localVar2 = "74"
+    VariantSwap(localVar1, localVar2) : AssertTrue(localVar1 = "74" And localVar2 = 73)
+
+    VariantSwap(fieldVariant, 75) : AssertTrue(75 = fieldVariant)
+    VariantSwap(staticVariant, 76) : AssertTrue(76 = staticVariant)
+    Dim ArrayVariant As Variant(1) : VariantSwap(ArrayVariant(0), 77) : AssertTrue(77 = ArrayVariant(0))
+
+    ' Test virtual and interface calls
+    Dim base As BaseObject, derived As DerivedObject
+    base = New BaseObject
+    derived = New DerivedObject
+    AssertTrue(CallInterface(base) = BaseObject.NAME)
+    AssertTrue(CallInterface(derived) = DerivedObject.NAME)
+    AssertTrue(CallBaseObject(base) = BaseObject.NAME)
+    AssertTrue(CallBaseObject(derived) = DerivedObject.NAME)
+End Sub
+
+Sub BooleanSwap(ByRef a As Boolean, ByRef b As Boolean)
+    Dim c As Boolean
+    c = a : a = b : b = c
+End Sub
+
+Sub ByteSwap(ByRef a As Byte, ByRef b As Byte)
+    Dim c As Byte
+    c = a : a = b : b = c
+End Sub
+
+Sub ShortSwap(ByRef a As Short, ByRef b As Short)
+    Dim c As Short
+    c = a : a = b : b = c
+End Sub
+
+Sub IntegerSwap(ByRef a As Integer, ByRef b As Integer)
+    Dim c As Integer
+    c = a : a = b : b = c
+End Sub
+
+Sub LongSwap(ByRef a As Long, ByRef b As Long)
+    Dim c As Long
+    c = a : a = b : b = c
+End Sub
+
+Sub SingleSwap(ByRef a As Single, ByRef b As Single)
+    Dim c As Single
+    c = a : a = b : b = c
+End Sub
+
+Sub DoubleSwap(ByRef a As Double, ByRef b As Double)
+    Dim c As Double
+    c = a : a = b : b = c
+End Sub
+
+Sub StringSwap(ByRef a As String, ByRef b As String)
+    Dim c As String
+    c = a : a = b : b = c
+End Sub
+
+Sub VariantSwap(ByRef a As Variant, ByRef b As Variant)
+    Dim c As Variant
+    c = a : a = b : b = c
+End Sub
+
+Function CallInterface(obj As ObjectNameInterface) As String
+    CallInterface = obj.GetObjectName()
+End Function
+
+Function CallBaseObject(obj As BaseObject) As String
+    CallBaseObject = obj.GetObjectName()
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

@@ -1,0 +1,774 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' -----------------------------------------------------------------------------
+' Constant definitions
+' -----------------------------------------------------------------------------
+
+' Background color constants for the board cells
+Const BOARD_COLOR1 As Integer = Component.COLOR_BLACK
+Const BOARD_COLOR2 As Integer = Component.COLOR_BLACK ' To make the game easier: Component.COLOR_DKGRAY
+
+' Background color constant for the preview cells
+Const PREVIEW_COLOR As Integer = Component.COLOR_DKGRAY
+
+' Color constant for the brick shape definitions (use this color for the cells that are not part of the brick shape)
+Const NO_COLOR As Integer = Component.COLOR_BLACK
+
+' Number of columns and rows of the game board
+Const ROWS As Integer = 20
+Const COLUMNS As Integer = 10
+
+' Number of column and rows of the preview of the next brick (must fit largest brick shape)
+Const PREVIEW_ROWS As Integer = 4
+Const PREVIEW_COLUMNS As Integer = 4
+
+' Highest game level
+Const MAX_LEVEL As Integer = 10
+
+' Key for persisting game high score 
+Const PREFERENCE_HISCORE As String = "HiScore"
+
+' Menu identifiers
+Const MENU_NEWGAME As String = "New Game"
+Const MENU_QUIT As String = "Quit"
+
+' -----------------------------------------------------------------------------
+' Variable definitions
+' -----------------------------------------------------------------------------
+
+' Board and preview definitions
+' The way this works is that the components on the form are mirrored in these arrays.
+' Therefore the colors of the cells serve as state holders for the game.
+Dim BoardCells As Component(COLUMNS, ROWS)
+Dim PreviewCells As Component(PREVIEW_COLUMNS, PREVIEW_ROWS)
+
+' Queue for orientation constants
+Dim Orientation As Integer(4)
+
+' Counters for score, high score and current level
+Dim ScoreCounter As Integer
+Dim HiScoreCounter As Integer
+Dim LevelCounter As Integer
+
+' Next brick and its orientation
+Dim NextFallingBrick As Brick
+Dim NextFallingBrickOrientation As Integer
+
+' Current brick, its orientation and position
+Dim FallingBrick As Brick
+Dim FallingBrickOrientation As Integer
+Dim FallingBrickRow As Integer
+Dim FallingBrickColumn As Integer
+
+' -----------------------------------------------------------------------------
+' Initialization event used to dynamically construct the game board and preview
+' -----------------------------------------------------------------------------
+Event Tetris.Initialize()
+  ' Create cells for each column in each row on the board
+  Dim row As Integer, col As Integer
+  For row = 0 To ROWS - 1
+    For col = 0 To COLUMNS - 1
+      Dim cell As Image
+     ' Creates the cell and adds it to the board (which has a table layout
+     ' which automatically adds the cells into their correct positions)
+      cell = New Image On Board
+      cell.Row = row
+      cell.Column = col
+      cell.BackgroundColor = GetBoardColor(col, row)
+      cell.Picture = "empty.png"
+      BoardCells(col, row) = cell
+    Next col
+  Next row
+
+  ' Create cells for each column in each row on the preview
+  For row = 0 To PREVIEW_ROWS - 1
+    For col = 0 To PREVIEW_COLUMNS - 1
+      Dim cell As Image
+      cell = New Image On PreviewBoard
+      cell.Row = row
+      cell.Column = col
+      cell.BackgroundColor = PREVIEW_COLOR
+      cell.Picture = "empty.png"
+      PreviewCells(col, row) = cell
+    Next col
+  Next row
+
+  ' Initialize orientation queue
+  Orientation(0) = Brick.ORIENTATION_0
+  Orientation(1) = Brick.ORIENTATION_90
+  Orientation(2) = Brick.ORIENTATION_180
+  Orientation(3) = Brick.ORIENTATION_270
+
+  ' Adds menu items for the application
+  AddMenuItem(MENU_NEWGAME)
+  AddMenuItem(MENU_QUIT)
+
+  ' Loads the current high score
+  LoadPreferences()
+
+  ' Starts a new game
+  NewGame()
+End Event
+
+' -----------------------------------------------------------------------------
+' We use a timer event to move the current brick down one row
+' -----------------------------------------------------------------------------
+Event ProgressTimer.Timer()
+  BrickMoveDown()
+End Event
+
+' -----------------------------------------------------------------------------
+' Analyze keyboard input
+' -----------------------------------------------------------------------------
+Event Tetris.Keyboard(keycode As Integer)
+   If keycode = Component.KEYCODE_BACK Then Finish()
+
+   If IsGameActive() Then
+     Select keycode
+      Case Component.KEYCODE_PAD_LEFT
+        BrickMoveLeft()
+
+      Case Component.KEYCODE_PAD_RIGHT
+        BrickMoveRight()
+
+      Case Component.KEYCODE_PAD_UP
+        BrickTurnRight()
+
+      Case Component.KEYCODE_PAD_DOWN
+        BrickTurnLeft()
+
+      Case Component.KEYCODE_PAD_CENTER, Component.KEYCODE_SPACE
+        BrickDropDown()
+    End Select
+  End If
+End Event
+
+' -----------------------------------------------------------------------------
+' Analyze touch input
+' -----------------------------------------------------------------------------
+Event Tetris.TouchGesture(direction As Integer)
+   If IsGameActive() Then
+     Select direction
+      Case Component.TOUCH_FLINGLEFT
+        BrickMoveLeft()
+
+      Case Component.TOUCH_FLINGRIGHT
+        BrickMoveRight()
+
+      Case Component.TOUCH_FLINGUP
+        BrickTurnLeft()
+
+      Case Component.TOUCH_FLINGDOWN
+        BrickTurnRight()
+
+      Case Component.TOUCH_DOUBLETAP
+        BrickDropDown()
+    End Select
+  End If
+End Event
+
+' -----------------------------------------------------------------------------
+' Handle menu events
+' -----------------------------------------------------------------------------
+Event Tetris.MenuSelected(caption As String)
+  Select caption
+    Case MENU_NEWGAME
+      NewGame()
+
+    Case MENU_QUIT
+      Finish()
+  End Select
+End Event
+
+' -----------------------------------------------------------------------------
+' Load preferences
+' -----------------------------------------------------------------------------
+Sub LoadPreferences()  
+  HiScore = GetPreference(PREFERENCE_HISCORE)
+
+  ' If no previously stored preference for the given key was found initialize it
+  ' to a default value
+  On Error
+    Case ConversionError
+      HiScore = 0
+  End Error
+End Sub
+
+' -----------------------------------------------------------------------------
+' Check whether a game is in progress (indicated by an enabled timer)
+' -----------------------------------------------------------------------------
+Function IsGameActive() As Boolean
+  IsGameActive = ProgressTimer.Enabled
+End Function
+
+' -----------------------------------------------------------------------------
+' Property definition for score: updates the score counter as well as the score
+' display
+' -----------------------------------------------------------------------------
+Property Score As Integer
+  Get
+    Score = ScoreCounter
+  End Get
+  Set
+    ScoreCounter = Score
+    ScoreLabel.Text = "Score: " & ScoreCounter
+  End Set
+End Property
+
+' -----------------------------------------------------------------------------
+' Property definition for high score: updates the high score counter as well as
+' the high score display
+' -----------------------------------------------------------------------------
+Property HiScore As Integer
+  Get
+    HiScore = HiScoreCounter
+  End Get
+  Set
+    HiScoreCounter = HiScore
+    HiScoreLabel.Text = "HiScore: " & HiScoreCounter
+  End Set
+End Property
+
+' -----------------------------------------------------------------------------
+' Property definition for current game level: updates the level counter as well
+' as the status display
+' -----------------------------------------------------------------------------
+Property Level As Integer
+  Get
+    Level = LevelCounter
+  End Get
+  Set
+    LevelCounter = Level
+    StatusLabel.Text = "Level: " & LevelCounter
+  End Set
+End Property
+
+' -----------------------------------------------------------------------------
+' Starts a new game. Resets everything to its initial values.
+' -----------------------------------------------------------------------------
+Sub NewGame()
+  Score = 0
+  Level = 1
+
+  Dim row As Integer, col As Integer
+  For row = 0 To ROWS - 1
+    For col = 0 To COLUMNS - 1
+      Dim cell As Image
+      cell = BoardCells(col, row)
+      cell.BackgroundColor = GetBoardColor(col, row)
+    Next col
+  Next row
+
+  NextBrick()
+  NewBrick()
+
+  ProgressTimer.Interval = 400
+  ProgressTimer.Enabled = True
+End Sub
+
+' -----------------------------------------------------------------------------
+' Creates the next brick.
+' -----------------------------------------------------------------------------
+Sub NextBrick()
+  Select Math.Int(Math.Rnd() * 7)
+    Case 0
+      NextFallingBrick = New Square
+    Case 1
+      NextFallingBrick = New UpStep
+    Case 2
+      NextFallingBrick = New DownStep
+    Case 3
+      NextFallingBrick = New Bar
+    Case 4
+      NextFallingBrick = New Ell
+    Case 5
+      NextFallingBrick = New InvertedEll
+    Case 6
+      NextFallingBrick = New Podium
+  End Select
+
+  NextFallingBrickOrientation = Orientation(Math.Rnd() * 4)
+End Sub
+
+' -----------------------------------------------------------------------------
+' Checks the game board for completed rows. Then promotes the previous next
+' brick to be the current brick. Finally checks for game over.
+' -----------------------------------------------------------------------------
+Sub NewBrick()
+  CheckRowsComplete()
+
+  FallingBrick = NextFallingBrick
+  FallingBrickOrientation = NextFallingBrickOrientation
+  FallingBrickRow = 0
+  FallingBrickColumn = 3
+
+  NextBrick()
+  PreviewBrick(NextFallingBrick, NextFallingBrickOrientation)
+
+  If Not CanMoveDown() Then
+    ProgressTimer.Enabled = False
+    StatusLabel.Text = "Game Over"
+  End If
+End Sub
+
+' -----------------------------------------------------------------------------
+' First clears the preview then shows the next brick shape.
+' -----------------------------------------------------------------------------
+Sub PreviewBrick(brick As Brick, orientation As Integer)
+  Dim row As Integer, col As Integer
+  For row = 0 To PREVIEW_ROWS - 1
+    For col = 0 To PREVIEW_COLUMNS - 1
+      Dim cell As Image
+      cell = PreviewCells(row, col)
+      cell.BackgroundColor = PREVIEW_COLOR
+    Next col
+  Next row
+
+  Dim shape As Integer(,)
+  shape = brick.GetShape(orientation)
+
+  Dim x As Integer, maxx As Integer
+  Dim y As Integer, maxy As Integer
+  maxx = UBound(shape, 1) - 1
+  maxy = UBound(shape, 2) - 1
+  For x = 0 To maxx
+    For y = 0 To maxy
+      Dim cell As Image
+      cell = PreviewCells(y, x)
+      If IsBoardColor(shape(x, y)) Then
+        cell.BackgroundColor = PREVIEW_COLOR
+      Else
+        cell.BackgroundColor = shape(x, y)
+      End If
+    Next y
+  Next x
+End Sub
+
+' -----------------------------------------------------------------------------
+' Checks whether the given color is the board background color.
+' -----------------------------------------------------------------------------
+Function IsBoardColor(color As Integer) As Boolean
+  IsBoardColor = color = BOARD_COLOR1 Or color = BOARD_COLOR2
+End Function
+
+Function GetBoardColor(column As Integer, row As Integer) As Integer
+  If (column + row) Mod 2 = 0 Then
+    GetBoardColor = BOARD_COLOR1
+  Else
+    GetBoardColor = BOARD_COLOR2
+  End If
+End Function
+
+' -----------------------------------------------------------------------------
+' Moves the current brick down one row.
+' -----------------------------------------------------------------------------
+Sub BrickMoveDown()
+  BrickRemoveFromBoard()
+  If CanMoveDown() Then
+    FallingBrickRow = FallingBrickRow + 1
+    BrickAddToBoard()
+  Else
+    BrickAddToBoard()
+    NewBrick()
+  End If
+End Sub
+
+' -----------------------------------------------------------------------------
+' Moves the current brick one column to the left.
+' -----------------------------------------------------------------------------
+Sub BrickMoveLeft()
+  BrickRemoveFromBoard()
+  If CanMoveLeft() Then FallingBrickColumn = FallingBrickColumn - 1
+  BrickAddToBoard()
+End Sub
+
+' -----------------------------------------------------------------------------
+' Moves the current brick one column to the right.
+' -----------------------------------------------------------------------------
+Sub BrickMoveRight()
+  BrickRemoveFromBoard()
+  If CanMoveRight() Then FallingBrickColumn = FallingBrickColumn + 1
+  BrickAddToBoard()
+End Sub
+
+' -----------------------------------------------------------------------------
+' Drops the current brick down as many rows as possible.
+' -----------------------------------------------------------------------------
+Sub BrickDropDown()
+  BrickRemoveFromBoard()
+  While CanMoveDown()
+    FallingBrickRow = FallingBrickRow + 1
+  End While
+  BrickAddToBoard()
+  NewBrick()
+End Sub
+
+' -----------------------------------------------------------------------------
+' Rotates the current brick left (counterclockwise).
+' -----------------------------------------------------------------------------
+Sub BrickTurnLeft()
+  BrickRemoveFromBoard()
+  If CanTurnLeft() Then FallingBrickOrientation = TurnLeft(FallingBrickOrientation)
+  BrickAddToBoard()
+End Sub
+
+' -----------------------------------------------------------------------------
+' Rotates the current brick right (clockwise).
+' -----------------------------------------------------------------------------
+Sub BrickTurnRight()
+  BrickRemoveFromBoard()
+  If CanTurnRight() Then FallingBrickOrientation = TurnRight(FallingBrickOrientation)
+  BrickAddToBoard()
+End Sub
+
+' -----------------------------------------------------------------------------
+' Adds the current brick to the board (showing the current brick on the board).
+' -----------------------------------------------------------------------------
+Sub BrickAddToBoard()
+  Dim shape As Integer(,)
+  shape = FallingBrick.GetShape(FallingBrickOrientation)
+
+  Dim x As Integer, cellx As Integer, maxx As Integer
+  Dim y As Integer, celly As Integer, maxy As Integer
+  maxx = UBound(shape, 1) - 1
+  maxy = UBound(shape, 2) - 1
+  For x = 0 To maxx
+    For y = 0 To maxy
+      Dim cell As Image
+      cellx = FallingBrickColumn + x
+      celly = FallingBrickRow - (maxy - y)
+      If Not IsBoardColor(shape(x, maxy - y)) And VisibleWithinBoardArea(cellx, celly) Then
+        cell = BoardCells(cellx, celly)
+        cell.BackgroundColor = shape(x, maxy - y)
+      End If
+    Next y
+  Next x
+End Sub
+
+' -----------------------------------------------------------------------------
+' Removes the current brick from the board (hiding the current brick from the
+' board).
+' -----------------------------------------------------------------------------
+Sub BrickRemoveFromBoard()
+  Dim shape As Integer(,)
+  shape = FallingBrick.GetShape(FallingBrickOrientation)
+
+  Dim x As Integer, cellx As Integer, maxx As Integer
+  Dim y As Integer, celly As Integer, maxy As Integer
+  maxx = UBound(shape, 1) - 1
+  maxy = UBound(shape, 2) - 1
+  For x = 0 To maxx
+    For y = 0 To maxy
+      cellx = FallingBrickColumn + x
+      celly = FallingBrickRow - (maxy - y)
+      If Not IsBoardColor(shape(x, maxy - y)) And VisibleWithinBoardArea(cellx, celly) Then
+        Dim cell As Image
+        cell = BoardCells(cellx, celly)
+        cell.BackgroundColor = GetBoardColor(cellx, celly)
+      End If
+    Next y
+  Next x
+End Sub
+
+' -----------------------------------------------------------------------------
+' Indicates whether a set of coordinates is within the board area. This
+' function allows the y coordinate to 'stick out' on top.
+' -----------------------------------------------------------------------------
+Function WithinBoardArea(x As Integer, y As Integer) As Boolean
+  WithinBoardArea = 0 <= x And x < COLUMNS And y < ROWS
+End Function
+
+' -----------------------------------------------------------------------------
+' Indicates whether a set of coordinates is completely within the board area.
+' -----------------------------------------------------------------------------
+Function VisibleWithinBoardArea(x As Integer, y As Integer) As Boolean
+  VisibleWithinBoardArea = 0 <= x And x < COLUMNS And 0 <= y And y < ROWS
+End Function
+
+' -----------------------------------------------------------------------------
+' Indicates whether the current brick can move down one row.
+' -----------------------------------------------------------------------------
+Function CanMoveDown() As Boolean
+  CanMoveDown = CanMove(FallingBrickOrientation, 0, 1)
+End Function
+
+' -----------------------------------------------------------------------------
+' Indicates whether the current brick can move left one column.
+' -----------------------------------------------------------------------------
+Function CanMoveLeft() As Boolean
+  CanMoveLeft = CanMove(FallingBrickOrientation, -1, 0)
+End Function
+
+' -----------------------------------------------------------------------------
+' Indicates whether the current brick can move right one column.
+' -----------------------------------------------------------------------------
+Function CanMoveRight() As Boolean
+  CanMoveRight = CanMove(FallingBrickOrientation, 1, 0)
+End Function
+
+' -----------------------------------------------------------------------------
+' Indicates whether the current brick can turn left (counterclockwise).
+' -----------------------------------------------------------------------------
+Function CanTurnLeft() As Boolean
+  CanTurnLeft = CanMove(TurnLeft(FallingBrickOrientation), 0, 0)
+End Function
+
+' -----------------------------------------------------------------------------
+' Indicates whether the current brick can turn right (clockwise).
+' -----------------------------------------------------------------------------
+Function CanTurnRight() As Boolean
+  CanTurnRight = CanMove(TurnRight(FallingBrickOrientation), 0, 0)
+End Function
+
+' -----------------------------------------------------------------------------
+' Indicates whether the current brick can move from its current position
+' to the new (relative) position.
+' -----------------------------------------------------------------------------
+Function CanMove(orientation As Integer, deltax As Integer, deltay As Integer) As Boolean
+  Dim shape As Integer(,)
+  shape = FallingBrick.GetShape(orientation)
+
+  Dim x As Integer, cellx As Integer, maxx As Integer
+  Dim y As Integer, celly As Integer, maxy As Integer
+  maxx = UBound(shape, 1) - 1
+  maxy = UBound(shape, 2) - 1
+  For x = 0 To maxx
+    For y = 0 To maxy
+      If Not IsBoardColor(shape(x, maxy - y)) Then
+        cellx = FallingBrickColumn + deltax + x
+        celly = FallingBrickRow + deltay - (maxy - y)
+        If Not WithinBoardArea(cellx, celly) Then
+          Exit Function
+        End If
+        If VisibleWithinBoardArea(cellx, celly) Then
+          Dim cell As Image
+          cell = BoardCells(cellx, celly)
+          If Not IsBoardColor(cell.BackgroundColor) Then
+            Exit Function
+          End If
+        End If
+      End If
+    Next y
+  Next x
+  CanMove = True
+End Function
+
+' -----------------------------------------------------------------------------
+' Returns the given orientation turned left (counterclockwise).
+' -----------------------------------------------------------------------------
+Function TurnLeft(orientation As Integer) As Integer
+  TurnLeft = Orientation((orientation - 1 + UBound(Orientation, 1)) Mod UBound(Orientation, 1))
+End Function
+
+' -----------------------------------------------------------------------------
+' Returns the given orientation turned right (clockwise).
+' -----------------------------------------------------------------------------
+Function TurnRight(orientation As Integer) As Integer
+  TurnRight = Orientation((orientation + 1) Mod UBound(Orientation, 1))
+End Function
+
+' -----------------------------------------------------------------------------
+' Indicates whether the given row is complete.
+' -----------------------------------------------------------------------------
+Function IsRowComplete(row As Integer) As Boolean
+  Dim col As Integer
+  For col = 0 To COLUMNS - 1
+    Dim cell As Image
+    cell = BoardCells(col, row)
+    If IsBoardColor(cell.BackgroundColor) Then
+      Exit Function
+    End If
+  Next col
+  IsRowComplete = True
+End Function
+
+' -----------------------------------------------------------------------------
+' Removes the given row from the board by moving all rows on top of it down
+' one row and clearing the top (first) row.
+' -----------------------------------------------------------------------------
+Sub RemoveRow(removeRow As Integer)
+  Dim row As Integer, col As Integer
+  For row = removeRow - 1 To 0 Step -1
+    For col = 0 To COLUMNS - 1
+      Dim sourceCell As Image, targetCell As Image
+      sourceCell = BoardCells(col, row)
+      targetCell = BoardCells(col, row + 1)
+      If IsBoardColor(sourceCell.BackgroundColor) Then
+        targetCell.BackgroundColor = GetBoardColor(col, row + 1)
+      Else
+        targetCell.BackgroundColor = sourceCell.BackgroundColor
+      End If
+    Next col
+  Next row
+
+  For col = 0 To COLUMNS - 1
+    Dim cell As Image
+    cell = BoardCells(col, 0)
+    cell.BackgroundColor = GetBoardColor(col, 0)
+  Next col
+End Sub
+
+' -----------------------------------------------------------------------------
+' Checks the board for complete rows, removes them and updates the score.
+' -----------------------------------------------------------------------------
+Sub CheckRowsComplete()
+  Dim row As Integer
+  For row = ROWS - 1 To 0 Step -1
+    Dim multiplier As Integer
+    multiplier = 1
+    While IsRowComplete(row)
+      RemoveRow(row)
+      Score = Score + 10 * Level * multiplier
+      multiplier = multiplier * 2
+    End While
+  Next row
+
+  CheckHiScore()
+  CheckLevel()
+End Sub
+
+' -----------------------------------------------------------------------------
+' Ups the current level if conditions for the next level are met.
+' -----------------------------------------------------------------------------
+Sub CheckLevel()
+  If Level < MAX_LEVEL Then
+    If Score >= Level * Level * 100 Then
+      ProgressTimer.Interval = ProgressTimer.Interval - 10
+      Level = Level + 1
+    End If
+  End If
+End Sub
+
+' -----------------------------------------------------------------------------
+' Updates the high score if needed.
+' -----------------------------------------------------------------------------
+Sub CheckHiScore()
+  If Score > HiScore Then
+    HiScore = Score
+    StorePreference(PREFERENCE_HISCORE, HiScore)
+  End If
+End Sub
+
+$Properties
+$Source $Form
+$Define Tetris $As Form
+Layout = 1
+Layout.Orientation = 1
+BackgroundColor = &HFF444444
+Title = "Tetris"
+$Define StatusPanel $As Panel
+Layout = 1
+Layout.Orientation = 0
+BackgroundColor = &HFF444444
+Width = -2
+$Define ScoreLabel $As Label
+BackgroundColor = &HFF444444
+FontSize = 16.0
+FontTypeface = 3
+Text = "Score: 0"
+TextColor = &HFFFFFFFF
+Width = 105
+$End $Define
+$Define HiScoreLabel $As Label
+Justification = 1
+BackgroundColor = &HFF444444
+FontSize = 16.0
+FontTypeface = 3
+Text = "HiScore: 0"
+TextColor = &HFFFFFFFF
+Width = 105
+$End $Define
+$Define StatusLabel $As Label
+Justification = 2
+BackgroundColor = &HFF444444
+FontSize = 16.0
+FontTypeface = 3
+Text = "Level: 1"
+TextColor = &HFFFFFFFF
+Width = 105
+$End $Define
+$End $Define
+$Define SpacerPanel0 $As Panel
+Layout = 1
+Layout.Orientation = 1
+BackgroundColor = &HFF444444
+Height = 32
+Width = 32
+$Define DummyLabel0 $As Label
+Text = "Label11"
+TextColor = &H00FFFFFF
+$End $Define
+$End $Define
+$Define GamePanel $As Panel
+Layout = 1
+Layout.Orientation = 0
+BackgroundColor = &HFF444444
+Height = -2
+Width = -2
+$Define SpacerPanel1 $As Panel
+Layout = 1
+Layout.Orientation = 1
+BackgroundColor = &HFF444444
+Height = 32
+Width = 32
+$Define DummyLabel1 $As Label
+Text = "Label7"
+TextColor = &H00FFFFFF
+$End $Define
+$End $Define
+$Define Board $As Panel
+Layout = 2
+Layout.Columns = 10
+Layout.Rows = 20
+BackgroundColor = &HFF444444
+Height = 320
+Width = 160
+$End $Define
+$Define SpacerPanel2 $As Panel
+Layout = 1
+Layout.Orientation = 1
+BackgroundColor = &HFF444444
+Height = 32
+Width = 32
+$Define DummyLabel2 $As Label
+Text = "Label8"
+TextColor = &H00FFFFFF
+$End $Define
+$End $Define
+$Define PreviewPanel $As Panel
+Layout = 1
+Layout.Orientation = 1
+BackgroundColor = &HFF444444
+Width = -2
+$Define NextBrickLabel $As Label
+BackgroundColor = &HFF444444
+Text = "Next brick:"
+TextColor = &HFFFFFFFF
+$End $Define
+$Define PreviewBoard $As Panel
+Layout = 2
+Layout.Columns = 4
+Layout.Rows = 4
+BackgroundColor = &HFF444444
+Height = 64
+Width = 64
+$End $Define
+$End $Define
+$End $Define
+$Define ProgressTimer $As Timer
+Interval = 300
+$End $Define
+$End $Define
+$End $Properties

@@ -1,0 +1,81 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests the On Error statement
+
+Function Name() As String
+    Name = "On-Error Statement Tests"
+End Function
+
+Sub Run()
+    ' Tests whether an array index out of bounds runtime error is correctly caught
+    AssertTrue(CatchIndexOutOfBoundsErrorNo1())
+    AssertTrue(CatchIndexOutOfBoundsErrorNo2())
+    AssertTrue(CatchIndexOutOfBoundsErrorNo3())
+    AssertTrue(CatchIndexOutOfBoundsErrorNo4())
+End Sub
+
+Function CatchIndexOutOfBoundsErrorNo1() As Boolean
+    Dim array As Integer(2)
+    array(10) = 10
+
+    On Error
+        Case AssertionFailure, UninitializedInstanceError
+        Case IndexOutOfBoundsError
+            CatchIndexOutOfBoundsErrorNo1 = True
+        Case Else
+    End Error
+End Function
+
+Function CatchIndexOutOfBoundsErrorNo2() As Boolean
+    Dim array As Integer(2)
+    array(10) = 10
+
+    On Error
+        Case AssertionFailure, IndexOutOfBoundsError, UninitializedInstanceError
+            CatchIndexOutOfBoundsErrorNo2 = True
+    End Error
+End Function
+
+Function CatchIndexOutOfBoundsErrorNo3() As Boolean
+    Dim array As Integer(2)
+    array(10) = 10
+
+    On Error
+        Case Else 
+            CatchIndexOutOfBoundsErrorNo3 = True
+    End Error
+End Function
+
+Function CatchIndexOutOfBoundsErrorNo4Inner() As Boolean
+    Dim array As Integer(2)
+    array(10) = 10
+
+    On Error
+    End Error
+End Function
+
+Function CatchIndexOutOfBoundsErrorNo4() As Boolean
+    CatchIndexOutOfBoundsErrorNo4 = CatchIndexOutOfBoundsErrorNo4Inner()
+
+    On Error
+        Case Else
+          CatchIndexOutOfBoundsErrorNo4 = True
+    End Error
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

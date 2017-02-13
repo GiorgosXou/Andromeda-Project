@@ -1,0 +1,458 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests the various forms of the Exit statement
+
+' The following constants are used as return values for the actual test functions. They indicate
+' how the test function exited.
+Const NONE As String = ""
+Const WITHOUT As String = "Without"
+Const DO As String = "DO"
+Const EVENT As String = "Event"
+Const FOR As String = "For"
+Const FUNCTION As String = "Function"
+Const PROPERTY As String = "Property"
+Const SUB As String = "Sub"
+Const WHILE As String = "While"
+
+' Loop condition for the loops in the actual test functions (initialized to True)
+Dim loopCondition As Boolean
+
+' Collection to iterate over for test using a For-Each statement (must be non-empty)
+Dim testCollection As Collection
+
+' In order to test procedures and properties we require the help of a global result
+Dim result As String 
+Dim condition As Boolean
+
+Function Name() As String
+    Name = "Exit Statement Tests"
+End Function
+
+Sub Run()
+    ' TODO: move these initializations into an initialization event handler
+    loopCondition = True
+
+    testCollection = New Collection
+    testCollection.Add("non-empty")
+
+    ' Event level Exit
+    ' TODO: add tests
+
+    ' Function level Exit
+    AssertTrue(FunctionExit(False) = WITHOUT)
+    AssertTrue(FunctionExit(True) = FUNCTION)
+
+    AssertTrue(FunctionExitFromDoUntil(False) = DO)
+    AssertTrue(FunctionExitFromDoUntil(True) = FUNCTION)
+
+    AssertTrue(FunctionExitFromDoWhile(False) = DO)
+    AssertTrue(FunctionExitFromDoWhile(True) = FUNCTION)
+
+    AssertTrue(FunctionExitFromForEach(False) = FOR)
+    AssertTrue(FunctionExitFromForEach(True) = FUNCTION)
+
+    AssertTrue(FunctionExitFromForNext(False) = FOR)
+    AssertTrue(FunctionExitFromForNext(True) = FUNCTION)
+
+    AssertTrue(FunctionExitFromWhile(False) = WHILE)
+    AssertTrue(FunctionExitFromWhile(True) = FUNCTION)
+
+    ' Procedure level Exit (requires help of a global variable)
+    SubExit(False) : AssertTrue(result = WITHOUT)
+    SubExit(True) : AssertTrue(result = SUB)
+
+    SubExitFromDoUntil(False) : AssertTrue(result = DO)
+    SubExitFromDoUntil(True) : AssertTrue(result = SUB)
+
+    SubExitFromDoWhile(False) : AssertTrue(result = DO)
+    SubExitFromDoWhile(True) : AssertTrue(result = SUB)
+
+    SubExitFromForEach(False) : AssertTrue(result = FOR)
+    SubExitFromForEach(True) : AssertTrue(result = SUB)
+
+    SubExitFromForNext(False) : AssertTrue(result = FOR)
+    SubExitFromForNext(True) : AssertTrue(result = SUB)
+
+    SubExitFromWhile(False) : AssertTrue(result = WHILE)
+    SubExitFromWhile(True) : AssertTrue(result = SUB)
+
+    ' Property level Exit for setters (requires help of a global variable)
+    PropertyExit = False : AssertTrue(result = WITHOUT)
+    PropertyExit = True : AssertTrue(result = PROPERTY)
+
+    PropertyExitFromDoUntil = False : AssertTrue(result = DO)
+    PropertyExitFromDoUntil = True : AssertTrue(result = PROPERTY)
+
+    PropertyExitFromDoWhile = False : AssertTrue(result = DO)
+    PropertyExitFromDoWhile = True : AssertTrue(result = PROPERTY)
+
+    PropertyExitFromForEach = False : AssertTrue(result = FOR)
+    PropertyExitFromForEach = True : AssertTrue(result = PROPERTY)
+
+    PropertyExitFromForNext = False : AssertTrue(result = FOR)
+    PropertyExitFromForNext = True : AssertTrue(result = PROPERTY)
+
+    PropertyExitFromWhile = False : AssertTrue(result = WHILE)
+    PropertyExitFromWhile = True : AssertTrue(result = PROPERTY)
+
+    ' Property level Exit for getters (requires help of a global variable)
+    Dim dummy As Boolean
+    condition = False : dummy = PropertyExit : AssertTrue(result = WITHOUT)
+    condition = True : dummy = PropertyExit : AssertTrue(result = PROPERTY)
+
+    condition = False : dummy = PropertyExitFromDoUntil : AssertTrue(result = DO)
+    condition = True : dummy = PropertyExitFromDoUntil : AssertTrue(result = PROPERTY)
+
+    condition = False : dummy = PropertyExitFromDoWhile : AssertTrue(result = DO)
+    condition = True : dummy = PropertyExitFromDoWhile : AssertTrue(result = PROPERTY)
+
+    condition = False : dummy = PropertyExitFromForEach : AssertTrue(result = FOR)
+    condition = True : dummy = PropertyExitFromForEach : AssertTrue(result = PROPERTY)
+
+    condition = False : dummy = PropertyExitFromForNext : AssertTrue(result = FOR)
+    condition = True : dummy = PropertyExitFromForNext : AssertTrue(result = PROPERTY)
+
+    condition = False : dummy = PropertyExitFromWhile : AssertTrue(result = WHILE)
+    condition = True : dummy = PropertyExitFromWhile : AssertTrue(result = PROPERTY)
+End Sub
+
+Function FunctionExit(exitFromFunction As Boolean) As String
+    FunctionExit = NONE
+    If exitFromFunction Then
+        FunctionExit = FUNCTION
+        Exit Function
+    Else
+        FunctionExit = WITHOUT
+        Exit
+    End If
+End Function
+
+Function FunctionExitFromDoUntil(exitFromFunction As Boolean) As String
+    FunctionExitFromDoUntil = NONE
+    Do
+        If exitFromFunction Then
+            FunctionExitFromDoUntil = FUNCTION
+            Exit Function
+        Else
+            FunctionExitFromDoUntil = DO
+            Exit
+        End If
+    Until loopCondition
+End Function
+
+Function FunctionExitFromDoWhile(exitFromFunction As Boolean) As String
+    FunctionExitFromDoWhile = NONE
+    Do
+        If exitFromFunction Then
+            FunctionExitFromDoWhile = FUNCTION
+            Exit Function
+        Else
+            FunctionExitFromDoWhile = DO
+            Exit
+        End If
+    While Not loopCondition
+End Function
+
+Function FunctionExitFromForEach(exitFromFunction As Boolean) As String
+    FunctionExitFromForEach = NONE
+    Dim v As Variant
+    For Each v In testCollection
+        If exitFromFunction Then
+            FunctionExitFromForEach = FUNCTION
+            Exit Function
+        Else
+            FunctionExitFromForEach = FOR
+            Exit
+        End If
+    Next
+End Function
+
+Function FunctionExitFromForNext(exitFromFunction As Boolean) As String
+    FunctionExitFromForNext = NONE
+    Dim i As Integer
+    For i = 0 To 1
+        If exitFromFunction Then
+            FunctionExitFromForNext = FUNCTION
+            Exit Function
+        Else
+            FunctionExitFromForNext = FOR
+            Exit
+        End If
+    Next
+End Function
+
+Function FunctionExitFromWhile(exitFromFunction As Boolean) As String
+    FunctionExitFromWhile = NONE
+    While loopCondition
+        If exitFromFunction Then
+            FunctionExitFromWhile = FUNCTION
+            Exit Function
+        Else
+            FunctionExitFromWhile = WHILE
+            Exit
+        End If
+    End While
+End Function
+
+Sub SubExit(exitFromSub As Boolean)
+    result = NONE
+    If exitFromSub Then
+        result = SUB
+        Exit Sub
+    Else
+        result = WITHOUT
+        Exit
+    End If
+End Sub
+
+Sub SubExitFromDoUntil(exitFromSub As Boolean)
+    result = NONE
+    Do
+        If exitFromSub Then
+            result = SUB
+            Exit Sub
+        Else
+            result = DO
+            Exit
+        End If
+    Until loopCondition
+End Sub
+
+Sub SubExitFromDoWhile(exitFromSub As Boolean)
+    result = NONE
+    Do
+        If exitFromSub Then
+            result = SUB
+            Exit Sub
+        Else
+            result = DO
+            Exit
+        End If
+    While Not loopCondition
+End Sub
+
+Sub SubExitFromForEach(exitFromSub As Boolean)
+    result = NONE
+    Dim v As Variant
+    For Each v In testCollection
+        If exitFromSub Then
+            result = SUB
+            Exit Sub
+        Else
+            result = FOR
+            Exit
+        End If
+    Next
+End Sub
+
+Sub SubExitFromForNext(exitFromSub As Boolean)
+    result = NONE
+    Dim i As Integer
+    For i = 0 To 1
+        If exitFromSub Then
+            result = SUB
+            Exit Sub
+        Else
+            result = FOR
+            Exit
+        End If
+    Next
+End Sub
+
+Sub SubExitFromWhile(exitFromSub As Boolean)
+    result = NONE
+    While loopCondition
+        If exitFromSub Then
+            result = SUB
+            Exit Sub
+        Else
+            result = WHILE
+            Exit
+        End If
+    End While
+End Sub
+
+Property PropertyExit As Boolean
+    Get
+        result = NONE
+        If condition Then
+            result = PROPERTY
+            Exit Property
+        Else
+            result = WITHOUT
+            Exit
+        End If
+    End Get
+
+    Set
+        result = NONE
+        If PropertyExit Then
+            result = PROPERTY
+            Exit Property
+        Else
+            result = WITHOUT
+            Exit
+        End If
+    End Set
+End Property
+
+Property PropertyExitFromDoUntil As Boolean
+    Get
+        result = NONE
+        Do
+            If condition Then
+                result = PROPERTY
+                Exit Property
+            Else
+                result = DO
+                Exit
+            End If
+        Until loopCondition
+    End Get
+
+    Set
+        result = NONE
+        Do
+            If PropertyExitFromDoUntil Then
+                result = PROPERTY
+                Exit Property
+            Else
+                result = DO
+                Exit
+            End If
+        Until loopCondition
+    End Set
+End Property
+
+Property PropertyExitFromDoWhile As Boolean
+    Get
+        result = NONE
+        Do
+            If condition Then
+                result = PROPERTY
+                Exit Property
+            Else
+                result = DO
+                Exit
+            End If
+        While Not loopCondition
+    End Get
+
+    Set
+        result = NONE
+        Do
+            If PropertyExitFromDoWhile Then
+                result = PROPERTY
+                Exit Property
+            Else
+                result = DO
+                Exit
+            End If
+        While Not loopCondition
+    End Set
+End Property
+
+Property PropertyExitFromForEach As Boolean
+    Get
+        result = NONE
+        Dim v As Variant
+        For Each v In testCollection
+            If condition Then
+                result = PROPERTY
+                Exit Property
+            Else
+                result = FOR
+                Exit
+            End If
+        Next
+    End Get
+
+    Set
+        result = NONE
+        Dim v As Variant
+        For Each v In testCollection
+            If PropertyExitFromForEach Then
+                result = PROPERTY
+                Exit Property
+            Else
+                result = FOR
+                Exit
+            End If
+        Next
+    End Set
+End Property
+
+Property PropertyExitFromForNext As Boolean
+    Get
+        result = NONE
+        Dim i As Integer
+        For i = 0 To 1
+            If condition Then
+                result = PROPERTY
+                Exit Property
+            Else
+                result = FOR
+                Exit
+            End If
+        Next
+    End Get
+
+    Set
+        result = NONE
+        Dim i As Integer
+        For i = 0 To 1
+            If PropertyExitFromForNext Then
+                result = PROPERTY
+                Exit Property
+            Else
+                result = FOR
+                Exit
+            End If
+        Next
+    End Set
+End Property
+
+Property PropertyExitFromWhile As Boolean
+    Get
+        result = NONE
+        While loopCondition
+            If condition Then
+                result = PROPERTY
+                Exit Property
+            Else
+                result = WHILE
+                Exit
+            End If
+        End While
+    End Get
+
+    Set
+        result = NONE
+        While loopCondition
+            If PropertyExitFromWhile Then
+                result = PROPERTY
+                Exit Property
+            Else
+                result = WHILE
+                Exit
+            End If
+        End While
+    End Set
+End Property
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

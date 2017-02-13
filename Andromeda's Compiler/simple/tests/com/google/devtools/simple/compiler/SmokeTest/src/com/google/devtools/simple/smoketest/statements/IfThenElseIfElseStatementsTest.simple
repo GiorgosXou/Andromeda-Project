@@ -1,0 +1,101 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests the various forms of the If-Then-ElseIf-Else statement
+
+' The following constants are used as return values for the actual test functions. They indicate
+' which statement block of the statement was actually executed.
+Const NONE As String = ""
+Const THEN As String = "Then"
+Const ELSETHEN As String = "ElseThen"
+Const ELSE As String = "Else"
+
+Function Name() As String
+    Name = "If-Then-ElseIf-Else Statement Tests"
+End Function
+
+Sub Run()
+    ' Single line If-Then
+    AssertTrue(RunSingleLineIfThenTest(True) = THEN)
+    AssertTrue(RunSingleLineIfThenTest(False) = NONE)
+
+    ' Single line If-Then-Else
+    AssertTrue(RunSingleLineIfThenElseTest(True) = THEN)
+    AssertTrue(RunSingleLineIfThenElseTest(False) = ELSE)
+
+    ' If-Then
+    AssertTrue(RunIfThenTest(True) = THEN)
+    AssertTrue(RunIfThenTest(False) = NONE)
+
+    ' If-Then-Else
+    AssertTrue(RunIfThenElseTest(True) = THEN)
+    AssertTrue(RunIfThenElseTest(False) = ELSE)
+
+    ' If-Then-ElseIf
+    AssertTrue(RunIfThenElseIfTest(True, False) = THEN)
+    AssertTrue(RunIfThenElseIfTest(True, True) = THEN)
+    AssertTrue(RunIfThenElseIfTest(False, False) = NONE)
+    AssertTrue(RunIfThenElseIfTest(False, True) = ELSETHEN)
+
+    ' If-Then-ElseIf-Else
+    AssertTrue(RunIfThenElseIfElseTest(True, False) = THEN)
+    AssertTrue(RunIfThenElseIfElseTest(True, True) = THEN)
+    AssertTrue(RunIfThenElseIfElseTest(False, False) = ELSE)
+    AssertTrue(RunIfThenElseIfElseTest(False, True) = ELSETHEN)
+End Sub
+
+Function RunSingleLineIfThenTest(testValue As Boolean) As String
+    If testValue Then RunSingleLineIfThenTest = THEN
+End Function
+
+Function RunSingleLineIfThenElseTest(testValue As Boolean) As String
+    If testValue Then RunSingleLineIfThenElseTest = THEN Else RunSingleLineIfThenElseTest = ELSE
+End Function
+
+Function RunIfThenTest(testValueForThen As Boolean) As String
+    If testValueForThen Then
+        RunIfThenTest = THEN
+    End If
+End Function
+
+Function RunIfThenElseTest(testValueForThen As Boolean) As String
+    If testValueForThen Then
+        RunIfThenElseTest = THEN
+    Else
+        RunIfThenElseTest = ELSE
+    End If
+End Function
+
+Function RunIfThenElseIfTest(testValueForIf As Boolean, testValueForElseIf As Boolean) As String
+    If testValueForIf Then
+        RunIfThenElseIfTest = THEN
+    ElseIf testValueForElseIf Then
+        RunIfThenElseIfTest = ELSETHEN
+    End If
+End Function
+
+Function RunIfThenElseIfElseTest(testValueForIf As Boolean, testValueForElseIf As Boolean) As String
+    If testValueForIf Then
+        RunIfThenElseIfElseTest = THEN
+    ElseIf testValueForElseIf Then
+        RunIfThenElseIfElseTest = ELSETHEN
+    Else
+        RunIfThenElseIfElseTest = ELSE
+    End If
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

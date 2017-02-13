@@ -1,0 +1,52 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests Like expressions
+
+Const FOOF As String = "foof"
+Const GOOF As String = "goof"
+
+Const FOOF_PATTERN As String = "f.*f"
+Const NUMBER_PATTERN As String = "1.*0"
+
+Function Name() As String
+    Name = "Like Expression Tests"
+End Function
+
+Sub Run()
+  ' Like with empty strings
+  AssertTrue("" Like "")
+  AssertFalse(FOOF Like "")
+
+  ' Like with constant strings
+  AssertTrue(FOOF Like FOOF_PATTERN)
+  AssertFalse(GOOF Like FOOF_PATTERN)
+
+  ' Like with constant numbers
+  AssertTrue(1234567890 Like NUMBER_PATTERN)
+  AssertFalse(12345 Like NUMBER_PATTERN)
+
+  ' Like with strings
+  AssertTrue(LikeTest(FOOF, FOOF_PATTERN))
+  AssertFalse(LikeTest(GOOF, FOOF_PATTERN))
+End Sub
+
+Function LikeTest(string As String, pattern As String) As Boolean
+  LikeTest = string Like pattern
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

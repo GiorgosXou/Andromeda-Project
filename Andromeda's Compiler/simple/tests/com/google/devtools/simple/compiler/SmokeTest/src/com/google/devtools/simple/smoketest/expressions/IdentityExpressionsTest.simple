@@ -1,0 +1,55 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests unary + and - expressions
+
+' Don't use POSITIVE_VALUE to define NEGATIVE_VALUE! Don't use zero for the value
+Const POSITIVE_VALUE As Integer = 2
+Const NEGATIVE_VALUE As Integer = -2
+
+Function Name() As String
+    Name = "Identity Expression Tests"
+End Function
+
+Sub Run()
+    AssertTrue(0 = 0)
+    AssertTrue(0 = +0)
+    AssertTrue(0 = -0)
+
+    AssertTrue(POSITIVE_VALUE = POSITIVE_VALUE)
+    AssertTrue(POSITIVE_VALUE <> NEGATIVE_VALUE)
+    AssertTrue(POSITIVE_VALUE = +POSITIVE_VALUE)
+    AssertTrue(POSITIVE_VALUE = -NEGATIVE_VALUE)
+
+    AssertTrue(PositiveValue() = +PositiveValue())
+    AssertTrue(PositiveValue() = -NegativeValue())
+
+    AssertTrue(-4 = -2 ^ 2)
+    AssertTrue(0 = -2 + 2)    
+    AssertTrue(-4 = -(2 + 2))
+    AssertTrue(0 = 2 + -2)
+End Sub
+
+Function PositiveValue() As Integer
+  PositiveValue = POSITIVE_VALUE
+End Function
+
+Function NegativeValue() As Integer
+  NegativeValue = NEGATIVE_VALUE
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

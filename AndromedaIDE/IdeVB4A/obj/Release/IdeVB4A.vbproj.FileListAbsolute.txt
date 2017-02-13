@@ -1,0 +1,122 @@
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\bin\Release\IdeVB4A.exe.config
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\bin\Release\IdeVB4A.exe
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\bin\Release\IdeVB4A.pdb
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\bin\Release\IdeVB4A.xml
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\bin\Release\FastColoredTextBox.dll
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.Form1.resources
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.Form2NewProject.resources
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.Resources.resources
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.vbproj.GenerateResource.Cache
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.exe
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.xml
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.pdb
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.vbprojResolveAssemblyReference.cache
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.Form3CreateNewForm.resources
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\bin\Release\FastColoredTextBox.pdb
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.HelpForm.resources
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.AboutFrm.resources
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\bin\Release\ScintillaNET.dll
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\bin\Release\ScintillaNET.pdb
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\bin\Release\ScintillaNET.xml
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\bin\Release\IdeVB4A.exe.config
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.exe
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.xml
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.pdb
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\bin\Release\IdeVB4A.exe
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\bin\Release\IdeVB4A.pdb
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\bin\Release\IdeVB4A.xml
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\bin\Release\FastColoredTextBox.pdb
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\bin\Release\ScintillaNET.pdb
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\bin\Release\ScintillaNET.xml
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.vbprojResolveAssemblyReference.cache
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.AboutFrm.resources
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.Form2NewProject.resources
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.Form3CreateNewForm.resources
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.HelpForm.resources
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.Resources.resources
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.vbproj.GenerateResource.Cache
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.Form1.resources
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\obj\Release\IdeVB4A.ShadowForm.resources
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\bin\Release\FastColoredTextBox.dll
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A\IdeVB4A\bin\Release\FastColoredTextBox.xml
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\IdeVB4A.exe.config
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.exe
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.xml
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.pdb
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\IdeVB4A.exe
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\IdeVB4A.pdb
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\IdeVB4A.xml
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\FastColoredTextBox.dll
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\FastColoredTextBox.pdb
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\FastColoredTextBox.xml
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.vbprojResolveAssemblyReference.cache
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.AboutFrm.resources
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.Form1.resources
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.Form2NewProject.resources
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.Form3CreateNewForm.resources
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.HelpForm.resources
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.Resources.resources
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.ShadowForm.resources
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.vbproj.GenerateResource.Cache
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.SettingsForm.resources
+C:\Users\gxous\Documents\Visual Studio 2015\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.DonateFRM.resources
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.vbprojResolveAssemblyReference.cache
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.AboutFrm.resources
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.DonateFRM.resources
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.Form1.resources
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.Form2NewProject.resources
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.Form3CreateNewForm.resources
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.HelpForm.resources
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.Resources.resources
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.SettingsForm.resources
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.ShadowForm.resources
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.vbproj.GenerateResource.Cache
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.exe
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.xml
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.pdb
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\IdeVB4A.exe.config
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\IdeVB4A.exe
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\IdeVB4A.pdb
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\IdeVB4A.xml
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\FastColoredTextBox.pdb
+E:\ΑΡΧΕΙΑ 2017\visual studio projects\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\FastColoredTextBox.xml
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\IdeVB4A.exe.config
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\IdeVB4A.exe
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\IdeVB4A.pdb
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\IdeVB4A.xml
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\FastColoredTextBox.pdb
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\bin\Release\FastColoredTextBox.xml
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.vbprojResolveAssemblyReference.cache
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.AboutFrm.resources
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.DonateFRM.resources
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.Form1.resources
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.Form2NewProject.resources
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.Form3CreateNewForm.resources
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.HelpForm.resources
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.Resources.resources
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.SettingsForm.resources
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.ShadowForm.resources
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.vbproj.GenerateResource.Cache
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.exe
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.xml
+C:\Users\gxous\έγγραφα\visual studio 2017\Projects\IdeVB4A-diferent autocomp\IdeVB4A\obj\Release\IdeVB4A.pdb
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\bin\Release\IdeVB4A.exe.config
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\bin\Release\IdeVB4A.exe
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\bin\Release\IdeVB4A.pdb
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\bin\Release\IdeVB4A.xml
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\bin\Release\FastColoredTextBox.pdb
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\bin\Release\FastColoredTextBox.xml
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\obj\Release\IdeVB4A.vbprojResolveAssemblyReference.cache
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\obj\Release\IdeVB4A.AboutFrm.resources
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\obj\Release\IdeVB4A.DonateFRM.resources
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\obj\Release\IdeVB4A.Form1.resources
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\obj\Release\IdeVB4A.Form2NewProject.resources
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\obj\Release\IdeVB4A.Form3CreateNewForm.resources
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\obj\Release\IdeVB4A.HelpForm.resources
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\obj\Release\IdeVB4A.Resources.resources
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\obj\Release\IdeVB4A.SettingsForm.resources
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\obj\Release\IdeVB4A.ShadowForm.resources
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\obj\Release\IdeVB4A.vbproj.GenerateResource.Cache
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\obj\Release\IdeVB4A.exe
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\obj\Release\IdeVB4A.xml
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\AndromedaIDE\IdeVB4A\obj\Release\IdeVB4A.pdb

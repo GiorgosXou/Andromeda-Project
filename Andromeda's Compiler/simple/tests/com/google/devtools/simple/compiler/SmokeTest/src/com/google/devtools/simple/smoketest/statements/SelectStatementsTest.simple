@@ -1,0 +1,229 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests the Select statement
+
+' The following constants are used as return values for the functions testing logical expressions
+' within branch statements indicating which statement block was actually executed.
+Const NONE As String = "None"
+Const ELSE As String = "Else"
+
+Const ONE As String = "One"
+Const TWO_TO_FOUR As String = "Two to Four"
+Const FIVE_SEVEN_TO_EIGHT_TEN As String = "Five, Seven To Eight, Ten"
+Const ELEVEN As String = "Eleven"
+
+Const FORTYTWO As String = "Forty-two"
+
+Const WITHIN_RANGE As String = "Within range"
+
+Const EQUAL As String = "Equal"
+Const NOT_EQUAL As String = "Not equal"
+Const LESS As String = "Less"
+Const LESS_OR_EQUAL As String = "Less or equal"
+Const GREATER As String = "Greater"
+Const GREATER_OR_EQUAL As String = "Greater or equal"
+
+' For side-effect during short-circuit evaluation
+Dim sideEffect As Boolean
+
+Function Name() As String
+    Name = "Select Statement Tests"
+End Function
+
+Sub Run()
+    ' Empty Select statement (just to make sure we can handle this)
+    AssertTrue(EmptySelect(0) = NONE)
+
+    ' Check a Select statement with Integer constant Case statements
+    AssertTrue(SelectWithIntegerConstantsAndEqualOrRangeOnly(0) = ELSE)
+    AssertTrue(SelectWithIntegerConstantsAndEqualOrRangeOnly(1) = ONE)
+    AssertTrue(SelectWithIntegerConstantsAndEqualOrRangeOnly(2) = TWO_TO_FOUR)
+    AssertTrue(SelectWithIntegerConstantsAndEqualOrRangeOnly(4) = TWO_TO_FOUR)
+    AssertTrue(SelectWithIntegerConstantsAndEqualOrRangeOnly(5) = FIVE_SEVEN_TO_EIGHT_TEN)
+    AssertTrue(SelectWithIntegerConstantsAndEqualOrRangeOnly(7) = FIVE_SEVEN_TO_EIGHT_TEN)
+    AssertTrue(SelectWithIntegerConstantsAndEqualOrRangeOnly(10) = FIVE_SEVEN_TO_EIGHT_TEN)
+    AssertTrue(SelectWithIntegerConstantsAndEqualOrRangeOnly(11) = ELEVEN)
+    AssertTrue(SelectWithIntegerConstantsAndEqualOrRangeOnly(12) = ELSE)
+
+    ' Check a Select statement with an Integer non-constant Case range statement
+    AssertTrue(SelectWithIntegerRange(2, 4, 6) = ELSE)
+    AssertTrue(SelectWithIntegerRange(5, 4, 6) = WITHIN_RANGE)
+    AssertTrue(SelectWithIntegerRange(8, 4, 6) = ELSE)
+
+    ' Check a Select statement with an Integer constant Case equality statement
+    AssertTrue(SelectWithIntegerConstantEquality(42) = EQUAL)
+    AssertTrue(SelectWithIntegerConstantEquality(40) = NOT_EQUAL)
+
+    ' Check a Select statement with an Integer non-constant Case equality statement
+    AssertTrue(SelectWithIntegerEquality(42, 42) = EQUAL)
+    AssertTrue(SelectWithIntegerEquality(40, 42) = NOT_EQUAL)
+
+    ' Check a Select statement with an Integer constant Case less comparison statement
+    AssertTrue(SelectWithIntegerConstantLessComparison(40) = LESS)
+    AssertTrue(SelectWithIntegerConstantLessComparison(42) = LESS_OR_EQUAL)
+    AssertTrue(SelectWithIntegerConstantLessComparison(44) = NONE)
+
+    ' Check a Select statement with an Integer non-constant Case less comparison statement
+    AssertTrue(SelectWithIntegerLessComparison(40, 42) = LESS)
+    AssertTrue(SelectWithIntegerLessComparison(42, 42) = LESS_OR_EQUAL)
+    AssertTrue(SelectWithIntegerLessComparison(44, 42) = NONE)
+
+    ' Check a Select statement with an Integer constant Case greater comparison statement
+    AssertTrue(SelectWithIntegerConstantGreaterComparison(40) = NONE)
+    AssertTrue(SelectWithIntegerConstantGreaterComparison(42) = GREATER_OR_EQUAL)
+    AssertTrue(SelectWithIntegerConstantGreaterComparison(44) = GREATER)
+
+    ' Check a Select statement with an Integer non-constant Case greater comparison statement
+    AssertTrue(SelectWithIntegerGreaterComparison(40, 42) = NONE)
+    AssertTrue(SelectWithIntegerGreaterComparison(42, 42) = GREATER_OR_EQUAL)
+    AssertTrue(SelectWithIntegerGreaterComparison(44, 42) = GREATER)
+
+    ' Check a Select statement with Strings
+    AssertTrue(SelectWithString(ONE) = 1)
+    AssertTrue(SelectWithString(ELEVEN) = 11)
+    AssertTrue(SelectWithString(FORTYTWO) = -1)
+
+    ' Short curcuit evaluation
+    sideEffect = False : AssertTrue(CheckShortCurcuitEvaluation(0) = ELSE) : AssertFalse(sideEffect)
+End Sub
+
+Function EmptySelect(value As Integer) As String
+    EmptySelect = NONE
+    Select value
+    End Select
+End Function
+
+Function SelectWithIntegerConstantsAndEqualOrRangeOnly(value As Integer) As String
+    SelectWithIntegerConstantsAndEqualOrRangeOnly = NONE
+    Select value
+      Case 1
+        SelectWithIntegerConstantsAndEqualOrRangeOnly = ONE
+      Case 2 To 4
+        SelectWithIntegerConstantsAndEqualOrRangeOnly = TWO_TO_FOUR
+      Case 5, 7 To 8, 10
+        SelectWithIntegerConstantsAndEqualOrRangeOnly = FIVE_SEVEN_TO_EIGHT_TEN
+      Case Is = 11
+        SelectWithIntegerConstantsAndEqualOrRangeOnly = ELEVEN
+      Case Else
+        SelectWithIntegerConstantsAndEqualOrRangeOnly = ELSE
+    End Select
+End Function
+
+Function SelectWithIntegerRange(value As Integer, low As Integer, high As Integer) As String
+    SelectWithIntegerRange = NONE
+    Select value
+      Case low To high 
+        SelectWithIntegerRange = WITHIN_RANGE
+      Case Else
+        SelectWithIntegerRange = ELSE
+    End Select
+End Function
+
+Function SelectWithIntegerConstantEquality(value As Integer) As String
+    SelectWithIntegerConstantEquality = NONE
+    Select value
+      Case Is = 42 
+        SelectWithIntegerConstantEquality = EQUAL
+      Case Is <> 42 
+        SelectWithIntegerConstantEquality = NOT_EQUAL
+      Case Else
+        SelectWithIntegerConstantEquality = ELSE
+    End Select
+End Function
+
+Function SelectWithIntegerEquality(value As Integer, notAConstant As Integer) As String
+    SelectWithIntegerEquality = NONE
+    Select value
+      Case Is = notAConstant 
+        SelectWithIntegerEquality = EQUAL
+      Case Is <> notAConstant 
+        SelectWithIntegerEquality = NOT_EQUAL
+      Case Else
+        SelectWithIntegerEquality = ELSE
+    End Select
+End Function
+
+Function SelectWithIntegerConstantLessComparison(value As Integer) As String
+    SelectWithIntegerConstantLessComparison = NONE
+    Select value
+      Case Is < 42 
+        SelectWithIntegerConstantLessComparison = LESS
+      Case Is <= 42 
+        SelectWithIntegerConstantLessComparison = LESS_OR_EQUAL
+    End Select
+End Function
+
+Function SelectWithIntegerLessComparison(value As Integer, notAConstant As Integer) As String
+    SelectWithIntegerLessComparison = NONE
+    Select value
+      Case Is < notAConstant 
+        SelectWithIntegerLessComparison = LESS
+      Case Is <= notAConstant 
+        SelectWithIntegerLessComparison = LESS_OR_EQUAL
+    End Select
+End Function
+
+
+Function SelectWithIntegerConstantGreaterComparison(value As Integer) As String
+    SelectWithIntegerConstantGreaterComparison = NONE
+    Select value
+      Case Is > 42
+        SelectWithIntegerConstantGreaterComparison = GREATER
+      Case Is >= 42 
+        SelectWithIntegerConstantGreaterComparison = GREATER_OR_EQUAL
+    End Select
+End Function
+
+Function SelectWithIntegerGreaterComparison(value As Integer, notAConstant As Integer) As String
+    SelectWithIntegerGreaterComparison = NONE
+    Select value
+      Case Is > notAConstant
+        SelectWithIntegerGreaterComparison = GREATER
+      Case Is >= notAConstant
+        SelectWithIntegerGreaterComparison = GREATER_OR_EQUAL
+    End Select
+End Function
+
+Function SelectWithString(value As String) As Integer
+    SelectWithString = 0
+    Select value
+      Case ELEVEN
+        SelectWithString = 11
+      Case ONE
+        SelectWithString = 1
+      Case Else
+        SelectWithString = -1
+    End Select
+End Function
+
+Function CheckShortCurcuitEvaluation(value As Integer) As String
+    CheckShortCurcuitEvaluation = NONE
+    Select value
+      Case 10 To FunctionWithSideEffect() 
+        CheckShortCurcuitEvaluation = WITHIN_RANGE
+      Case Else
+        CheckShortCurcuitEvaluation = ELSE
+    End Select
+End Function
+
+Function FunctionWithSideEffect() As Integer
+    sideEffect = True
+    FunctionWithSideEffect = 20
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

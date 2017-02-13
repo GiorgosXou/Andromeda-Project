@@ -1,0 +1,98 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests results of converting Booleans into other types.
+
+Function Name() As String
+    Name = "Boolean Conversion Tests"
+End Function
+
+Sub Run()
+    ' Boolean to Boolean
+    AssertFalse(ConvertToBoolean(False))
+    AssertTrue(ConvertToBoolean(True))
+
+    ' Boolean to Byte
+    AssertTrue(ConvertToByte(False) = 0)
+    AssertTrue(ConvertToByte(True) = -1)
+
+    ' Boolean to Short
+    AssertTrue(ConvertToShort(False) = 0)
+    AssertTrue(ConvertToShort(True) = -1)
+
+    ' Boolean to Integer
+    AssertTrue(ConvertToInteger(False) = 0)
+    AssertTrue(ConvertToInteger(True) = -1)
+
+    ' Boolean to Long
+    AssertTrue(ConvertToLong(False) = 0)
+    AssertTrue(ConvertToLong(True) = -1)
+
+    ' Boolean to Single
+    AssertTrue(ConvertToSingle(False) = 0)
+    AssertTrue(ConvertToSingle(True) = -1)
+
+    ' Boolean to Double
+    AssertTrue(ConvertToDouble(False) = 0)
+    AssertTrue(ConvertToDouble(True) = -1)
+
+    ' Boolean to String
+    AssertTrue(ConvertToString(False) = "False")
+    AssertTrue(ConvertToString(True) = "True")
+
+    ' Boolean to Variant
+    AssertTrue(ConvertToVariant(False) = 0)
+    AssertTrue(ConvertToVariant(True) = -1)
+End Sub
+
+Function ConvertToBoolean(value As Boolean) As Boolean
+    ConvertToBoolean = value
+End Function
+
+Function ConvertToByte(value As Boolean) As Byte
+    ConvertToByte = value
+End Function
+
+Function ConvertToShort(value As Boolean) As Short
+    ConvertToShort = value
+End Function
+
+Function ConvertToInteger(value As Boolean) As Integer
+    ConvertToInteger = value
+End Function
+
+Function ConvertToLong(value As Boolean) As Long
+    ConvertToLong = value
+End Function
+
+Function ConvertToSingle(value As Boolean) As Single
+    ConvertToSingle = value
+End Function
+
+Function ConvertToDouble(value As Boolean) As Double
+    ConvertToDouble = value
+End Function
+
+Function ConvertToString(value As Boolean) As String
+    ConvertToString = value
+End Function
+
+Function ConvertToVariant(value As Boolean) As Variant
+    ConvertToVariant = value
+End Function
+
+$Properties
+$Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

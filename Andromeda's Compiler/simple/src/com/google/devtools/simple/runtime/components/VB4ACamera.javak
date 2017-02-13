@@ -1,0 +1,22 @@
+package com.google.devtools.simple.runtime.components;
+
+import com.google.devtools.simple.runtime.annotations.SimpleComponent;
+import com.google.devtools.simple.runtime.annotations.SimpleFunction;
+import com.google.devtools.simple.runtime.annotations.SimpleObject;
+import com.google.devtools.simple.runtime.annotations.UsesPermissions;
+//本文件代码来自E4a
+@SimpleComponent
+@SimpleObject
+@UsesPermissions(permissionNames="android.permission.FLASHLIGHT,android.permission.CAMERA,android.hardware.camera")
+public abstract interface VB4ACamera extends Component
+{
+  @SimpleFunction
+  public abstract void OpenCam(String paramString);
+
+  @SimpleFunction
+  public abstract void OpenFlash();
+
+  @SimpleFunction
+  public abstract void CloseFlash();
+}
+

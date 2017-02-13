@@ -1,0 +1,112 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests the various forms of the For-Next statement
+
+' Counters for checking that end and step expressions are evaluated just once
+Dim endCounter As Integer
+Dim stepCounter As Integer
+
+Function Name() As String
+    Name = "For-Next Statement Tests"
+End Function
+
+Sub Run()
+    ' For-Next without Step expression
+    AssertTrue(ForIntegerTest(0, 5) = 15)
+    AssertTrue(ForDoubleTest(0, 5) = 15)
+
+    ' For-Next with positive Step expression
+    AssertTrue(ForWithStepIntegerTest(0, 5, 2) = 6)
+    AssertTrue(ForWithStepDoubleTest(0, 5, 2) = 6)
+
+    ' For-Next with negative Step expression
+    AssertTrue(ForWithStepIntegerTest(0, -5, -2) = -6)
+    AssertTrue(ForWithStepDoubleTest(0, -5, -2) = -6)
+
+    ' Check that end and step expression are evaluated just once
+    endCounter = 0 : stepCounter = 0
+    AssertTrue(ForEndStepExpressionEvaluationTest() = 9)
+    AssertTrue(endCounter = 1 And stepCounter = 1)
+
+    ' For-Next with Exit
+    AssertTrue(ForWithExitTest(5))
+End Sub
+
+Function ForIntegerTest(start As Integer, stop As Integer) As Integer
+    Dim i As Integer
+    For i = start To stop
+        ForIntegerTest = ForIntegerTest + i
+    Next i
+End Function
+
+Function ForDoubleTest(start As Double, stop As Double) As Double
+    Dim d As Double
+    For d = start To stop
+        ForDoubleTest = ForDoubleTest + d
+    Next d
+End Function
+
+Function ForWithStepIntegerTest(start As Integer, stop As Integer, step As Integer) As Integer
+    Dim i As Integer
+    For i = start To stop Step step
+        ForWithStepIntegerTest = ForWithStepIntegerTest + i
+    Next i
+End Function
+
+Function ForWithStepDoubleTest(start As Double, stop As Double, step As Double) As Double
+    Dim d As Double
+    For d = start To stop Step step
+        ForWithStepDoubleTest = ForWithStepDoubleTest + d
+    Next d
+End Function
+
+Function EndExpression() As Integer
+    endCounter = endCounter + 1
+    EndExpression = 10
+End Function
+
+Function StepExpression() As Integer
+    stepCounter = stepCounter + 1
+    StepExpression = 2
+End Function
+
+Function ForEndStepExpressionEvaluationTest() As Integer
+    Dim i As Integer
+    For i = 1 To EndExpression() Step StepExpression()
+        ForEndStepExpressionEvaluationTest = i
+    Next i
+End Function
+
+Function ForWithExitTest(x As Integer) As Boolean
+    Dim i As Integer
+    For i = 0 To x + 10
+        Dim i As Integer
+        i = 0
+        While True
+            If i = x Then
+                ForWithExitTest = True
+                Exit For
+            End If
+            ForWithExitTest = False
+            i = i + 1
+        End While
+        ForWithExitTest = False
+    Next i
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

@@ -1,0 +1,99 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests addition expressions
+
+Function Name() As String
+    Name = "Addition Expression Tests"
+End Function
+
+Sub Run()
+    ' Addition of constants
+    ' While these don't check that constant folding is done, they do ensure that it is done
+    ' correctly if it is done at all!
+    AssertTrue(FourInteger() = 4)
+    AssertTrue(FourDouble() = 4.0)
+
+    ' Simple additions
+    AssertTrue(SimpleAddInteger(1, 3) = 4)
+    AssertTrue(SimpleAddLong(1, 3) = 4)
+    AssertTrue(SimpleAddSingle(1.0, 3.0) = 4.0)
+    AssertTrue(SimpleAddDouble(1.0, 3.0) = 4.0)
+    AssertTrue(SimpleAddVariant(1.5, 2.5) = 4.0)
+    AssertTrue(SimpleAddString("1.5", "2.5") = 4.0)
+
+    ' Complex additions
+    AssertTrue(ComplexAddInteger(1, 3) = 25)
+    AssertTrue(ComplexAddLong(1, 3) = 25)
+    AssertTrue(ComplexAddSingle(1.0, 3.0) = 25.0)
+    AssertTrue(ComplexAddDouble(1.0, 3.0) = 25.0)
+    AssertTrue(ComplexAddVariant(1.5, 2.5) = 23.5)
+End Sub
+
+Function FourInteger() As Integer
+    FourInteger = 2 + 2
+End Function
+
+Function FourDouble() As Double
+    FourDouble = 1.9 + 2.1
+End Function
+
+Function SimpleAddInteger(e1 As Integer, e2 As Integer) As Integer
+    SimpleAddInteger = e1 + e2
+End Function
+
+Function SimpleAddLong(e1 As Long, e2 As Long) As Long
+    SimpleAddLong = e1 + e2
+End Function
+
+Function SimpleAddSingle(e1 As Single, e2 As Single) As Single
+    SimpleAddSingle = e1 + e2
+End Function
+
+Function SimpleAddDouble(e1 As Double, e2 As Double) As Double
+    SimpleAddDouble = e1 + e2
+End Function
+
+Function SimpleAddString(e1 As String, e2 As String) As String
+    SimpleAddString = e1 + e2
+End Function
+
+Function SimpleAddVariant(e1 As Variant, e2 As Variant) As Variant
+    SimpleAddVariant = e1 + e2
+End Function
+
+Function ComplexAddInteger(e1 As Integer, e2 As Integer) As Integer
+    ComplexAddInteger = (e1 + e2) * e2 + ("1" & "2" + e1)
+End Function
+
+Function ComplexAddLong(e1 As Long, e2 As Long) As Long
+    ComplexAddLong = (e1 + e2) * e2 + ("1" & "2" + e1)
+End Function
+
+Function ComplexAddSingle(e1 As Single, e2 As Single) As Single
+    ComplexAddSingle = (e1 + e2) * e2 + ("1" & "2" + e1)
+End Function
+
+Function ComplexAddDouble(e1 As Double, e2 As Double) As Double
+    ComplexAddDouble = (e1 + e2) * e2 + ("1" & "2" + e1)
+End Function
+
+Function ComplexAddVariant(e1 As Variant, e2 As Variant) As Variant
+    ComplexAddVariant = (e1 + e2) * e2 + ("1" & "2" + e1)
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

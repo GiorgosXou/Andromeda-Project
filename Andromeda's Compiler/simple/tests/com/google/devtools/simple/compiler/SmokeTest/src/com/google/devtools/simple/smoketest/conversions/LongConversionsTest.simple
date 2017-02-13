@@ -1,0 +1,128 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests results of converting Longs into other types.
+
+Const MIN_LONG As Long = -9223372036854775808
+Const MAX_LONG As Long = 9223372036854775807
+
+Function Name() As String
+    Name = "Long Conversion Tests"
+End Function
+
+Sub Run()
+    ' Long to Boolean
+    AssertTrue(ConvertToBoolean(MIN_LONG - 1))
+    AssertTrue(ConvertToBoolean(MIN_LONG))
+    AssertFalse(ConvertToBoolean(0))
+    AssertTrue(ConvertToBoolean(MAX_LONG))
+    AssertTrue(ConvertToBoolean(MAX_LONG + 1))
+
+    ' Long to Byte
+    AssertTrue(ConvertToByte(MIN_LONG - 1) = -1)
+    AssertTrue(ConvertToByte(MIN_LONG) = 0)
+    AssertTrue(ConvertToByte(0) = 0)
+    AssertTrue(ConvertToByte(MAX_LONG) = -1)
+    AssertTrue(ConvertToByte(MAX_LONG + 1) = 0)
+
+    ' Long to Short
+    AssertTrue(ConvertToShort(MIN_LONG - 1) = -1)
+    AssertTrue(ConvertToShort(MIN_LONG) = 0)
+    AssertTrue(ConvertToShort(0) = 0)
+    AssertTrue(ConvertToShort(MAX_LONG) = -1)
+    AssertTrue(ConvertToShort(MAX_LONG + 1) = 0)
+
+    ' Long to Integer
+    AssertTrue(ConvertToInteger(MIN_LONG - 1) = -1)
+    AssertTrue(ConvertToInteger(MIN_LONG) = 0)
+    AssertTrue(ConvertToInteger(0) = 0)
+    AssertTrue(ConvertToInteger(MAX_LONG) = -1)
+    AssertTrue(ConvertToInteger(MAX_LONG + 1) = 0)
+
+    ' Long to Long
+    AssertTrue(ConvertToLong(MIN_LONG - 1) = MAX_LONG)
+    AssertTrue(ConvertToLong(MIN_LONG) = MIN_LONG)
+    AssertTrue(ConvertToLong(0) = 0)
+    AssertTrue(ConvertToLong(MAX_LONG) = MAX_LONG)
+    AssertTrue(ConvertToLong(MAX_LONG + 1) = MIN_LONG)
+
+    ' Long to Single
+    AssertTrue(ConvertToSingle(MIN_LONG - 1) = MAX_LONG)
+    AssertTrue(ConvertToSingle(MIN_LONG) = MIN_LONG)
+    AssertTrue(ConvertToSingle(0) = 0)
+    AssertTrue(ConvertToSingle(MAX_LONG) = MAX_LONG)
+    AssertTrue(ConvertToSingle(MAX_LONG + 1) = MIN_LONG)
+
+    ' Long to Double
+    AssertTrue(ConvertToDouble(MIN_LONG - 1) = MAX_LONG)
+    AssertTrue(ConvertToDouble(MIN_LONG) = MIN_LONG)
+    AssertTrue(ConvertToDouble(0) = 0)
+    AssertTrue(ConvertToDouble(MAX_LONG) = MAX_LONG)
+    AssertTrue(ConvertToDouble(MAX_LONG + 1) = MIN_LONG)
+
+    ' Long to String
+    AssertTrue(ConvertToString(MIN_LONG - 1) = "9223372036854775807")
+    AssertTrue(ConvertToString(MIN_LONG) = "-9223372036854775808")
+    AssertTrue(ConvertToString(0) = "0")
+    AssertTrue(ConvertToString(MAX_LONG) = "9223372036854775807")
+    AssertTrue(ConvertToString(MAX_LONG + 1) = "-9223372036854775808")
+
+    ' Long to Variant
+    AssertTrue(ConvertToVariant(MIN_LONG - 1) = MAX_LONG)
+    AssertTrue(ConvertToVariant(MIN_LONG) = MIN_LONG)
+    AssertTrue(ConvertToVariant(0) = 0)
+    AssertTrue(ConvertToVariant(MAX_LONG) = MAX_LONG)
+    AssertTrue(ConvertToVariant(MAX_LONG + 1) = MIN_LONG)
+End Sub
+
+Function ConvertToBoolean(value As Long) As Boolean
+    ConvertToBoolean = value
+End Function
+
+Function ConvertToByte(value As Long) As Byte
+    ConvertToByte = value
+End Function
+
+Function ConvertToShort(value As Long) As Short
+    ConvertToShort = value
+End Function
+
+Function ConvertToInteger(value As Long) As Integer
+    ConvertToInteger = value
+End Function
+
+Function ConvertToLong(value As Long) As Long
+    ConvertToLong = value
+End Function
+
+Function ConvertToSingle(value As Long) As Single
+    ConvertToSingle = value
+End Function
+
+Function ConvertToDouble(value As Long) As Double
+    ConvertToDouble = value
+End Function
+
+Function ConvertToString(value As Long) As String
+    ConvertToString = value
+End Function
+
+Function ConvertToVariant(value As Long) As Variant
+    ConvertToVariant = value
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

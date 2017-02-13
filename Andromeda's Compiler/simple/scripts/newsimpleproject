@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# ------------------------------------------------------------------------------------------
+# Convenience script for creating a new empty skeleton project
+#
+# Before using this script, make sure the following two environment variables are defined:
+#   SIMPLE_HOME     root directory of Simple distribution (same as directory of this script)
+# ------------------------------------------------------------------------------------------
+
+java -classpath ${SIMPLE_HOME}/SimpleCompiler.jar com.google.devtools.simple.tools.ProjectCreator $@
+

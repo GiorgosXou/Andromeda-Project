@@ -1,0 +1,23 @@
+C:\Users\Giorgos_xou\AppData\Local\Temporary Projects\IdeVB4A\bin\Debug\IdeVB4A.exe.config
+C:\Users\Giorgos_xou\AppData\Local\Temporary Projects\IdeVB4A\bin\Debug\IdeVB4A.exe
+C:\Users\Giorgos_xou\AppData\Local\Temporary Projects\IdeVB4A\bin\Debug\IdeVB4A.pdb
+C:\Users\Giorgos_xou\AppData\Local\Temporary Projects\IdeVB4A\bin\Debug\IdeVB4A.xml
+C:\Users\Giorgos_xou\AppData\Local\Temporary Projects\IdeVB4A\obj\Debug\IdeVB4A.Form1.resources
+C:\Users\Giorgos_xou\AppData\Local\Temporary Projects\IdeVB4A\obj\Debug\IdeVB4A.Resources.resources
+C:\Users\Giorgos_xou\AppData\Local\Temporary Projects\IdeVB4A\obj\Debug\IdeVB4A.vbproj.GenerateResource.Cache
+C:\Users\Giorgos_xou\AppData\Local\Temporary Projects\IdeVB4A\obj\Debug\IdeVB4A.exe
+C:\Users\Giorgos_xou\AppData\Local\Temporary Projects\IdeVB4A\obj\Debug\IdeVB4A.xml
+C:\Users\Giorgos_xou\AppData\Local\Temporary Projects\IdeVB4A\obj\Debug\IdeVB4A.pdb
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\bin\Debug\IdeVB4A.exe.config
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Debug\IdeVB4A.exe
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Debug\IdeVB4A.xml
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Debug\IdeVB4A.pdb
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\bin\Debug\IdeVB4A.exe
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\bin\Debug\IdeVB4A.pdb
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\bin\Debug\IdeVB4A.xml
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Debug\IdeVB4A.Form1.resources
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Debug\IdeVB4A.Resources.resources
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Debug\IdeVB4A.vbproj.GenerateResource.Cache
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Debug\IdeVB4A.Form2NewProject.resources
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\bin\Debug\FastColoredTextBox.dll
+C:\Users\Giorgos_xou\Documents\Visual Studio 2013\Projects\IdeVB4A\IdeVB4A\obj\Debug\IdeVB4A.vbprojResolveAssemblyReference.cache

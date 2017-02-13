@@ -1,0 +1,9 @@
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\obj\Debug\compiler.vbproj.GenerateResource.Cache
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\obj\Debug\name.Form1.resources
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\bin\comp.exe
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\bin\comp.pdb
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\bin\comp.xml
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\obj\Debug\comp.exe
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\obj\Debug\comp.xml
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\obj\Debug\comp.pdb

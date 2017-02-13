@@ -1,0 +1,44 @@
+Testsuite: com.google.devtools.simple.compiler.CompilerSmokeTest
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.047 sec
+------------- Standard Output ---------------
+Compile error:1
+Compilation is complete, time-consuming: 0.04 second/s
+------------- ---------------- ---------------
+------------- Standard Error -----------------
+Feb 13, 2017 4:24:21 AM com.google.devtools.simple.compiler.RuntimeLoader visitClassDirectories
+SEVERE: Runtime library load failure
+java.io.FileNotFoundException: .\lib\VB4ARuntime.jar (Δεν είναι δυνατή η εύρεση του καθορισμένου αρχείου από το σύστημα)
+	at java.util.zip.ZipFile.open(Native Method)
+	at java.util.zip.ZipFile.<init>(ZipFile.java:219)
+	at java.util.zip.ZipFile.<init>(ZipFile.java:149)
+	at java.util.jar.JarFile.<init>(JarFile.java:166)
+	at com.google.devtools.simple.compiler.RuntimeLoader.visitClassDirectories(RuntimeLoader.java:535)
+	at com.google.devtools.simple.compiler.RuntimeLoader.loadSimpleObjects(RuntimeLoader.java:614)
+	at com.google.devtools.simple.compiler.Compiler.<init>(Compiler.java:590)
+	at com.google.devtools.simple.compiler.Compiler.compileForUnitTesting(Compiler.java:534)
+	at com.google.devtools.simple.compiler.CompilerSmokeTest.testSmokeTest(CompilerSmokeTest.java:69)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at junit.framework.TestCase.runTest(TestCase.java:154)
+	at junit.framework.TestCase.runBare(TestCase.java:127)
+	at junit.framework.TestResult$1.protect(TestResult.java:106)
+	at junit.framework.TestResult.runProtected(TestResult.java:124)
+	at junit.framework.TestResult.run(TestResult.java:109)
+	at junit.framework.TestCase.run(TestCase.java:118)
+	at junit.framework.TestSuite.runTest(TestSuite.java:206)
+	at junit.framework.TestSuite.run(TestSuite.java:201)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:532)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1165)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:1016)
+
+: error: I/O error reading file VB4ARuntime.jar
+------------- ---------------- ---------------
+
+Testcase: testSmokeTest took 0.044 sec
+	FAILED
+null
+junit.framework.AssertionFailedError
+	at com.google.devtools.simple.compiler.CompilerSmokeTest.testSmokeTest(CompilerSmokeTest.java:72)
+

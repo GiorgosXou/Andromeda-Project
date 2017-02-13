@@ -1,0 +1,128 @@
+' Copyright 2009 Google Inc.
+'
+' Licensed under the Apache License, Version 2.0 (the "License");
+' you may not use this file except in compliance with the License.
+' You may obtain a copy of the License at
+'
+'      http://www.apache.org/licenses/LICENSE-2.0
+'
+' Unless required by applicable law or agreed to in writing, software
+' distributed under the License is distributed on an "AS IS" BASIS,
+' WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+' See the License for the specific language governing permissions and
+' limitations under the License.
+
+' Tests results of converting Shorts into other types.
+
+Const MIN_SHORT As Short = -32768
+Const MAX_SHORT As Short = 32767
+
+Function Name() As String
+    Name = "Short Conversion Tests"
+End Function
+
+Sub Run()
+    ' Short to Boolean
+    AssertTrue(ConvertToBoolean(MIN_SHORT - 1))
+    AssertTrue(ConvertToBoolean(MIN_SHORT))
+    AssertFalse(ConvertToBoolean(0))
+    AssertTrue(ConvertToBoolean(MAX_SHORT))
+    AssertTrue(ConvertToBoolean(MAX_SHORT + 1))
+
+    ' Short to Byte
+    AssertTrue(ConvertToByte(MIN_SHORT - 1) = -1)
+    AssertTrue(ConvertToByte(MIN_SHORT) = 0)
+    AssertTrue(ConvertToByte(0) = 0)
+    AssertTrue(ConvertToByte(MAX_SHORT) = -1)
+    AssertTrue(ConvertToByte(MAX_SHORT + 1) = 0)
+
+    ' Short to Short
+    AssertTrue(ConvertToShort(MIN_SHORT - 1) = MAX_SHORT)
+    AssertTrue(ConvertToShort(MIN_SHORT) = MIN_SHORT)
+    AssertTrue(ConvertToShort(0) = 0)
+    AssertTrue(ConvertToShort(MAX_SHORT) = MAX_SHORT)
+    AssertTrue(ConvertToShort(MAX_SHORT + 1) = MIN_SHORT)
+
+    ' Short to Integer
+    AssertTrue(ConvertToInteger(MIN_SHORT - 1) = MAX_SHORT)
+    AssertTrue(ConvertToInteger(MIN_SHORT) = MIN_SHORT)
+    AssertTrue(ConvertToInteger(0) = 0)
+    AssertTrue(ConvertToInteger(MAX_SHORT) = MAX_SHORT)
+    AssertTrue(ConvertToInteger(MAX_SHORT + 1) = MIN_SHORT)
+
+    ' Short to Long
+    AssertTrue(ConvertToLong(MIN_SHORT - 1) = MAX_SHORT)
+    AssertTrue(ConvertToLong(MIN_SHORT) = MIN_SHORT)
+    AssertTrue(ConvertToLong(0) = 0)
+    AssertTrue(ConvertToLong(MAX_SHORT) = MAX_SHORT)
+    AssertTrue(ConvertToLong(MAX_SHORT + 1) = MIN_SHORT)
+
+    ' Short to Single
+    AssertTrue(ConvertToSingle(MIN_SHORT - 1) = MAX_SHORT)
+    AssertTrue(ConvertToSingle(MIN_SHORT) = MIN_SHORT)
+    AssertTrue(ConvertToSingle(0) = 0)
+    AssertTrue(ConvertToSingle(MAX_SHORT) = MAX_SHORT)
+    AssertTrue(ConvertToSingle(MAX_SHORT + 1) = MIN_SHORT)
+
+    ' Short to Double
+    AssertTrue(ConvertToDouble(MIN_SHORT - 1) = MAX_SHORT)
+    AssertTrue(ConvertToDouble(MIN_SHORT) = MIN_SHORT)
+    AssertTrue(ConvertToDouble(0) = 0)
+    AssertTrue(ConvertToDouble(MAX_SHORT) = MAX_SHORT)
+    AssertTrue(ConvertToDouble(MAX_SHORT + 1) = MIN_SHORT)
+
+    ' Short to String
+    AssertTrue(ConvertToString(MIN_SHORT - 1) = "32767")
+    AssertTrue(ConvertToString(MIN_SHORT) = "-32768")
+    AssertTrue(ConvertToString(0) = "0")
+    AssertTrue(ConvertToString(MAX_SHORT) = "32767")
+    AssertTrue(ConvertToString(MAX_SHORT + 1) = "-32768")
+
+    ' Short to Variant
+    AssertTrue(ConvertToVariant(MIN_SHORT - 1) = MAX_SHORT)
+    AssertTrue(ConvertToVariant(MIN_SHORT) = MIN_SHORT)
+    AssertTrue(ConvertToVariant(0) = 0)
+    AssertTrue(ConvertToVariant(MAX_SHORT) = MAX_SHORT)
+    AssertTrue(ConvertToVariant(MAX_SHORT + 1) = MIN_SHORT)
+End Sub
+
+Function ConvertToBoolean(value As Short) As Boolean
+    ConvertToBoolean = value
+End Function
+
+Function ConvertToByte(value As Short) As Byte
+    ConvertToByte = value
+End Function
+
+Function ConvertToShort(value As Short) As Short
+    ConvertToShort = value
+End Function
+
+Function ConvertToInteger(value As Short) As Integer
+    ConvertToInteger = value
+End Function
+
+Function ConvertToLong(value As Short) As Long
+    ConvertToLong = value
+End Function
+
+Function ConvertToSingle(value As Short) As Single
+    ConvertToSingle = value
+End Function
+
+Function ConvertToDouble(value As Short) As Double
+    ConvertToDouble = value
+End Function
+
+Function ConvertToString(value As Short) As String
+    ConvertToString = value
+End Function
+
+Function ConvertToVariant(value As Short) As Variant
+    ConvertToVariant = value
+End Function
+
+$Properties
+  $Source $Object
+  ImplementsInterface = com.google.devtools.simple.smoketest.Test
+$End $Properties

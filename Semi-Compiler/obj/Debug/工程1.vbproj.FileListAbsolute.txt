@@ -1,0 +1,20 @@
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\obj\Debug\工程1.vbproj.GenerateResource.Cache
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\obj\Debug\工程1.vbprojResolveAssemblyReference.cache
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\obj\Debug\name.Form1.resources
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\bin\compiler.exe.config
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\bin\compiler.exe
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\bin\compiler.pdb
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\bin\compiler.xml
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\obj\Debug\compiler.exe
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\obj\Debug\compiler.xml
+C:\Users\gxous\Desktop\compilerexe\compilerexeNET\obj\Debug\compiler.pdb
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\Semi-Compiler\bin\compiler.exe.config
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\Semi-Compiler\bin\compiler.exe
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\Semi-Compiler\bin\compiler.pdb
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\Semi-Compiler\bin\compiler.xml
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\Semi-Compiler\obj\Debug\工程1.vbprojResolveAssemblyReference.cache
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\Semi-Compiler\obj\Debug\name.Form1.resources
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\Semi-Compiler\obj\Debug\工程1.vbproj.GenerateResource.Cache
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\Semi-Compiler\obj\Debug\compiler.exe
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\Semi-Compiler\obj\Debug\compiler.xml
+C:\Users\gxous\Desktop\χου\προγραμματισμός\Andromeda Project\Semi-Compiler\obj\Debug\compiler.pdb

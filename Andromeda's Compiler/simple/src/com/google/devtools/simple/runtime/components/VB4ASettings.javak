@@ -1,0 +1,78 @@
+/*
+ * Copyright 2009 Google Inc.
+ * Lu Chengwei 2013, VB4A
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.google.devtools.simple.runtime.components;
+
+import com.google.devtools.simple.runtime.annotations.SimpleDataElement;
+import com.google.devtools.simple.runtime.annotations.SimpleEvent;
+import com.google.devtools.simple.runtime.annotations.SimpleObject;
+import android.provider.Settings;  
+/**
+ * VB4A CONSTS.
+ * 
+ * @author Lu Chengwei 2013, CUIT
+ */
+@SimpleObject
+public interface VB4ASettings {
+
+
+  @SimpleDataElement
+	static final int AirPlaneSetting=0;
+  @SimpleDataElement
+	static final int APNSetting=1;
+  @SimpleDataElement
+	static final int APPDevSetting=3;
+  @SimpleDataElement
+	static final int APPSetting=4;
+  @SimpleDataElement
+	static final int BlueToothSetting=5;
+  @SimpleDataElement
+	static final int DataRoamingSetting=6;
+  @SimpleDataElement
+	static final int DateSetting=7;
+  @SimpleDataElement
+	static final int DisplaySetting=8;
+  @SimpleDataElement
+	static final int InputMethodSetting=9;
+  @SimpleDataElement
+	static final int IntStorageSetting=10;
+  @SimpleDataElement
+	static final int LocaleSetting=11;
+  @SimpleDataElement
+	static final int LocationSetting=12;
+  @SimpleDataElement
+	static final int MngAppSetting=14;
+  @SimpleDataElement
+	static final int MemCardSetting=15;
+  @SimpleDataElement
+	static final int SecuritySetting=16;
+  @SimpleDataElement
+	static final int Setting=17;
+  @SimpleDataElement
+	static final int SoundSetting=18;
+  @SimpleDataElement
+	static final int WifiIPSetting=19;
+  @SimpleDataElement
+	static final int WifiSetting=20;
+  @SimpleDataElement
+	static final int WirelessSetting=21;
+  /**
+   * Default Initialize event handler.
+   */
+  @SimpleEvent
+  void Initialize();
+}
