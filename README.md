@@ -1,8 +1,9 @@
 #Andromeda Project
 
-Is a powerful open-source project, dedicated for <br/>
-people who want easily but effectively to create <br/>
-simple and even powerful android applications. <br/>
+Is a powerful open-source project, dedicated for people<br/>
+who want easily but effectively to create simple<br/>
+and even powerful android applications in any programming<br/>
+language (for now only in a VB-like language).<br/>
 Andromeda's Site: <br/>
 http://andromedaide.netne.net/
 
