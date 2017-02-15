@@ -50,7 +50,7 @@ I am going to start fixing everything (as long as the code is fucked up lol) if 
 i see that this project is going well and has support :3<br/><br/>
 = For Now it ONLY supports a VB-like language
 
-#How it Works
+#How IDE Works
 ![alt tag](https://media.giphy.com/media/3o6YgawDflU4JBoweI/source.gif)
 
 #Thanks For Reading :)
