@@ -12,7 +12,6 @@ Extract folder in X:\ else won't work properly (for Windows XP sp3 and on)<br/><
 - [1.0.0.0] Beta Version : http://www.mediafire.com/?3trqxb3ea1xb9m1<br/>
 
 ![alt tag](http://andromedaide.netne.net/Img/idescr.bmp)
-![alt tag](https://media.giphy.com/media/3o6YgawDflU4JBoweI/source.gif)
 
 #Donate
 
@@ -51,6 +50,8 @@ I am going to start fixing everything (as long as the code is fucked up lol) if 
 i see that this project is going well and has support :3<br/><br/>
 = For Now it ONLY supports a VB-like language
 
+#How it Works
+![alt tag](https://media.giphy.com/media/3o6YgawDflU4JBoweI/source.gif)
 
 #Thanks For Reading :)
 and please feedback :D
