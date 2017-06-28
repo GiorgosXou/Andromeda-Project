@@ -35,7 +35,7 @@ Before you even judge my code please consider that:<br/><br/>
 ' 3) At the age of 17 when i realised that my code was fucked up (lol) it was <br/>
 '    too late because i had to STUDY FOR MY FINAL EXAMS/ENTRANCE EXAMINATIONS.<br/><br/>
 '
-' 4) I had that SMALL amount of free time that i even worked on IDE at 2-3mm, when<br/>
+' 4) I had that SMALL amount of free time that i even worked on IDE at 2-3am, when<br/>
 '    the next day i had to wake up for school at least at 7am.<br/><br/>
 ' 
 ' 5) there is a story writen from "inside" of this code :') , story<br/>
