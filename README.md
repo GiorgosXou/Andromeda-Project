@@ -23,7 +23,7 @@ As a teenager i would really appreciate if you would donate  :)
 My name is George Chousos or Giorgos_Xou i am 18 years old<br/>
 non-professional programmer since i was  14 years old, <br/>
 from Greece and i am the creator of the Andromeda IDE <br/>
-(one of the "Project Andromeda", creator). You can find <br/>
+(one of the creators of "Project Andromeda"). You can find <br/>
 me on facebook here : /giorgos.xou.3 
 
 #IMPORTANT :P
