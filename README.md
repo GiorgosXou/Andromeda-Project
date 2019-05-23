@@ -1,33 +1,33 @@
 
 # Andromeda Project
 
-Is a powerful open-source project, dedicated for people<br/>
-who want easily but effectively to create simple<br/>
-and even powerful android applications in any programming<br/>
-language (for now only in a VB-like language).<br/>
-Andromeda's Site: <br/>
+Is a powerful open-source project, dedicated for people  
+who want easily but effectively to create simple  
+and even powerful android applications in any programming  
+language (for now only in a VB-like language).  
+Andromeda's Site:  
 http://andromedaide.netne.net/
 
 # ```Download```
-Extract folder in X:\ else won't work properly (for Windows XP sp3 and on)<br/><br/>
-- [1.0.0.0] Beta Version : http://www.mediafire.com/?3trqxb3ea1xb9m1<br/>
+Extract folder in X:\ else won't work properly (for Windows XP sp3 and on)  
+- [1.0.0.0] Beta Version : http://www.mediafire.com/?3trqxb3ea1xb9m1  
 
 ![alt tag](http://andromedaide.netne.net/Img/idescr.bmp)
 
 # Donate
 
-BitCoin: 1Cfn2zb2XC5JAqTNjDYAxwKYVwtjqcf5Pm Andromeda Project<br/>
+BitCoin: 1Cfn2zb2XC5JAqTNjDYAxwKYVwtjqcf5Pm Andromeda Project  
 As a teenager i would really appreciate if you would donate  :) 
 
 # About Me
 
-My name is George Chousos or Giorgos_Xou i am 18 years old
-non-professional programmer since i was  14 years old, 
-from Greece and i am the creator of the Andromeda IDE 
-(one of the creators of "Project Andromeda"). 
+My name is George Chousos or Giorgos_Xou i am 18 years old  
+non-professional programmer since i was  14 years old,  
+from Greece and i am the creator of the Andromeda IDE  
+(one of the creators of "Project Andromeda").   
 
 # IMPORTANT :P
-Before you even judge my code please consider that:<br/><br/>
+Before you even judge my code please consider that:    
 
 - 1) When i started building this IDE i was 16-17 years old.  
 
@@ -44,11 +44,11 @@ Before you even judge my code please consider that:<br/><br/>
      days without being able to concentrate because i was thinking wtf
      was going on with some problems and etc.  
 
-- 6) Arent those enough ? :3<br/><br/><br/>
+- 6) Arent those enough ? :3      
 
 
-I am going to start fixing everything (as long as the code is fucked up lol) if <br/>
-i see that this project is going well and has support :3<br/><br/>
+I am going to start fixing everything (as long as the code is fucked up lol) if  
+i see that this project is going well and has support :3    
 = For Now it ONLY supports a VB-like language
 
 # How IDE Works
