@@ -52,7 +52,7 @@ i see that this project is going well and has support :3
 = For Now it ONLY supports a VB-like language
 
 # How IDE Works
-![alt tag](https://media.giphy.com/media/3o6YgawDflU4JBoweI/source.gif)
+<img src="/andromedaidegif.gif">
 
 # Thanks For Reading :)
 and please feedback :D
